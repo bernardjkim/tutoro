@@ -14,11 +14,9 @@ export const receiveCurrentUser = userData => {
 };
 
 export const signupUser = userData => dispatch => {
-  debugger
   axios
     .post('api/users/signup', userData)
     .then(res => {
-      debugger
       // Save to localStorage
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
@@ -30,7 +28,6 @@ export const signupUser = userData => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err =>{
-      debugger
       dispatch({
         type: RECEIVE_ERRORS,
         payload: err.response.data

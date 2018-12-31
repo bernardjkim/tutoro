@@ -30,7 +30,6 @@ class Signup extends Component {
   }
 
   handleSubmit(e) {
-      debugger
     e.preventDefault();
 
     const newUser = {
@@ -43,8 +42,8 @@ class Signup extends Component {
   }
 
   render() {
-    const errors = this.props.errors.map(error =>{
-        return (<p>{error}</p>);
+    const errors = this.props.errors.map((error, idx) =>{
+        return (<p key={idx}>{error}</p>);
     } );
 
     return (
@@ -59,12 +58,14 @@ class Signup extends Component {
                 onChange={this.handleInput}/>
                 
                 <input
+                type='password'
                 placeholder='Password'
                 name='password'
                 value={this.state.password}
                 onChange={this.handleInput}
                 />
                 <input
+                type='password'
                 placeholder='Retype Password'
                 name='password2'
                 value={this.state.password2}
