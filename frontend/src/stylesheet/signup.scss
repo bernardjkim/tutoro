@@ -21,15 +21,18 @@
     
     input {
         margin:10px;
-        height: 30px;
+        height: 40px;
         width:300px;
-        font-size: 20px;
+        font-size: 25px;
         border: 1px solid black;
         border-radius: 4px;
     }
 }
 
+
 #signup-title {
+    margin: 10px;
+    margin-bottom: 20px;
     font-weight: 700;
     font-size: 40px;
 }
@@ -48,4 +51,29 @@
     width: 120px;
     overflow: hidden;
 
+}
+
+.session-error {
+    color: #ef5353;
+    font-weight: 700;
+    margin: 3px;
+}
+
+.signup-button {
+    width: 300px;
+    border-radius: 4px;
+    height: 45px;
+    color: white;
+    font-size: 25px;
+    background-color: #a018a0;
+    &:hover {
+        background-color: purple;
+    }
+    
+}
+
+#login-atag {
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
 }

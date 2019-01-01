@@ -59,18 +59,20 @@ class Signup extends Component {
 
   render() {
       const errors = this.props.errors.map((error, idx) =>{
-        return (<div className= 'session-error' key={idx}>{error}</div>);
+        return (<li className= 'session-error' key={idx}>{error}</li>);
     } );
    
     return (
 
           <div id='signup-background'>
             <form id='form-container'>
-            <h2 id='signup-title'>Sign Up</h2>
+            <div id='signup-title'>Sign Up for Free</div>
             <div className='logo-container'>
               <img className='signup-logo' src={logo}/>
             </div>
+            <div>
                 {errors}
+            </div>
                 <input 
                 placeholder="Email" 
                 type='text'
@@ -94,6 +96,7 @@ class Signup extends Component {
                 />
                 
                 <button className ='signup-button' onClick={this.handleSubmit}>Sign Up</button>
+             <p>Already a member? <a id='login-atag'>Log in</a></p>
             </form>
           </div>
       
