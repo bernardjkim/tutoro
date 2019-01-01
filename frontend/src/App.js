@@ -42,7 +42,7 @@ class App extends Component {
               <AuthRoute exact path="/login" component={Login} />
               <AuthRoute exact path="/signup" component={Signup} />
               <ProtectedRoute exact path="/" component={Home} />
-              <Redirect to="/login" />
+              <Redirect to="/signup" />
             </Switch>
           </div>
         </Router>

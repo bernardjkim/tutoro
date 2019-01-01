@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import logo from '../../images/logo.png';
 
 class Signup extends Component {
   constructor(props) {
@@ -47,9 +48,14 @@ class Signup extends Component {
     } );
 
     return (
-        <div>
+
+          <div id='signup-background'>
+            <form id='form-container'>
+            <h2 id='signup-title'>Sign Up</h2>
+            <div className='logo-container'>
+              <img className='signup-logo' src={logo}/>
+            </div>
             {errors}
-            <form>
                 <input 
                 placeholder="Email" 
                 type='text'
@@ -66,7 +72,7 @@ class Signup extends Component {
                 />
                 <input
                 type='password'
-                placeholder='Retype Password'
+                placeholder='Confirm Password'
                 name='password2'
                 value={this.state.password2}
                 onChange={this.handleInput}
@@ -74,7 +80,7 @@ class Signup extends Component {
                 
                 <button className ='signup-button' onClick={this.handleSubmit}>Sign Up</button>
             </form>
-        </div>
+          </div>
       
     );
   }
