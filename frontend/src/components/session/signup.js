@@ -14,6 +14,7 @@ class Signup extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.otherFrom = this.otherFrom.bind(this);
+    this.displayError = this.displayError.bind(this);
   }
 
   componentDidMount() {
@@ -42,11 +43,25 @@ class Signup extends Component {
     this.props.signupUser(newUser);
   }
 
-  render() {
-    const errors = this.props.errors.map((error, idx) =>{
+  displayError() {
+     const errors = this.props.errors.map((error, idx) =>{
         return (<p key={idx}>{error}</p>);
     } );
+    if (this.props.errors.length > 0) {
+      return(
+        <div className='error-flash'>
+          {errors}
+        </div>
+      );
+    }
+    return null;
+  }
 
+  render() {
+      const errors = this.props.errors.map((error, idx) =>{
+        return (<div className= 'session-error' key={idx}>{error}</div>);
+    } );
+   
     return (
 
           <div id='signup-background'>
@@ -55,7 +70,7 @@ class Signup extends Component {
             <div className='logo-container'>
               <img className='signup-logo' src={logo}/>
             </div>
-            {errors}
+                {errors}
                 <input 
                 placeholder="Email" 
                 type='text'
