@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import logo from '../../images/logo.png';
+import Modal from 'react-modal';
 
 class Signup extends Component {
   constructor(props) {
@@ -8,13 +9,16 @@ class Signup extends Component {
     this.state = {
       email: '',
       password: '',
-      password2: ''
+      password2: '',
+      modalOpen: false,
     };
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.otherFrom = this.otherFrom.bind(this);
     this.displayError = this.displayError.bind(this);
+    this.closeModal= this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +61,14 @@ class Signup extends Component {
     return null;
   }
 
+  openModal() {
+    this.setState({modalOpen: true});
+  }
+
+  closeModal() {
+    this.setState({modalOpen: false});
+  }
+ 
   render() {
       const errors = this.props.errors.map((error, idx) =>{
         return (<li className= 'session-error' key={idx}>{error}</li>);
@@ -65,6 +77,14 @@ class Signup extends Component {
     return (
 
           <div id='signup-background'>
+          <Modal
+          isOpen={this.state.modalOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel='Login Modal'
+          >
+
+          </Modal>
             <form id='form-container'>
             <div id='signup-title'>Sign Up for Free</div>
             <div className='logo-container'>
@@ -96,7 +116,7 @@ class Signup extends Component {
                 />
                 
                 <button className ='signup-button' onClick={this.handleSubmit}>Sign Up</button>
-             <p>Already a member? <a id='login-atag'>Log in</a></p>
+             <p>Already a member? <a id='login-atag' onClick={this.openModal}>Log in</a></p>
             </form>
           </div>
       
@@ -105,3 +125,21 @@ class Signup extends Component {
 }
 
 export default withRouter(Signup);
+
+Modal.setAppElement('body');
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    height: '600px',
+    width: '500px'
+  },
+  overlay: {
+    backgroundColor: 'rgba(23, 19, 19, 0.75)'
+  }
+}
