@@ -9,16 +9,11 @@
 }
 
 
-#form-container {
+.form-container {
     background: white;
     width: 400px;
     height: 550px;
     margin-right: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
     input {
         margin:10px;
         height: 40px;
@@ -27,6 +22,14 @@
         border: 1px solid black;
         border-radius: 4px;
     }
+}
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
 

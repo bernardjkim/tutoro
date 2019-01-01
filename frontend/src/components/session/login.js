@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import logo from '../../images/logo.png';
 
 class Login extends Component {
   constructor(props) {
@@ -40,12 +41,21 @@ class Login extends Component {
   }
 
   render() {
-    const errors = this.props.errors.map(error => <p>{error}</p>);
+    const errors = this.props.errors.map(error => <li className='session-error'>{error}</li>);
 
     return (
-        <div>
-            {errors}
-            <form>
+        <div id='login-form-container'>
+           <form className='form-container login' style={{margin:0}}>
+           <div>
+
+           </div>
+            <div id='signup-title'>Log In</div>
+            <div className='logo-container'>
+              <img className='signup-logo' src={logo}/>
+            </div>
+            <div>
+                {errors}
+            </div>
                 <input 
                 placeholder="Email" 
                 type='text'
@@ -60,8 +70,8 @@ class Login extends Component {
                 value={this.state.password}
                 onChange={this.handleInput}
                 />
-                
-            <button className ='login-button' onClick={this.handleSubmit}>Log In</button>
+                            
+                <button className ='signup-button' onClick={this.handleSubmit}>Log In</button>
             </form>
         </div>
       

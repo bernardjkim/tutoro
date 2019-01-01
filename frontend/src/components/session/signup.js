@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import Modal from 'react-modal';
+import LoginForm from './login_container';
 
 class Signup extends Component {
   constructor(props) {
@@ -83,9 +84,11 @@ class Signup extends Component {
           style={customStyles}
           contentLabel='Login Modal'
           >
-
+          <LoginForm 
+          closeModal={this.closeModal}
+          />
           </Modal>
-            <form id='form-container'>
+            <form className='form-container signup'>
             <div id='signup-title'>Sign Up for Free</div>
             <div className='logo-container'>
               <img className='signup-logo' src={logo}/>
@@ -136,10 +139,10 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    height: '600px',
-    width: '500px'
+    height: '595px',
+    width: '450px'
   },
   overlay: {
-    backgroundColor: 'rgba(23, 19, 19, 0.75)'
+    backgroundColor: 'rgba(23, 19, 19, 0.99)'
   }
 }
