@@ -10,21 +10,6 @@ module.exports = function validateRegisterInput(data) {
   data.password = !isEmpty(data.password) ? data.password : '';
   data.password2 = !isEmpty(data.password2) ? data.password2 : '';
 
-  if (Validator.isEmpty(data.firstName)) {
-    errors.firstName = 'First name is required';
-  }
-
-  if (!Validator.isLength(data.firstName, { min: 2 })) {
-    errors.firstName = 'First Name is required';
-  }
-
-  if (Validator.isEmpty(data.lastName)) {
-    errors.lastName = 'Last name is required';
-  }
-
-  if (!Validator.isLength(data.lastName, { min: 2 })) {
-    errors.lastName = 'Last name must be at least 2 letters';
-  }
 
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
