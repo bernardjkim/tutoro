@@ -13,8 +13,6 @@ const app = express();
 // DB config
 const db = require("./config/keys").mongoURI;
 
-console.log("MONGO URI>>>>>>>>>>>>>>>>", process.env.mongoURI);
-
 // DB connect
 mongoose
   .connect(
