@@ -16,7 +16,7 @@ export const receiveCurrentUser = userData => {
 
 export const signupUser = userData => dispatch => {
   axios
-    .post('api/users/signup', userData)
+    .post('https://pixf12j635.execute-api.us-east-1.amazonaws.com/dev/api/users/signup', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;
@@ -39,7 +39,7 @@ export const signupUser = userData => dispatch => {
 
 export const loginUser = userData => dispatch => {
   axios
-    .post('api/users/login', userData)
+    .post('https://pixf12j635.execute-api.us-east-1.amazonaws.com/dev/api/users/login', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;
