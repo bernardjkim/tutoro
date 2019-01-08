@@ -1,0 +1,91 @@
+#signup-background {
+    background-image: url('https://images.pexels.com/photos/247899/pexels-photo-247899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+}
+
+
+.form-container {
+    background: white;
+    width: 400px;
+    height: 550px;
+    margin-right: 50px;
+    input {
+        margin:10px;
+        height: 40px;
+        width:300px;
+        font-size: 25px;
+        border: 1px solid black;
+        border-radius: 4px;
+    }
+}
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+#signup-title {
+    margin: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 40px;
+}
+.signup-logo {
+    height: 120px;
+    width: 120px;
+    overflow: hidden;
+    transform: scale(1.8);
+    -webkit-transform: scale(1.8);
+    -moz-transform: scale(1.8);
+    -ms-transform: scale(1.8);
+    -o-transform: scale(1.8);
+}
+.logo-container {
+    height: 110px;
+    width: 120px;
+    overflow: hidden;
+
+}
+
+.session-error {
+    color: #ef5353;
+    font-weight: 700;
+    margin: 3px;
+}
+
+.signup-button {
+    width: 300px;
+    border-radius: 4px;
+    height: 45px;
+    color: white;
+    font-size: 25px;
+    background-color: #a018a0;
+    &:hover {
+        background-color: purple;
+    }
+    
+}
+
+#login-atag {
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+}
+
+  .Overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rebeccapurple;
+  }

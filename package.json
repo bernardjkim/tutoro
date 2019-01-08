@@ -4,14 +4,18 @@
   "description": "tutor webapplication",
   "main": "server.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js"
+    "start": "concurrently \"npm run server\" \"npm run frontend\"",
+    "server": "nodemon server.js",
+    "frontend-install": "npm install --prefix frontend",
+    "frontend": "npm start --prefix frontend"
   },
-  "author": "Bernard Kim Justin Han",
+  "author": "Bernard Kim James Lee Justin Han ",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "express": "^4.16.4",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.4.0",

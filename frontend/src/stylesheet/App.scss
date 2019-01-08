@@ -1,0 +1,13 @@
+@import './signup.scss';
+@import './login.scss';
+
+
+body {
+    * {
+        box-sizing: border-box;
+        font-family: Helvetica sans-serif;
+    }
+    button {
+        cursor: pointer;
+    }
+}
