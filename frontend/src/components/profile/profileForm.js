@@ -6,8 +6,6 @@ import {
     majorOptions,
     enrollmentOption,
     courseTakenOption
-
-
 } from './options';
 
 class ProfileForm extends React.Component {
@@ -110,6 +108,7 @@ class ProfileForm extends React.Component {
                 onChange ={this.handleInputChange} 
                 placeholder='Last  Name'
                 value={this.state.lastName}/>
+                <input id="upload" ref="upload" type="file" accept="image/*"/>
                 {this.enrollmentStatusInput()}
                 {this.majorInput()}
                 {this.languageInput()}
