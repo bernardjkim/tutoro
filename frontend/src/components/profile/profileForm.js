@@ -36,7 +36,7 @@ class ProfileForm extends React.Component {
                 name = 'language'
                 placeholder='Language'
                 value={language}
-                onChange={this.handleSelectChange(language)}
+                onChange={this.handleSelectChange}
                 options={lan}
             />
 
@@ -51,8 +51,8 @@ class ProfileForm extends React.Component {
             <Select
                 name = 'major'
                 placeholder='Major'
-                value={'major'}
-                onChange={this.handleSelectChange(major)}
+                value={major}
+                onChange={this.handleSelectChange}
                 options={majorOptions}
             />
 
@@ -67,7 +67,7 @@ class ProfileForm extends React.Component {
                 name = 'enrollmentStatus'
                 placeholder='I am ..'
                 value={enrollmentStatus}
-                onChange={this.handleSelectChange(enrollmentStatus)}
+                onChange={this.handleSelectChange}
                 options={enrollmentOption}
             />
         );
@@ -82,7 +82,7 @@ class ProfileForm extends React.Component {
                 isMulti= {true}
                 placeholder='Taken Courses'
                 value={courseTaken}
-                onChange={this.handleSelectChange(courseTaken)}
+                onChange={this.handleSelectChange}
                 options={courseTakenOption}
             />
         );
@@ -93,8 +93,8 @@ class ProfileForm extends React.Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
-    handleSelectChange = () => (selectedOption, field) => {
-    this.setState({ [field.name]:selectedOption.value });
+    handleSelectChange = (selectedOption, field) => {
+         this.setState({ [field.name]: selectedOption });
     }
     
     render() {
