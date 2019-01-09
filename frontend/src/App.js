@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import store from './store/store';
 import { Provider } from 'react-redux';
 import { AuthRoute, ProtectedRoute } from './util/route_util';
-import { receiveCurrentUser, logoutUser } from './action/session_actions';
+import { receiveCurrentUser, logoutUser, loginUser } from './action/session_actions';
 
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './util/set_auth_token';
@@ -30,6 +30,11 @@ if (localStorage.jwtToken) {
     window.location.href = '/login';
   }
 }
+const testUser = {
+  email: 'test123@uw.edu',
+  password: 'test123@uw.edu'
+}
+store.dispatch(loginUser(testUser));
 
 
 class App extends Component {

@@ -28,7 +28,7 @@ class Home extends React.Component {
                 <div>Home</div>
                 <button onClick={this.handleSubmit}>Log Out</button>
                 <Modal
-                isOpen={this.state.modalOpen}
+                isOpen={this.state.profileModal}
                 style={customStyles}
                 contentLabel='Profile Modal'
                 >
@@ -58,10 +58,8 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        height: '595px',
-        width: '450px'
+        height: '80%',
+        width: '80%',
+        minWidth: '320px'
     },
-    overlay: {
-        backgroundColor: 'rgba(23, 19, 19, 0.99)'
-    }
 }
