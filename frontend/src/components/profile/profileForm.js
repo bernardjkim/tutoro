@@ -2,6 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 import LanOp from './languages';
+import {
+    majorOptions,
+    enrollmentOption,
+    courseTakenOption
+
+
+} from './options';
 
 class ProfileForm extends React.Component {
     constructor(props) {
@@ -26,97 +33,87 @@ class ProfileForm extends React.Component {
         const {language} = this.state;
         return (
             <Select
+                name = 'language'
                 placeholder='Language'
                 value={language}
-                onChange={this.handleChange}
+                onChange={this.handleSelectChange(language)}
                 options={lan}
             />
 
         );
-        
-
-
 
     }
 
     majorInput = () => {
-    const options = [{
-            value: '',
-            label: 'select',
-            isDisabled: true
-        },
-        {
-            value: 'Math',
-            label: 'Math'
-        },
-        {
-            value: 'Computer Science',
-            label: 'Computer Science'
-        },
-        {
-            value: 'Meme',
-            label: 'Meme'
-        },
-        {
-            value: 'Art',
-            label: 'Art'
-        },
-        {
-            value: 'Ninja Jutsu',
-            label: 'Ninja Jutsu'
-        },
-    ];
         const {major} = this.state;
-
+        
         return (
             <Select
+                name = 'major'
                 placeholder='Major'
-                value={major}
-                onChange={this.handleChange}
-                options={options}
+                value={'major'}
+                onChange={this.handleSelectChange(major)}
+                options={majorOptions}
             />
 
         );
     }
+
     enrollmentStatusInput =() => {
-        const options = [{
-                value: '',
-                label: 'select',
-                isDisabled: true
-            },
-            {
-                value: 'Enrolled',
-                label: 'Enrolled'
-            },
-            {
-                value: 'Graduated',
-                label: 'Graduated'
-            },
-            {
-                value: 'Dropout',
-                label: 'Dropout'
-            }
-        ];
+
         const { enrollmentStatus } = this.state;
         return(
             <Select
+                name = 'enrollmentStatus'
                 placeholder='I am ..'
                 value={enrollmentStatus}
-                onChange={this.handleChange}
-                options={options}
+                onChange={this.handleSelectChange(enrollmentStatus)}
+                options={enrollmentOption}
             />
         );
+    }
+
+    coursesTakenInput = () => {
+
+        const { courseTaken } = this.state;
+        return(
+            <Select
+                name='courseTaken'
+                isMulti= {true}
+                placeholder='Taken Courses'
+                value={courseTaken}
+                onChange={this.handleSelectChange(courseTaken)}
+                options={courseTakenOption}
+            />
+        );
+
+    }
+
+    handleInputChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    handleSelectChange = () => (selectedOption, field) => {
+    this.setState({ [field.name]:selectedOption.value });
     }
     
     render() {
         return(
             <form>
-                <input type='text' value={this.state.firstName}/>
-                <input type='text' value={this.state.lastName}/>
+                <input type='text' 
+                name='firstName'
+                onChange ={this.handleInputChange} 
+                placeholder='First Name'
+                value={this.state.firstName}/>
+                <input type='text' 
+                name='lastName'
+                onChange ={this.handleInputChange} 
+                placeholder='Last  Name'
+                value={this.state.lastName}/>
                 {this.enrollmentStatusInput()}
                 {this.majorInput()}
                 {this.languageInput()}
-                <input type='text' value={this.state.firstName}/>
+                {this.coursesTakenInput()}
                 
             </form>
 
