@@ -8,16 +8,12 @@ const dotenv = require("dotenv").config();
 const users = require("./routes/api/user");
 const profile = require("./routes/api/profile");
 
-
 const app = express();
-
-// DB config
-const db = require("./config/keys").mongoURI;
 
 // DB connect
 mongoose
   .connect(
-    db,
+    process.env.mongoURI,
     { useNewUrlParser: true }
   )
   .then(() => console.log("MongoDB connected"))
@@ -33,11 +29,20 @@ app.use(
 
 // Passport Config
 app.use(passport.initialize()); // add passport middleware
-require("./config/passport")(passport);
+require("./utils/passport/passport")(passport);
 
 // routes
 app.use("/api/users", users);
 // app.use('/api/profile', profile);
+
+// Server static assets if in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("frontend/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+}
 
 const port = process.env.PORT || 5000;
 
