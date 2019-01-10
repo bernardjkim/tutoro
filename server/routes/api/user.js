@@ -1,17 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jsonwebtoken = require('jsonwebtoken');
-const keys = require('../../config/keys');
-const passport = require('passport');
+const bcrypt = require("bcryptjs");
+const jsonwebtoken = require("jsonwebtoken");
+const passport = require("passport");
 
-const User = require('../../models/User');
+const User = require("../../models/User");
 
-const validateRegisterInput = require('../../validations/signup');
-const validateLoginInput = require('../../validations/login');
+const validateRegisterInput = require("../../utils/validations/signup");
+const validateLoginInput = require("../../utils/validations/login");
 
 // create a user
-router.post('/signup', (req, res) => {
+router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -22,7 +21,7 @@ router.post('/signup', (req, res) => {
     if (user) {
       return res
         .status(400)
-        .json({ email: 'A user has already signed up with this Email' });
+        .json({ email: "A user has already signed up with this Email" });
     } else {
       const newUser = new User({
         firstName: req.body.firstName,
@@ -42,12 +41,12 @@ router.post('/signup', (req, res) => {
 
               jsonwebtoken.sign(
                 payload,
-                keys.secretOrKey,
+                process.env.secretOrKey,
                 { expiresIn: 36000000 },
                 (err, token) => {
                   res.json({
                     success: true,
-                    token: 'Bearer ' + token
+                    token: "Bearer " + token
                   });
                 }
               );
@@ -61,7 +60,7 @@ router.post('/signup', (req, res) => {
 
 // login user
 
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -73,7 +72,7 @@ router.post('/login', (req, res) => {
 
   User.findOne({ email }).then(user => {
     if (!user) {
-      errors.name = 'This user does not exist';
+      errors.name = "This user does not exist";
       return res.status(404).json(errors);
     }
 
@@ -88,12 +87,12 @@ router.post('/login', (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: "Bearer " + token
             });
           }
         );
       } else {
-        errors.password = 'Incorrect password';
+        errors.password = "Incorrect password";
         return res.status(400).json(errors);
       }
     });
@@ -102,18 +101,16 @@ router.post('/login', (req, res) => {
 
 // validate current user with jwebtoken
 router.get(
-  '/current',
-  passport.authenticate('jwt', { session: false }),
+  "/current",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.json({
       id: req.user.id,
       firstName: req.user.firstName,
       lastName: req.user.lastName,
-      email: req.user.email,
+      email: req.user.email
     });
   }
 );
-
-
 
 module.exports = router;
