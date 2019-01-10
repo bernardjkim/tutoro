@@ -15,11 +15,12 @@ class ProfileForm extends React.Component {
             firstName: '',
             lastName: '',
             enrollmentStatus:'',
-            major: '',
+            major: [],
             courseTaken: [],
             locationPref:'',
             contact: '',
-            language: ''
+            language: '',
+            image:''
         }
         
     }
