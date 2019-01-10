@@ -16,7 +16,7 @@ export const receiveCurrentUser = userData => {
 
 export const signupUser = userData => dispatch => {
   axios
-    .post('api/users/signup', userData)
+    .post('/api/users/signup', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;
@@ -29,6 +29,7 @@ export const signupUser = userData => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err =>{
+      debugger
       dispatch({
         type: RECEIVE_SIGNUP_ERRORS,
         payload: err.response.data
@@ -39,7 +40,7 @@ export const signupUser = userData => dispatch => {
 
 export const loginUser = userData => dispatch => {
   axios
-    .post('api/users/login', userData)
+    .post('/api/users/login', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;

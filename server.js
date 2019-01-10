@@ -8,6 +8,7 @@ const dotenv = require("dotenv").config();
 const users = require("./routes/api/user");
 const profile = require("./routes/api/profile");
 
+
 const app = express();
 
 // DB config
