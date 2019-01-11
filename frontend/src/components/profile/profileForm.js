@@ -89,6 +89,7 @@ class ProfileForm extends React.Component {
     }
 
     handleInputChange = (e) => {
+        debugger
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -109,12 +110,13 @@ class ProfileForm extends React.Component {
                 onChange ={this.handleInputChange} 
                 placeholder='Last  Name'
                 value={this.state.lastName}/>
-                <input id="upload" ref="upload" type="file" accept="image/*"/>
+                <input id="upload" ref="upload" type="file" accept="image/*"
+                        onChange={this.handleInputChange} value = {this.state.image}
+                />
                 {this.enrollmentStatusInput()}
                 {this.majorInput()}
                 {this.languageInput()}
                 {this.coursesTakenInput()}
-                
             </form>
 
         );
