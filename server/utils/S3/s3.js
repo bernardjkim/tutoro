@@ -1,7 +1,14 @@
-// Load the AWS SDK for Node.js
-var AWS = require("aws-sdk");
-// Set the region
-AWS.config.update({ region: process.env.S3_REGION });
+const AWS = require("aws-sdk");
+const bluebird = require("bluebird");
+
+// configure the keys for accessing AWS
+// AWS.config.update({
+// accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+// secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// });
+
+// configure AWS to work with promises
+AWS.config.setPromisesDependency(bluebird);
 
 // Create S3 service object
 s3 = new AWS.S3();

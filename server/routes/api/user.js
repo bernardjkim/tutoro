@@ -5,6 +5,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const passport = require("passport");
 
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 
 const validateRegisterInput = require("../../utils/validations/signup");
 const validateLoginInput = require("../../utils/validations/login");
@@ -82,7 +83,7 @@ router.post("/login", (req, res) => {
 
         jsonwebtoken.sign(
           payload,
-          keys.secretOrKey,
+          process.env.secretOrKey,
           { expiresIn: 36000 },
           (err, token) => {
             res.json({
@@ -112,5 +113,16 @@ router.get(
     });
   }
 );
+
+// get user profile picture
+router.get("/:userId/profile", (req, res) => {
+  var userId = req.params.userId;
+  Profile.findOne({ userId }).then(profile => {
+    if (!profile) {
+      errors.name = "This user does not exist / has not set up their profile.";
+      return res.status(404).json(errors);
+    }
+  });
+});
 
 module.exports = router;

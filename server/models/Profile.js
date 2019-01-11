@@ -24,8 +24,9 @@ const ProfileSchema = new Schema({
     required: true
   },
   major: {
-    type: Array,
+    type: [String],
     required: true,
+    default: [],
     enum: [
       "Undeclared",
       "Computer Science",
@@ -36,18 +37,21 @@ const ProfileSchema = new Schema({
     ]
   },
   coursesTaken: {
-    type: Array,
+    type: [String],
     required: true,
+    default: [],
     enum: ["CSE 142", "CSE 143", "CSE 311", "ASTR 101"]
   },
   locationPreferences: {
-    type: Array,
+    type: [String],
     required: true,
+    default: [],
     enum: ["Odegaard"]
   },
   languagePreferences: {
-    type: Array,
+    type: [String],
     required: true,
+    default: [],
     enum: ["English", "Korean", "Spanish"]
   },
   enrollment: {
