@@ -1,8 +1,8 @@
 module.exports = {
      majorOptions : [
             {
-                value: 'Math',
-                label: 'Math'
+                value: 'Undeclared',
+                label: 'Undeclared'
             },
             {
                 value: 'Computer Science',
@@ -13,61 +13,62 @@ module.exports = {
                 label: 'Meme'
             },
             {
-                value: 'Art',
-                label: 'Art'
+                value: 'English',
+                label: 'English'
             },
             {
-                value: 'Ninja Jutsu',
-                label: 'Ninja Jutsu'
+                value: 'Geology',
+                label: 'Geology'
             },
+
+            {
+                value: 'Physics',
+                label: 'Physics'
+            },
+            {
+                value: 'Psychology',
+                label: 'Psychology'
+            }
         ],
     enrollmentOption : [
             {
-                value: 'Enrolled',
-                label: 'Enrolled'
+                value: 'Freshman',
+                label: 'Freshman'
             },
             {
-                value: 'Graduated',
-                label: 'Graduated'
+                value: 'Sophmore',
+                label: 'Sophmore'
             },
             {
-                value: 'Dropout',
-                label: 'Dropout'
+                value: 'Junior',
+                label: 'Junior'
+            },
+            {
+                value: 'Senior',
+                label: 'Senior'
+            },
+            {
+                value: 'Graduate',
+                label: 'Graduate'
             }
         ],
     courseTakenOption: [
             {
-                value: 'CSE 131',
-                label: 'CSE 131'
+                value: "CSE 142",
+                label: "CSE 142"
             },
             {
-                value: 'BSE 121',
-                label: 'BSE 121'
+                value: "CSE 143",
+                label: "CSE 143"
             },
             {
-                value: 'INF 123',
-                label: 'INF 123'
+                value: "CSE 311",
+                label: "CSE 311"
             },
             {
-                value: 'Math 123',
-                label: 'Math 123'
-            },
-            {
-                value: 'Math 122',
-                label: 'Math 122'
-            },
-            {
-                value: 'Math 126',
-                label: 'Math 126'
-            },
-            {
-                value: 'Math 124',
-                label: 'Math 124'
-            },
-            {
-                value: 'Math 101',
-                label: 'Math 101'
-            },
+                value: "ASTR 101",
+                label: "ASTR 101"
+            }
 
     ]
 

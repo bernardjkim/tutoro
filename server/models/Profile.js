@@ -33,7 +33,8 @@ const ProfileSchema = new Schema({
       "English",
       "Geology",
       "Physics",
-      "Psychology"
+      "Psychology",
+      "Meme"
     ]
   },
   coursesTaken: {

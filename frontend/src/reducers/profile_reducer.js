@@ -1,7 +1,21 @@
 import {
-    RECEIVE_TRANSACTION,
-    RECEIVE_TRANSACTIONS,
-    REMOVE_TRANSACTION,
-    RECEIVE_MONTHLY_TRANSACTIONS,
-    RECEIVE_CATEGORY_EXPENSE
-} from '../action/';
+    CREATE_NEW_PROFILE
+} from '../action/profile_action';
+
+const initState = {
+    ownProfile: {}
+}
+
+const profileReducer = (state = initState, action) => {
+  switch (action.type) {
+    case CREATE_NEW_PROFILE:
+      return {
+        ...state,
+        ownProfile: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+export default profileReducer;

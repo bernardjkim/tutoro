@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import Modal from 'react-modal';
-import LoginForm from './login_container';
+import LoginForm from '../../container/login_container';
 
 class Signup extends Component {
   constructor(props) {

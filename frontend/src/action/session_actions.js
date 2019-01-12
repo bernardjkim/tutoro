@@ -25,6 +25,7 @@ export const signupUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      console.log('decoded -<<', decoded)
       // Set current user
       dispatch(receiveCurrentUser(decoded));
     })

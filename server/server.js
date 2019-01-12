@@ -36,7 +36,7 @@ require("./utils/passport/passport")(passport);
 
 // routes
 app.use("/api/users", users);
-app.use('/api/profile', profile);
+// app.use('/api/profile', profile);
 
 // Define POST route
 // app.post("/test-upload", (request, response) => {

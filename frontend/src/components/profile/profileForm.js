@@ -8,19 +8,21 @@ import {
     courseTakenOption
 } from './options';
 
+
 class ProfileForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             firstName: '',
             lastName: '',
-            enrollmentStatus:'',
+            enrollment:'',
             major: [],
             courseTaken: [],
             locationPref:'',
             contact: '',
             language: '',
-            image:''
+            image:'',
+            
         }
         
     }
@@ -28,6 +30,7 @@ class ProfileForm extends React.Component {
         let lan = Object.values(LanOp).map(el=> {
             return {value: el.name, label: el.nativeName};
         });
+       let defaultLan =  {value: 'English', Label: 'English'}
 
         const {language} = this.state;
         return (
@@ -58,14 +61,14 @@ class ProfileForm extends React.Component {
         );
     }
 
-    enrollmentStatusInput =() => {
+    enrollmentInput =() => {
 
-        const { enrollmentStatus } = this.state;
+        const { enrollment } = this.state;
         return(
             <Select
-                name = 'enrollmentStatus'
-                placeholder='I am ..'
-                value={enrollmentStatus}
+                name = 'enrollment'
+                placeholder='Enrollment'
+                value={enrollment}
                 onChange={this.handleSelectChange}
                 options={enrollmentOption}
             />
@@ -113,7 +116,7 @@ class ProfileForm extends React.Component {
                 <input id="upload" ref="upload" type="file" accept="image/*"
                         onChange={this.handleInputChange} value = {this.state.image}
                 />
-                {this.enrollmentStatusInput()}
+                {this.enrollmentInput()}
                 {this.majorInput()}
                 {this.languageInput()}
                 {this.coursesTakenInput()}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import ProfileForm from '../profile/profileForm';
+import ProfileForm from '../../container/profile_container';
 
 class Home extends React.Component {
     constructor(props) {

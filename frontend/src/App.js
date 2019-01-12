@@ -16,10 +16,9 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./util/set_auth_token";
 
 // components
-import Signup from "./components/session/signup_container";
-import Login from "./components/session/login_container";
-import Home from "./components/home/home_container";
-import Test from "./test";
+import Signup from "./container/signup_container";
+import Login from "./container/login_container";
+import Home from "./container/home_container";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -34,6 +33,7 @@ if (localStorage.jwtToken) {
     window.location.href = "/login";
   }
 }
+// store.dispatch(logoutUser());
 const testUser = {
   email: "test123@uw.edu",
   password: "test123@uw.edu"
