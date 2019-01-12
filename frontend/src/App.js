@@ -34,11 +34,11 @@ if (localStorage.jwtToken) {
     window.location.href = "/login";
   }
 }
-const testUser = {
-  email: "test123@uw.edu",
-  password: "test123@uw.edu"
-};
-store.dispatch(loginUser(testUser));
+// const testUser = {
+//   email: 'test123@uw.edu',
+//   password: 'test123@uw.edu'
+// }
+// store.dispatch(loginUser(testUser));
 
 class App extends Component {
   render() {
