@@ -90,13 +90,18 @@ class ProfileForm extends React.Component {
 
     }
 
-    handleInputChange = (e) => {
+    handleInputChange = e => {
         this.setState({[e.target.name]: e.target.value})
     }
 
     handleSelectChange = (selectedOption, field) => {
          this.setState({ [field.name]: selectedOption });
     }
+     handleFileUpload = event => {
+         this.setState({
+             image: event.target.files
+         });
+     };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -118,7 +123,7 @@ class ProfileForm extends React.Component {
                 placeholder='Last  Name'
                 value={this.state.lastName}/>
                 <input id="upload" ref="upload" type="file" accept="image/*"
-                        onChange={this.handleInputChange} value = {this.state.image}
+                        onChange={this.handleFileUpload}
                 />
                 {this.enrollmentInput()}
                 {this.majorInput()}

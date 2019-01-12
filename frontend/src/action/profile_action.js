@@ -11,11 +11,10 @@ export const createNewProfile = profile => dispatch => {
         if (key !== 'image') {
             formData.append(key, profile.key);
         } else {
-            formData.append(key, profile.key[0]);
+            formData.append(key, profile[key][0]);
         }
     });
     const {userId} = profile;
-
     axios
         .post(`/api/users/${userId}/profile`, formData)
         .then((res) => {

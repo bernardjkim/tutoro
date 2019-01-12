@@ -130,6 +130,7 @@ router.post("/:userId/profile", (req, res) => {
   var userId = req.params.userId;
   User.findOne({ id: userId }).then(user => {
     if (!user) {
+      //// Error doesnt exist! 
       errors.name = "This user does not exist";
       return res.status(404).json(errors);
     }
