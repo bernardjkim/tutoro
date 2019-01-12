@@ -1,5 +1,6 @@
 **/node_modules
 package-lock.json
 .env
-.serverless/
-config/keys.json
+
+## Mac OS X metadata files:
+*.DS_Store

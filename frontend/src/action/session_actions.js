@@ -29,7 +29,6 @@ export const signupUser = userData => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err =>{
-      debugger
       dispatch({
         type: RECEIVE_SIGNUP_ERRORS,
         payload: err.response.data
