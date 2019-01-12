@@ -1,21 +1,25 @@
-import React, { Component } from 'react';
-import './stylesheet/App.scss';
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import "./stylesheet/App.scss";
+import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 
 // Redux
-import store from './store/store';
-import { Provider } from 'react-redux';
-import { AuthRoute, ProtectedRoute } from './util/route_util';
-import { receiveCurrentUser, logoutUser, loginUser } from './action/session_actions';
+import store from "./store/store";
+import { Provider } from "react-redux";
+import { AuthRoute, ProtectedRoute } from "./util/route_util";
+import {
+  receiveCurrentUser,
+  logoutUser,
+  loginUser
+} from "./action/session_actions";
 
-import jwt_decode from 'jwt-decode';
-import setAuthToken from './util/set_auth_token';
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./util/set_auth_token";
 
 // components
-import Signup from './components/session/signup_container';
-import Login from './components/session/login_container';
-import Home from './components/home/home_container';
-
+import Signup from "./components/session/signup_container";
+import Login from "./components/session/login_container";
+import Home from "./components/home/home_container";
+import Test from "./test";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -27,7 +31,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
-    window.location.href = '/login';
+    window.location.href = "/login";
   }
 }
 // const testUser = {
@@ -36,21 +40,21 @@ if (localStorage.jwtToken) {
 // }
 // store.dispatch(loginUser(testUser));
 
-
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Switch>
+        {/* <Router> */}
+        <div className="App">
+          <Test />
+          {/* <Switch>
               <AuthRoute exact path="/login" component={Login} />
               <AuthRoute exact path="/signup" component={Signup} />
               <ProtectedRoute exact path="/" component={Home} />
               <Redirect to="/signup" />
-            </Switch>
-          </div>
-        </Router>
+            </Switch> */}
+        </div>
+        {/* </Router> */}
       </Provider>
     );
   }
