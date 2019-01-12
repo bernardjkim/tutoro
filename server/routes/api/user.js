@@ -114,6 +114,121 @@ router.get(
   }
 );
 
+// Define POST route
+app.post("/test-upload", (request, response) => {
+  const form = new multiparty.Form();
+  form.parse(request, async (error, fields, files) => {
+    if (error) throw new Error(error);
+    try {
+      const path = files.file[0].path;
+      const buffer = fs.readFileSync(path);
+      const type = fileType(buffer);
+      const timestamp = Date.now().toString();
+      const fileName = `bucketFolder/${timestamp}-lg`;
+      const data = await uploadFile(buffer, fileName, type);
+      return response.status(200).send(data);
+    } catch (error) {
+      return response.status(400).send(error);
+    }
+  });
+});
+
+// update user profile
+router.post("/:userId/profile", (req, res) => {
+  var userId = req.params.userId;
+  User.findOne({ id: userId }).then(user => {
+    if (!user) {
+      errors.name = "This user does not exist";
+      return res.status(404).json(errors);
+    }
+    const form = new multiparty.Form();
+
+    form.parse(request, async (error, fields, files) => {
+      if (error) throw new Error(error);
+
+      try {
+        const path = files.file[0].path;
+        const buffer = fs.readFileSync(path);
+        const type = fileType(buffer);
+        const timestamp = Date.now().toString();
+        const fileName = `bucketFolder/${timestamp}-lg`;
+        const data = await uploadFile(buffer, fileName, type);
+        // return response.status(200).send(data);
+      } catch (error) {
+        // return response.status(400).send(error);
+      }
+    });
+
+    // const newProfile = new Profile({
+    //   userId: req.
+    //   firstName: req.body.firstName,
+    //   lastName: req.body.lastName,
+    //   email: req.body.email,
+    //   password: req.body.password
+    // });
+  });
+});
+
+const ProfileSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: Number,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  major: {
+    type: [String],
+    required: true,
+    default: [],
+    enum: [
+      "Undeclared",
+      "Computer Science",
+      "English",
+      "Geology",
+      "Physics",
+      "Psychology"
+    ]
+  },
+  coursesTaken: {
+    type: [String],
+    required: true,
+    default: [],
+    enum: ["CSE 142", "CSE 143", "CSE 311", "ASTR 101"]
+  },
+  locationPreferences: {
+    type: [String],
+    required: true,
+    default: [],
+    enum: ["Odegaard"]
+  },
+  languagePreferences: {
+    type: [String],
+    required: true,
+    default: [],
+    enum: ["English", "Korean", "Spanish"]
+  },
+  enrollment: {
+    type: String,
+    enum: ["Freshman", "Sophmore", "Junior", "Senior", "Graduate"]
+  }
+});
+
+module.exports = Profile = mongoose.model("profiles", ProfileSchema);
+
 // get user profile picture
 router.get("/:userId/profile", (req, res) => {
   var userId = req.params.userId;

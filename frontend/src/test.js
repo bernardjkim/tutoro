@@ -13,6 +13,7 @@ class FileUpload extends Component {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", this.state.file[0]);
+    formData.append("name", "James Lee");
     axios
       .post(`/test-upload`, formData, {
         headers: {
