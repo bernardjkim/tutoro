@@ -22,6 +22,7 @@ class ProfileForm extends React.Component {
             contact: '',
             language: '',
             image:'',
+            userId: this.props.userId
             
         }
         
@@ -30,8 +31,6 @@ class ProfileForm extends React.Component {
         let lan = Object.values(LanOp).map(el=> {
             return {value: el.name, label: el.nativeName};
         });
-       let defaultLan =  {value: 'English', Label: 'English'}
-
         const {language} = this.state;
         return (
             <Select
@@ -92,12 +91,17 @@ class ProfileForm extends React.Component {
     }
 
     handleInputChange = (e) => {
-        debugger
         this.setState({[e.target.name]: e.target.value})
     }
 
     handleSelectChange = (selectedOption, field) => {
          this.setState({ [field.name]: selectedOption });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.createNewProfile(this.state);
+
     }
     
     render() {
@@ -120,6 +124,7 @@ class ProfileForm extends React.Component {
                 {this.majorInput()}
                 {this.languageInput()}
                 {this.coursesTakenInput()}
+                <button onClick={this.handleSubmit}>Submit</button>
             </form>
 
         );
