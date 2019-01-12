@@ -11,102 +11,39 @@ const validateRegisterInput = require("../../utils/validations/signup");
 const validateLoginInput = require("../../utils/validations/login");
 
 const { encrpyt } = require("../../utils/passwords/passwords");
-const { getUser } = require("../../db/users");
+const { sign } = require("../../jwt/jwt");
 
 // create a user
 router.post("/signup", async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  if (!isValid) return res.status(400).json(errors);
 
-  console.log(req.body);
   try {
-    if (await getUser({ email: req.body.email })) {
-      throw new Error("A user has already signed up with this Email");
-    }
-    const hash = await encrpyt(req.body.password);
+    const userExists = User.findOne({ email: req.body.email });
+    const hash = encrpyt(req.body.password);
+
+    if (await userExists)
+      throw Error("A user has already signed up with this Email");
 
     const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       email: req.body.email,
-      password: hash
+      password: await hash
     });
 
-    user
-      .save()
-      .then(user => {
-        const payload = { id: user.id, firstName: user.firstName };
+    const savedUser = await user.save();
+    const token = await sign({
+      id: savedUser.id,
+      firstName: savedUser.firstName
+    });
 
-        jsonwebtoken.sign(
-          payload,
-          process.env.secretOrKey,
-          { expiresIn: 36000000 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
-      })
-      .catch(err => console.log(err));
-
-    return res.status(200);
+    return res.status(200).json({ success: true, token });
   } catch (error) {
-    return res.status(400).json({ error: error });
+    return res.status(400).json({ error: error.message });
   }
 });
 
-//   User.findOne({ email: req.body.email }).then(async user => {
-//     if (user) {
-//       return res
-//         .status(400)
-//         .json({ email: "A user has already signed up with this Email" });
-//     } else {
-//       const hash = await encrpyt(req.body.password);
-
-//       const newUser = new User({
-//         firstName: req.body.firstName,
-//         lastName: req.body.lastName,
-//         email: req.body.email,
-//         password: hash
-//       });
-
-//       console.log(newUser);
-
-//       // bcrypt.genSalt(10, (err, salt) => {
-//       //   bcrypt.hash(newUser.password, salt, (err, hash) => {
-//       //     if (err) throw err;
-//       //     newUser.password = hash;
-//       //     newUser
-//       //       .save()
-//       //       .then(user => {
-//       //         const payload = { id: user.id, firstName: user.firstName };
-
-//       //         jsonwebtoken.sign(
-//       //           payload,
-//       //           process.env.secretOrKey,
-//       //           { expiresIn: 36000000 },
-//       //           (err, token) => {
-//       //             res.json({
-//       //               success: true,
-//       //               token: "Bearer " + token
-//       //             });
-//       //           }
-//       //         );
-//       //       })
-//       //       .catch(err => console.log(err));
-//       //   });
-//       // });
-//     }
-//   });
-// });
-
 // login user
-
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
