@@ -125,4 +125,52 @@ router.get("/:userId/profile", (req, res) => {
   });
 });
 
+// update user profile
+router.post("/:userId/profile", (req, res) => {
+  var userId = req.params.userId;
+  User.findOne({ id: userId }).then(user => {
+    if (!user) {
+      errors.name = "This user does not exist";
+      return res.status(404).json(errors);
+    }
+    const form = new multiparty.Form();
+
+    form.parse(request, async (error, fields, files) => {
+      console.log(fields);
+      console.log(files);
+      if (error) throw new Error(error);
+
+      try {
+        const path = files.file[0].path;
+        const buffer = fs.readFileSync(path);
+        const type = fileType(buffer);
+        const fileName = files.file[0].originalFilename;
+        const data = await uploadFile(buffer, fileName, type);
+
+        const newProfile = new Profile({
+          userId: userId,
+          image: data.key,
+          phone: req.body.phone,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          enrollment: req.body.enrollment,
+          major: req.body.major,
+          coursesTaken: req.body.coursesTaken,
+          locationPreferences: req.body.locationPreferences,
+          languagePreferences: req.body.languagePreferences
+        });
+        newProfile.save().then(profile => {
+          res.json({
+            sucess: true,
+            profile
+          });
+        });
+      } catch (error) {
+        return res.status(400).send(error);
+      }
+    });
+  });
+});
+
+
 module.exports = router;

@@ -8,7 +8,7 @@ export const RECIEVE_PROFILE_ERROR = 'RECIEVE_PROFILE_ERROR';
 export const createNewProfile = profile => dispatch => {
     const formData = new FormData();
     Object.keys(profile).forEach(key => {
-        if (key !== 'img') {
+        if (key !== 'image') {
             formData.append(key, profile.key);
         } else {
             formData.append(key, profile.key[0]);
