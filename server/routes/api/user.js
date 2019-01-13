@@ -11,6 +11,7 @@ const Profile = require("../../models/Profile");
 const validateRegisterInput = require("../../utils/validations/signup");
 const validateLoginInput = require("../../utils/validations/login");
 const uploadFile = require("../../utils/S3/uploadFile");
+const getFile = require("../../utils/S3/getFile");
 
 const { encrpyt, compare } = require("../../utils/passwords/passwords");
 const { sign } = require("../../jwt/jwt");
@@ -107,15 +108,12 @@ router.post("/:userId/profile", async (req, res) => {
       const data = await uploadFile(buffer, fileName, type);
       const newProfile = new Profile({
         userId: userId,
-        image: data.key,
-        // phone: fields.phone,
-        // firstName: fields.firstName,
-        // lastName: fields.lastName,
-        // enrollment: fields.enrollment,
-        // major: fields.major,
-        // coursesTaken: fields.coursesTaken,
-        // locationPreferences: fields.locationPreferences,
-        // languagePreferences: fields.languagePreferences
+        image: data.key
+      });
+
+      // append fields to profile
+      Object.keys(fields).forEach(key => {
+        newProfile[key] = fields[key];
       });
 
       Object.keys(fields).forEach(key=> {
@@ -136,5 +134,20 @@ router.post("/:userId/profile", async (req, res) => {
   });
 });
 
+// update user profile
+router.get("/:userId/profile", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const profile = await Profile.findOne({ userId });
+    if (!profile) throw Error("This profile does not exist");
+
+    const data = await getFile(profile.image);
+
+    return res.status(200).json({ success: true, profilePic: data, profile });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
