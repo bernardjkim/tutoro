@@ -4,13 +4,9 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const dotenv = require("dotenv");
-const multiparty = require("multiparty");
-const fileType = require("file-type");
-const fs = require("fs");
 
 const users = require("./routes/api/user");
 const profile = require("./routes/api/profile");
-const uploadFile = require("./utils/S3/uploadFile");
 
 const app = express();
 
@@ -37,28 +33,6 @@ require("./utils/passport/passport")(passport);
 // routes
 app.use("/api/users", users);
 // app.use('/api/profile', profile);
-
-// Define POST route
-app.post("/test-upload", (request, response) => {
-  const form = new multiparty.Form();
-  form.parse(request, async (error, fields, files) => {
-    console.log(fields);
-    console.log(files);
-    if (error) throw new Error(error);
-    try {
-      const path = files.file[0].path;
-      const buffer = fs.readFileSync(path);
-      const type = fileType(buffer);
-      const timestamp = Date.now().toString();
-      const fileName = `bucketFolder/${timestamp}-lg`;
-      const data = await uploadFile(buffer, fileName, type);
-      console.log(data);
-      return response.status(200).send(data);
-    } catch (error) {
-      return response.status(400).send(error);
-    }
-  });
-});
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
