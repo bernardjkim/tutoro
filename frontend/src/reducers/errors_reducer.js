@@ -5,6 +5,7 @@ import {
   RECEIVE_CURRENT_USER
 } from '../action/session_actions';
 import { RECIEVE_PROFILE_ERROR} from '../action/profile_action';
+import { debug } from 'util';
 
 const initnialState = {
   login: {},
@@ -12,6 +13,7 @@ const initnialState = {
   profile: {}
 }
 const errorsReducer = (state = initnialState, action) => {
+  debugger
   const newState = Object.assign({}, state);
   Object.freeze(state);
   switch (action.type) {

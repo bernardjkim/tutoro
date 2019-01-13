@@ -9,7 +9,7 @@ import {
 } from './options';
 
 
-class ProfileForm extends React.Component {
+export default class ProfileForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -85,7 +85,7 @@ class ProfileForm extends React.Component {
                 value={courseTaken}
                 onChange={this.handleSelectChange}
                 options={courseTakenOption}
-            />
+                />
         );
 
     }
@@ -104,6 +104,7 @@ class ProfileForm extends React.Component {
      };
 
     handleSubmit = (e) => {
+        debugger
         e.preventDefault();
         this.props.createNewProfile(this.state);
 
@@ -136,14 +137,3 @@ class ProfileForm extends React.Component {
     }
 }
 
-
-const mapStateToProps = state => ({
-});
-
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileForm);
