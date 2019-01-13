@@ -11,7 +11,6 @@ const fileType = require("file-type");
  *
  * @param {object}  buffer  file buffer
  * @param {string}  name    file name
- * @param {object}  type    file type
  */
 module.exports = (buffer, name, type) => {
   const params = {
