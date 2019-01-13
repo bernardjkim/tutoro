@@ -4,10 +4,11 @@ const jsonwebtoken = require("jsonwebtoken");
  * This function takes int a payload and optional sign options and will return
  * a promise returning either a jwt token or an error.
  *
- * @param {object}  payload
- * @param {object}  options (optional sign options)
+ * @param   {object}  payload
+ * @param   {object}  options (optional sign options)
+ * @return  {Promise}         signed jwt token
  */
-module.exports.sign = (payload, options = { expiresIn: 36000000 }) => {
+function sign(payload, options = { expiresIn: 36000000 }) {
   const key = process.env.secretOrKey;
 
   return new Promise((resolve, reject) => {
@@ -16,4 +17,8 @@ module.exports.sign = (payload, options = { expiresIn: 36000000 }) => {
       else resolve(`Bearer ${token}`);
     });
   });
+}
+
+module.exports = {
+  sign
 };

@@ -15,7 +15,7 @@ class FileUpload extends Component {
     formData.append("file", this.state.file[0]);
     formData.append("name", "James Lee");
     axios
-      .post(`/test-upload`, formData, {
+      .post(`/api/users/5c3a52bafe60710874d95287/profile`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
