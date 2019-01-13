@@ -100,12 +100,11 @@ router.post("/:userId/profile", async (req, res) => {
     if (error) throw Error(error);
 
     try {
-      const path = files.file[0].path;
+      const path = files.image[0].path;
       const buffer = fs.readFileSync(path);
       const type = fileType(buffer);
-      const fileName = files.file[0].originalFilename;
+      const fileName = files.image[0].originalFilename;
       const data = await uploadFile(buffer, fileName, type);
-      
       const newProfile = new Profile({
         userId: userId,
         image: data.key,
@@ -118,7 +117,7 @@ router.post("/:userId/profile", async (req, res) => {
         // locationPreferences: fields.locationPreferences,
         // languagePreferences: fields.languagePreferences
       });
-      
+
       Object.keys(fields).forEach(key=> {
         newProfile[key] = fields[key];
       });
