@@ -9,7 +9,7 @@ const s3 = require("./s3");
  * @param   {string}  name    file name
  * @return  {Promise}         s3 upload response
  */
-module.exports = (buffer, name, type) => {
+module.exports = async (buffer, name, type) => {
   const params = {
     // ACL: "public-read",
     Body: buffer,
@@ -17,5 +17,8 @@ module.exports = (buffer, name, type) => {
     ContentType: type.mime,
     Key: `${Date.now()}-${name}`
   };
-  return s3.upload(params).promise();
+  return await s3.upload(params, (err, data) => {
+    if (err) console.log(err, err.stack);
+    else return data;
+  })
 };

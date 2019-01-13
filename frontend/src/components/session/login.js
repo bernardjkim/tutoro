@@ -51,7 +51,9 @@ class Login extends Component {
            </div>
             <div id='signup-title'>Log In</div>
             <div className='logo-container'>
-              <img className='signup-logo' src={logo}/>
+              <img className='signup-logo' 
+              alt='login_logo'
+              src={logo}/>
             </div>
             <div>
                 {errors}

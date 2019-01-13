@@ -18,7 +18,8 @@ export const createNewProfile = profile => dispatch => {
     axios
         .post(`/api/users/${userId}/profile`, formData)
         .then((res) => {
-            console.log(res)
+            debugger
+
         })
         .catch(err =>{
         dispatch({

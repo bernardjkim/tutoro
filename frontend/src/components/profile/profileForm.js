@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Select from 'react-select';
 import LanOp from './languages';
 import {
@@ -8,8 +7,6 @@ import {
     courseTakenOption,
     locationPrefOptions
 } from './options';
-import { debug } from 'util';
-import { stat } from 'fs';
 
 
 export default class ProfileForm extends React.Component {
@@ -22,7 +19,6 @@ export default class ProfileForm extends React.Component {
             major: [],
             courseTaken: [],
             locationPreferences:'',
-            phone: '',
             languagePreferences: '',
             image:'',
             userId: this.props.userId,

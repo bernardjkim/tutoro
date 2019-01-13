@@ -1,5 +1,5 @@
 import axios from 'axios';
-import setAuthToken from '../util/set_auth_token';
+import setAuthToken from '../../util/set_auth_token';
 import jwt_decode from 'jwt-decode';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';

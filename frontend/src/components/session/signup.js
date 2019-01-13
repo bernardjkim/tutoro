@@ -91,7 +91,9 @@ class Signup extends Component {
             <form className='form-container signup'>
             <div id='signup-title'>Sign Up for Free</div>
             <div className='logo-container'>
-              <img className='signup-logo' src={logo}/>
+              <img className='signup-logo' 
+              alt='signup_logo'
+              src={logo}/>
             </div>
             <div>
                 {errors}

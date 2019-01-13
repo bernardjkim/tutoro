@@ -105,20 +105,19 @@ router.post("/:userId/profile", async (req, res) => {
       const buffer = fs.readFileSync(path);
       const type = fileType(buffer);
       const fileName = files.image[0].originalFilename;
-      const data = await uploadFile(buffer, fileName, type);
-      const newProfile = new Profile({
+      const data =  uploadFile(buffer, fileName, type);
+      let newProfile = {
         userId: userId,
         image: data.key
-      });
-
+      };
+      
+      
       // append fields to profile
-      Object.keys(fields).forEach(key => {
-        newProfile[key] = fields[key];
-      });
-
       Object.keys(fields).forEach(key=> {
         newProfile[key] = fields[key];
       });
+      console.log("NewProfiel >>",newProfile);
+      newProfile = new Profile(newProfile);
       
       newProfile
       .save()
