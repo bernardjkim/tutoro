@@ -8,6 +8,8 @@ import {
     courseTakenOption,
     locationPrefOptions
 } from './options';
+import { debug } from 'util';
+import { stat } from 'fs';
 
 
 export default class ProfileForm extends React.Component {
@@ -20,7 +22,7 @@ export default class ProfileForm extends React.Component {
             major: [],
             courseTaken: [],
             locationPreferences:'',
-            contact: '',
+            phone: '',
             languagePreferences: '',
             image:'',
             userId: this.props.userId,
@@ -33,12 +35,12 @@ export default class ProfileForm extends React.Component {
         let lan = Object.values(LanOp).map(el=> {
             return {value: el.name, label: el.nativeName};
         });
-        const {language} = this.state;
+        const {languagePreferences} = this.state;
         return (
             <Select
-                name = 'language'
-                placeholder='Language'
-                value={language}
+                name = 'languagePreferences'
+                placeholder='Language Preference'
+                value={languagePreferences}
                 onChange={this.handleSelectChange}
                 options={lan}
             />
@@ -70,6 +72,7 @@ export default class ProfileForm extends React.Component {
                 name = 'major'
                 placeholder='Major'
                 value={major}
+                isMulti= {true}
                 onChange={this.handleSelectChange}
                 options={majorOptions}
             />
@@ -121,9 +124,25 @@ export default class ProfileForm extends React.Component {
      };
 
     handleSubmit = (e) => {
-
+        const state = this.state;
         e.preventDefault();
-        this.props.createNewProfile(this.state);
+        const finalState = {}
+        // change {value: ... , label: .... } to just string
+        Object.keys(state).forEach(key => {
+            if (key !== 'image' 
+            && 
+            // check if it is an array
+            Object.prototype.toString.call(state[key]) === "[object Object]") {
+                finalState[key] = state[key].value;
+            } else if (Array.isArray(state[key])) {
+                finalState[key] = state[key].map(el=> {
+                    return el.value
+                });
+            } else {
+                finalState[key] = state[key];
+            }
+        });
+        this.props.createNewProfile(finalState);
 
     }
     
