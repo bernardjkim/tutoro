@@ -1,4 +1,11 @@
 module.exports = {
+    locationPrefOptions: [
+            {
+                value: 'Odegaard',
+                label: 'Odegaard'
+            },
+
+    ],
      majorOptions : [
             {
                 value: 'Undeclared',

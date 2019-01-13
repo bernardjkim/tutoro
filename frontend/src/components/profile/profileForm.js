@@ -5,7 +5,8 @@ import LanOp from './languages';
 import {
     majorOptions,
     enrollmentOption,
-    courseTakenOption
+    courseTakenOption,
+    locationPrefOptions
 } from './options';
 
 
@@ -18,11 +19,12 @@ export default class ProfileForm extends React.Component {
             enrollment:'',
             major: [],
             courseTaken: [],
-            locationPref:'',
+            locationPreferences:'',
             contact: '',
-            language: '',
+            languagePreferences: '',
             image:'',
-            userId: this.props.userId
+            userId: this.props.userId,
+            phone: ''
             
         }
         
@@ -39,6 +41,21 @@ export default class ProfileForm extends React.Component {
                 value={language}
                 onChange={this.handleSelectChange}
                 options={lan}
+            />
+
+        );
+
+    }
+
+    locationPrefInput = () => {
+        const {locationPreferences} = this.state;
+        return (
+            <Select
+                name = "locationPreferences"
+                placeholder='Location Preference'
+                value={locationPreferences}
+                onChange={this.handleSelectChange}
+                options={locationPrefOptions}
             />
 
         );
@@ -104,7 +121,7 @@ export default class ProfileForm extends React.Component {
      };
 
     handleSubmit = (e) => {
-        debugger
+
         e.preventDefault();
         this.props.createNewProfile(this.state);
 
@@ -126,6 +143,13 @@ export default class ProfileForm extends React.Component {
                 <input id="upload" ref="upload" type="file" accept="image/*"
                         onChange={this.handleFileUpload}
                 />
+                < input type = "tel"
+                id = "phone"
+                name = "phone"
+                onChange={this.handleInputChange}
+                placeholder='Phone Number'
+                required />
+                {this.locationPrefInput()}
                 {this.enrollmentInput()}
                 {this.majorInput()}
                 {this.languageInput()}

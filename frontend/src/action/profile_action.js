@@ -6,11 +6,10 @@ export const CREATE_NEW_PROFILE = 'CREATE_NEW_PROFILE';
 export const RECIEVE_PROFILE_ERROR = 'RECIEVE_PROFILE_ERROR';
 
 export const createNewProfile = profile => dispatch => {
-    debugger
     const formData = new FormData();
     Object.keys(profile).forEach(key => {
         if (key !== 'image') {
-            formData.append(key, profile.key);
+            formData.append(key, profile[key]);
         } else {
             formData.append(key, profile[key][0]);
         }

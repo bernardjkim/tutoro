@@ -16,7 +16,7 @@ const { encrpyt, compare } = require("../../utils/passwords/passwords");
 const { sign } = require("../../jwt/jwt");
 
 // create a user
-router.post("/signup", (req, res) => {
+router.post("/signup", async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   if (!isValid) return res.status(400).json(errors);
 
@@ -24,7 +24,7 @@ router.post("/signup", (req, res) => {
     const userExists = User.findOne({ email: req.body.email });
     const hash = encrpyt(req.body.password);
 
-    if (await userExists)
+    if (await userExists) 
       throw Error("A user has already signed up with this Email");
 
     const user = new User({
@@ -96,6 +96,7 @@ router.post("/:userId/profile", async (req, res) => {
 
   const form = new multiparty.Form();
   form.parse(req, async (error, fields, files) => {
+    console.log(files, fields);
     if (error) throw Error(error);
 
     try {
@@ -104,23 +105,27 @@ router.post("/:userId/profile", async (req, res) => {
       const type = fileType(buffer);
       const fileName = files.file[0].originalFilename;
       const data = await uploadFile(buffer, fileName, type);
-
+      
       const newProfile = new Profile({
         userId: userId,
         image: data.key,
-        phone: fields.phone,
-        firstName: fields.firstName,
-        lastName: fields.lastName,
-        enrollment: fields.enrollment,
-        major: fields.major,
-        coursesTaken: fields.coursesTaken,
-        locationPreferences: fields.locationPreferences,
-        languagePreferences: fields.languagePreferences
+        // phone: fields.phone,
+        // firstName: fields.firstName,
+        // lastName: fields.lastName,
+        // enrollment: fields.enrollment,
+        // major: fields.major,
+        // coursesTaken: fields.coursesTaken,
+        // locationPreferences: fields.locationPreferences,
+        // languagePreferences: fields.languagePreferences
       });
-
+      
+      Object.keys(fields).forEach(key=> {
+        newProfile[key] = fields[key];
+      });
+      
       newProfile
-        .save()
-        .then(profile => {
+      .save()
+      .then(profile => {
           return res.status(200).json({ success: true, profile });
         })
         .catch(error => {

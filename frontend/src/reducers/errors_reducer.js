@@ -13,7 +13,6 @@ const initnialState = {
   profile: {}
 }
 const errorsReducer = (state = initnialState, action) => {
-  debugger
   const newState = Object.assign({}, state);
   Object.freeze(state);
   switch (action.type) {
