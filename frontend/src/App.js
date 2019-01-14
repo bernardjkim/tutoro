@@ -4,11 +4,11 @@ import "./stylesheet/App.scss";
 import store from "./store";
 import { Provider } from "react-redux";
 
+import loginUser from "./containers/Login/axios";
 import {
   receiveCurrentUser,
-  logoutUser,
-  loginUser
-} from "./action/session_actions";
+  logoutUser
+} from './containers/App/action'
 
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./util/set_auth_token";
@@ -35,7 +35,7 @@ const testUser = {
 };
 store.dispatch(loginUser(testUser));
 
-class App extends Component {
+class GlobalApp extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -45,4 +45,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default GlobalApp;

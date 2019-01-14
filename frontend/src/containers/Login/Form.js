@@ -3,19 +3,17 @@ import logo from '../../images/logo.png';
 
 export default ({
     errors,
-    password,
-    password2,
     email,
     handleInput,
-    handleSubmit,
-    openModal
-     }) => {
+    password,
+    handleSubmit
+}) => {
     return (
-         <form className='form-container signup'>
-            <div id='signup-title'>Sign Up for Free</div>
+        <form className='form-container login'>
+            <div id='signup-title'>Log In</div>
             <div className='logo-container'>
               <img className='signup-logo' 
-              alt='signup_logo'
+              alt='login_logo'
               src={logo}/>
             </div>
             <div>
@@ -35,16 +33,9 @@ export default ({
                 value={password}
                 onChange={handleInput}
                 />
-                <input
-                type='password'
-                placeholder='Confirm Password'
-                name='password2'
-                value={password2}
-                onChange={handleInput}
-                />
-                
-                <button className ='signup-button' onClick={handleSubmit}>Sign Up</button>
-             <p>Already a member? <a id='login-atag' onClick={openModal}>Log in</a></p>
+                            
+                <button className ='signup-button' onClick={handleSubmit}>Log In</button>
             </form>
+
     );
 }

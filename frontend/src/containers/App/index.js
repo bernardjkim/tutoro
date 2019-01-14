@@ -6,8 +6,10 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Login from '../Login/index';
 import SignUp from '../SignUp/index';
 
+const Home = () => <div>Home</div>;
 
-export default App = () => {
+
+export default  () => {
     return (
         <div className="App">
             <Router>

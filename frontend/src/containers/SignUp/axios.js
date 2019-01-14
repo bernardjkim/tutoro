@@ -1,6 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../util/set_auth_token';
 import jwt_decode from 'jwt-decode';
+import {RECEIVE_SIGNUP_ERRORS} from './constant';
 import {receiveCurrentUser} from './action';
 
 export const signupUser = userData => dispatch => {
