@@ -1,21 +1,7 @@
-import {
-    CREATE_NEW_PROFILE
-} from './constant';
+import { combineReducers } from 'redux';
 
-const initState = {
-    ownProfile: {}
-}
+import newProfileErrorReducer from './NewForm/reducer';
 
-const profileReducer = (state = initState, action) => {
-  switch (action.type) {
-    case CREATE_NEW_PROFILE:
-      return {
-        ...state,
-        ownProfile: action.payload
-      };
-    default:
-      return state;
-  }
-};
-
-export default profileReducer;
+export default combineReducers({
+    newProfileError: newProfileErrorReducer
+})

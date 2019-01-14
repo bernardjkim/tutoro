@@ -1,11 +1,8 @@
 import axios from 'axios';
-
-
-
-export const CREATE_NEW_PROFILE = 'CREATE_NEW_PROFILE';
-export const RECIEVE_PROFILE_ERROR = 'RECIEVE_PROFILE_ERROR';
+import {receiveProfileError} from './action';
 
 export const createNewProfile = profile => dispatch => {
+    // append every inforamtion in to a formData along with image
     const formData = new FormData();
     Object.keys(profile).forEach(key => {
         if (key !== 'image') {
@@ -18,14 +15,10 @@ export const createNewProfile = profile => dispatch => {
     axios
         .post(`/api/users/${userId}/profile`, formData)
         .then((res) => {
-            debugger
-
+            console.log(res);
         })
         .catch(err =>{
-        dispatch({
-            type: RECIEVE_PROFILE_ERROR,
-            payload: err.response.data
-        })
+        dispatch(receiveProfileError)
         }
     );
 
