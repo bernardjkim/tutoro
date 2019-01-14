@@ -4,13 +4,9 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const dotenv = require("dotenv");
-const multiparty = require("multiparty");
-const fileType = require("file-type");
-const fs = require("fs");
 
 const users = require("./routes/api/user");
 const profile = require("./routes/api/profile");
-const uploadFile = require("./utils/S3/uploadFile");
 
 const app = express();
 
@@ -38,6 +34,7 @@ require("./utils/passport/passport")(passport);
 app.use("/api/users", users);
 // app.use('/api/profile', profile);
 
+<<<<<<< HEAD
 // Define POST route
 // app.post("/test-upload", (request, response) => {
 //   const form = new multiparty.Form();
@@ -57,6 +54,8 @@ app.use("/api/users", users);
 //   });
 // });
 
+=======
+>>>>>>> 50e50efd7404c5ebd1098b3d245e11ccb6d1af7d
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
