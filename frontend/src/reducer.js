@@ -9,6 +9,6 @@ export default combineReducers({
     global: globalReducer,
     signup:  signupReducer,
     login: loginReducer,
-    
+
 
 });

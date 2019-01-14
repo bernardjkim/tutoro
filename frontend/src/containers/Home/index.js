@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import ProfileForm from '../../container/profile_container';
+import ProfileForm from './NewForm/index';
 
 class Home extends React.Component {
     constructor(props) {
@@ -41,13 +41,6 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
-
-
-
-
-
-
 
 Modal.setAppElement('body');
 const customStyles = {
@@ -63,3 +56,8 @@ const customStyles = {
         minWidth: '320px'
     },
 }
+
+
+
+
+
