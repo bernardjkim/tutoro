@@ -1,0 +1,6 @@
+**/node_modules
+package-lock.json
+.env
+
+## Mac OS X metadata files:
+*.DS_Store
