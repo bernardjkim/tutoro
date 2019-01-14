@@ -10,6 +10,7 @@ export default ({
     handleSubmit,
     openModal
      }) => {
+
     return (
          <form className='form-container signup'>
             <div id='signup-title'>Sign Up for Free</div>
@@ -44,7 +45,7 @@ export default ({
                 />
                 
                 <button className ='signup-button' onClick={handleSubmit}>Sign Up</button>
-             <p>Already a member? <a id='login-atag' onClick={openModal}>Log in</a></p>
+             <p>Already a member? <a id='login-atag' onClick={openModal} >Log in</a></p>
             </form>
     );
 }

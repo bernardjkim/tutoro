@@ -80,7 +80,6 @@ class Signup extends Component {
      password2,
      email,
    } = this.state;
-   
     return (
 
           <div id='signup-background'>
@@ -93,6 +92,7 @@ class Signup extends Component {
           <Login 
           closeModal={this.closeModal}
           />
+          </Modal>
           <Form
           errors={errors}
           password = {password}
@@ -102,7 +102,6 @@ class Signup extends Component {
           handleSubmit = {this.handleSubmit}
           openModal = {this.openModal}
           />
-          </Modal>
            
           </div>
       
@@ -128,8 +127,8 @@ class Signup extends Component {
   
   
   const mapStateToProps = state => ({
-    session: state.global,
-    errors: Object.values(state.signup.errors)
+    global: state.global,
+    errors: Object.values(state.signup)
 });
 
 const mapDispatchToProps = dispatch => ({

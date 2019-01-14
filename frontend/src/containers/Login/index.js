@@ -38,7 +38,6 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-
     this.props.loginUser(newUser);
   }
 
@@ -52,7 +51,7 @@ class Login extends Component {
            email = {email}
            password = {password}
            handleInput = {this.handleInput}
-           handleSubmit = {this.handleInput}
+           handleSubmit = {this.handleSubmit}
            />
         </div>
       

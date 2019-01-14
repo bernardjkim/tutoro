@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import {receiveCurrentUser} from './action';
 import {RECEIVE_LOGIN_ERRORS} from './constant';
 
+// login user
 export default  userData => dispatch => {
   axios
     .post('/api/users/login', userData)

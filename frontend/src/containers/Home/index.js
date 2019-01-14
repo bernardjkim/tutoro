@@ -1,12 +1,16 @@
 import React from 'react';
 import Modal from 'react-modal';
 import ProfileForm from './NewForm/index';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {logoutUser} from './action';
+
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profileModal: true,
+            profileModal: false,
         }
     }
 
@@ -56,6 +60,19 @@ const customStyles = {
         minWidth: '320px'
     },
 }
+
+const msp = state => ({
+    // later use
+});
+
+const mdp = dispatch => ({
+    logoutUser: ()=> dispatch(logoutUser()),
+})
+
+export default connect(
+    msp,
+    mdp
+)(withRouter(Home));
 
 
 
