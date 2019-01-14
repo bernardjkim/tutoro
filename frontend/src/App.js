@@ -11,7 +11,7 @@ import {
 } from './containers/App/action'
 
 import jwt_decode from "jwt-decode";
-import setAuthToken from "./util/set_auth_token";
+import setAuthToken from "./containers/util/set_auth_token";
 
 import App from './containers/App/index';
 

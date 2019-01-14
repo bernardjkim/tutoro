@@ -1,6 +1,7 @@
 import {
-    RECEIVE_CURRENT_USER}
-    from 'constant';
+    RECEIVE_CURRENT_USER
+}
+    from './constant';
 
 export const receiveCurrentUser = userData => {
   return {
