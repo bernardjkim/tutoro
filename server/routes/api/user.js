@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
     const user = new User({ email: req.body.email });
     const token = sign({ id: user.id });
 
-    if (await userExists) 
+    if (await userExists)
       throw Error("A user has already signed up with this Email");
 
     user.password = await hash;
@@ -82,60 +82,6 @@ router.get(
   }
 );
 
-<<<<<<< HEAD
-// get user profile picture
-router.get("/:userId/profile", (req, res) => {
-  var userId = req.params.userId;
-  Profile.findOne({ userId }).then(profile => {
-    if (!profile) {
-      errors.name = "This user does not exist / has not set up their profile.";
-      return res.status(404).json(errors);
-    }
-  });
-});
-
-// update user profile
-router.post("/:userId/profile", async (req, res) => {
-  const { userId } = req.params;
-
-  if (await !User.findOne({ id: userId }))
-    return res.status(400).json({ error: "This user does not exist" });
-
-  const form = new multiparty.Form();
-  form.parse(req, async (error, fields, files) => {
-    console.log(files, fields);
-    if (error) throw Error(error);
-
-    try {
-      const path = files.image[0].path;
-      const buffer = fs.readFileSync(path);
-      const type = fileType(buffer);
-      const fileName = files.image[0].originalFilename;
-      const data =  uploadFile(buffer, fileName, type);
-      let newProfile = {
-        userId: userId,
-        image: data.key
-      };
-      
-      
-      // append fields to profile
-      Object.keys(fields).forEach(key=> {
-        newProfile[key] = fields[key];
-      });
-      console.log("NewProfiel >>",newProfile);
-      newProfile = new Profile(newProfile);
-      
-      newProfile
-      .save()
-      .then(profile => {
-          return res.status(200).json({ success: true, profile });
-        })
-        .catch(error => {
-          return res.status(400).json({ error: error.message });
-        });
-    } catch (error) {
-      return res.status(400).json({ error: error.message });
-=======
 /**
  * Create user profile
  */
@@ -170,7 +116,6 @@ router.post("/:userId/profile", async (req, res) => {
       const fileName = files.file[0].originalFilename;
       const data = await uploadFile(buffer, fileName, type);
       profile.image = data.key;
->>>>>>> 50e50efd7404c5ebd1098b3d245e11ccb6d1af7d
     }
 
     await profile.save();
