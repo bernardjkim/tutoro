@@ -4,13 +4,14 @@ import ProfileForm from './NewForm/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {logoutUser} from './action';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profileModal: false,
+            profileModal: true,
         }
     }
 

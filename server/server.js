@@ -6,8 +6,8 @@ const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 
-// const users = require("./routes/api/user");
-const user = require("./routes/user/user");
+const users = require("./routes/api/user");
+// const user = require("./routes/user/user");
 const profile = require("./routes/api/profile");
 
 const app = express();
@@ -42,7 +42,7 @@ app.use(passport.initialize()); // add passport middleware
 require("./utils/passport/passport")(passport);
 
 // routes
-app.use("/api/user", user);
+app.use("/api/users", users);
 // app.use('/api/profile', profile);
 
 // Server static assets if in production

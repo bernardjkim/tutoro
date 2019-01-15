@@ -3,9 +3,11 @@ import setAuthToken from '../util/set_auth_token';
 import jwt_decode from 'jwt-decode';
 import {receiveCurrentUser} from './action';
 import {RECEIVE_LOGIN_ERRORS} from './constant';
+import { debug } from 'util';
 
 // login user
 export default  userData => dispatch => {
+  debugger
   axios
     .post('/api/users/login', userData)
     .then(res => {
@@ -19,10 +21,13 @@ export default  userData => dispatch => {
       // Set current user
       dispatch(receiveCurrentUser(decoded));
     })
-    .catch(err =>
+    .catch(err =>{
+      debugger
       dispatch({
         type: RECEIVE_LOGIN_ERRORS,
         payload: err.response.data
       })
+
+    }
     );
 };

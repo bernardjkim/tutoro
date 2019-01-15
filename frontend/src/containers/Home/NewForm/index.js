@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import LanOp from './languages';
+import Input from '../../../components/Input';
 import {
     majorOptions,
     enrollmentOption,
@@ -145,25 +146,47 @@ export default class ProfileForm extends React.Component {
     render() {
         return(
             <form>
-                <input type='text' 
-                name='firstName'
-                onChange ={this.handleInputChange} 
-                placeholder='First Name'
-                value={this.state.firstName}/>
-                <input type='text' 
-                name='lastName'
-                onChange ={this.handleInputChange} 
-                placeholder='Last  Name'
-                value={this.state.lastName}/>
-                <input id="upload" ref="upload" type="file" accept="image/*"
-                        onChange={this.handleFileUpload}
+                <Input
+                type = 'text'
+                name ='firstName'
+                onChange = {this.handleInputChange}
+                placeholder = 'First Name'
+                value = {this.state.firstName}
                 />
-                < input type = "tel"
-                id = "phone"
-                name = "phone"
-                onChange={this.handleInputChange}
-                placeholder='Phone Number'
-                required />
+                <Input
+                type = 'text'
+                name ='lastName'
+                onChange = {this.handleInputChange}
+                placeholder = 'Last Name'
+                value = {this.state.lastName}
+                />
+                <form action="/file-upload" class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
+
+                
+
+                <div className='form-group'>
+                    <input 
+                    className = 'form-control-file'
+                    ref="upload" 
+                    type="file" 
+                    accept="image/*"
+                    onChange={this.handleFileUpload}
+                    />
+                </div>
+                <div className='form-group'>
+                    < input type = "tel"
+                    className='form-control'
+                    id = "phone"
+                    name = "phone"
+                    onChange={this.handleInputChange}
+                    placeholder='Phone Number'
+                    required />
+                </div>
+    
                 {this.locationPrefInput()}
                 {this.enrollmentInput()}
                 {this.majorInput()}
