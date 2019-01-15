@@ -56,10 +56,6 @@ if (process.env.NODE_ENV === "production") {
 
 const port = process.env.PORT || 5000;
 
-<<<<<<< HEAD
-app.listen(port, () => console.log(`port running on ${port}`));
-=======
 app.listen(port, () => console.log(`port running on ${port}`));
 
 module.exports = app; // for testing
->>>>>>> 83c83ba2522f87d97215ac898b3feb21519efaba
