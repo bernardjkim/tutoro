@@ -8,6 +8,8 @@ export default ({
     value = '',
     divClassName = 'form-group',
     inputClassName = 'form-control',
+    ref = null,
+    accept = null,
 }) => (
     <div className = {divClassName}>
         <input
@@ -17,6 +19,8 @@ export default ({
         placeholder = {placeholder}
         value = {value}
         type = {type}
+        ref = {ref}
+        accept = {accept}
             />
     </div>
 );

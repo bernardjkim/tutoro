@@ -1,13 +1,13 @@
 import React from 'react';
-import Select from 'react-select';
-import LanOp from './languages';
 import Input from '../../../components/Input';
 import {
-    majorOptions,
-    enrollmentOption,
-    courseTakenOption,
-    locationPrefOptions
-} from './options';
+    majorInput, 
+    enrollmentInput,
+    languageInput,
+    locationPrefInput,
+    coursesTakenInput
+} from './Select';
+
 
 
 export default class ProfileForm extends React.Component {
@@ -28,85 +28,6 @@ export default class ProfileForm extends React.Component {
         }
         
     }
-    languageInput = () => {
-        let lan = Object.values(LanOp).map(el=> {
-            return {value: el.name, label: el.nativeName};
-        });
-        const {languagePreferences} = this.state;
-        return (
-            <Select
-                name = 'languagePreferences'
-                placeholder='Language Preference'
-                value={languagePreferences}
-                onChange={this.handleSelectChange}
-                options={lan}
-            />
-
-        );
-
-    }
-
-    locationPrefInput = () => {
-        const {locationPreferences} = this.state;
-        return (
-            <Select
-                name = "locationPreferences"
-                placeholder='Location Preference'
-                value={locationPreferences}
-                onChange={this.handleSelectChange}
-                options={locationPrefOptions}
-            />
-
-        );
-
-    }
-
-    majorInput = () => {
-        const {major} = this.state;
-        
-        return (
-            <Select
-                name = 'major'
-                placeholder='Major'
-                value={major}
-                isMulti= {true}
-                onChange={this.handleSelectChange}
-                options={majorOptions}
-            />
-
-        );
-    }
-
-    enrollmentInput =() => {
-
-        const { enrollment } = this.state;
-        return(
-            <Select
-                name = 'enrollment'
-                placeholder='Enrollment'
-                value={enrollment}
-                onChange={this.handleSelectChange}
-                options={enrollmentOption}
-            />
-        );
-    }
-
-    coursesTakenInput = () => {
-
-        const { courseTaken } = this.state;
-        return(
-            <Select
-                name='courseTaken'
-                isMulti= {true}
-                placeholder='Taken Courses'
-                value={courseTaken}
-                onChange={this.handleSelectChange}
-                options={courseTakenOption}
-                />
-        );
-
-    }
-
     handleInputChange = e => {
         this.setState({[e.target.name]: e.target.value})
     }
@@ -144,6 +65,15 @@ export default class ProfileForm extends React.Component {
     }
     
     render() {
+        const {
+            locationPreferences,
+            major,
+            languagePreferences,
+            enrollment,
+            courseTaken
+        } = this.state;
+
+        const handleSelectChange = this.handleSelectChange;
         return(
             <form>
                 <Input
@@ -160,38 +90,25 @@ export default class ProfileForm extends React.Component {
                 placeholder = 'Last Name'
                 value = {this.state.lastName}
                 />
-                <form action="/file-upload" class="dropzone">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                    </div>
-                </form>
-
-                
-
-                <div className='form-group'>
-                    <input 
-                    className = 'form-control-file'
-                    ref="upload" 
-                    type="file" 
-                    accept="image/*"
-                    onChange={this.handleFileUpload}
-                    />
-                </div>
-                <div className='form-group'>
-                    < input type = "tel"
-                    className='form-control'
-                    id = "phone"
-                    name = "phone"
-                    onChange={this.handleInputChange}
-                    placeholder='Phone Number'
-                    required />
-                </div>
-    
-                {this.locationPrefInput()}
-                {this.enrollmentInput()}
-                {this.majorInput()}
-                {this.languageInput()}
-                {this.coursesTakenInput()}
+                <Input
+                type = 'file'
+                inputClassName='form-control-file'
+                ref = 'upload'
+                accept = 'image/*'
+                onChange = {this.handleFileUpload}
+                />
+                <Input
+                type = 'tel'
+                name ='phone'
+                onChange = {this.handleInputChange}
+                placeholder = 'Phone Number'
+                value = {this.state.phone}
+                />  
+                {locationPrefInput(locationPreferences, handleSelectChange)} 
+                {enrollmentInput(enrollment, handleSelectChange)}
+                {majorInput(major, handleSelectChange)}
+                {languageInput(languagePreferences, handleSelectChange)}
+                {coursesTakenInput(coursesTakenInput, handleSelectChange)}
                 <button onClick={this.handleSubmit}>Submit</button>
             </form>
 
