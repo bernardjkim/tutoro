@@ -18,11 +18,18 @@ const { uploadFile, getFile } = require("../../utils/s3");
 const { sign } = require("../../utils/jwt");
 
 /**
+ * Undefined endpoint
+ */
+const undefinedHandler = (req, res) => {
+  return res.status(404).json({ message: "api endpoint is undefined" });
+};
+
+/**
  * Create a new user
  */
-router.post("/signup", async (req, res) => {
+router.post("/", async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-  if (!isValid) return res.status(400).json(errors);
+  if (!isValid) return res.status(400).json({ errors });
 
   try {
     const userExists = User.findOne({ email: req.body.email });
@@ -36,9 +43,59 @@ router.post("/signup", async (req, res) => {
     user.password = await hash;
     await user.save();
 
-    return res.status(200).json({ success: true, token: await token });
+    return res.status(201).json({ success: true, token: await token });
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({ errors: error.message });
+  }
+});
+
+/**
+ * Get all users
+ */
+router.get("/", undefinedHandler);
+
+/**
+ * Get a single user
+ */
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = User.findOne({ id });
+
+    if (!(await user))
+      return res.status(404).json({
+        message: "Unable to get user",
+        description: `User with id ${id} does not exist`
+      });
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: "Unable to get user",
+      description: "Internal server error"
+    });
+  }
+});
+
+/**
+ * Get user profile
+ */
+router.get("/:userId/profile", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const profile = await Profile.findOne({ userId });
+    if (!profile)
+      return res.status(400).json({ error: "This user does not exist" });
+
+    const data = await getFile(profile.image);
+
+    return res.status(200).json({ success: true, profilePic: data, profile });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: "Internal server error" });
   }
 });
 
