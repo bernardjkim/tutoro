@@ -112,9 +112,37 @@ describe("Users", () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a("object");
-          res.body.should.have.property("errors");
+          // res.body.should.have.property("errors");
           done();
         });
+    });
+
+    it("it should not POST a new user for the second request", async () => {
+      let user = {
+        email: "test@uw.edu",
+        password: "password",
+        password2: "password"
+      };
+
+      // check that one request was successful & the other failed
+      let created = false;
+      let failed = false;
+
+      const res1 = chai
+        .request(server)
+        .post("/api/user")
+        .send(user);
+      const res2 = chai
+        .request(server)
+        .post("/api/user")
+        .send(user);
+
+      const status1 = (await res1).status;
+      const status2 = (await res2).status;
+
+      // Assuming only status codes are 201 and 400
+      // Should receive on of each
+      status1.should.not.eql(status2);
     });
   });
 
@@ -137,24 +165,35 @@ describe("Users", () => {
   });
 
   /**
-   * Test the /GET route single user
+   * Test the /GET/:id route
    */
   describe("/GET user/:id", () => {
-    it("it should GET a user", done => {
+    it("it should GET a user", async () => {
+      let user = {
+        email: "test@uw.edu",
+        password: "hash"
+      };
+      const mongoUser = new User(user);
+      await mongoUser.save();
+
+      // First create a new user
+      const res = await chai.request(server).get(`/api/user/${mongoUser.id}`);
+      res.should.have.status(200);
+      res.body.should.be.a("object");
+    });
+
+    it("it should not GET a non existent user", done => {
       let user = {
         email: "test@uw.edu",
         password: "password",
         password2: "password"
       };
       const mongoUser = new User(user);
-      mongoUser.save();
-      console.log(mongoUser);
       chai
         .request(server)
         .get(`/api/user/${mongoUser.id}`)
         .end((err, res) => {
-          console.log(res.body);
-          res.should.have.status(200);
+          res.should.have.status(404);
           res.body.should.be.a("object");
           done();
         });

@@ -7,8 +7,9 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 
 // const users = require("./routes/api/user");
+// const profile = require("./routes/api/profile");
 const user = require("./routes/user/user");
-const profile = require("./routes/api/profile");
+const profile = require("./routes/profile/profile");
 
 const app = express();
 
@@ -28,9 +29,9 @@ if (process.env.NODE_ENV === "test") {
 mongoose
   .connect(
     mongoURI,
-    { useNewUrlParser: true }
+    { useNewUrlParser: true, useCreateIndex: true }
   )
-  .then(() => console.log("MongoDB connected"))
+  // .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
 // Body Parser
@@ -43,7 +44,7 @@ require("./utils/passport/passport")(passport);
 
 // routes
 app.use("/api/user", user);
-// app.use('/api/profile', profile);
+app.use("/api/profile", profile);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
