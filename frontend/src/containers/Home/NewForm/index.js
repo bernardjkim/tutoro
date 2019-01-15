@@ -1,5 +1,8 @@
 import React from 'react';
 import Input from '../../../components/Input';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {createNewProfile} from './axios';
 import {
     majorInput, 
     enrollmentInput,
@@ -10,7 +13,8 @@ import {
 
 
 
-export default class ProfileForm extends React.Component {
+
+class NewProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,17 +33,19 @@ export default class ProfileForm extends React.Component {
         
     }
     handleInputChange = e => {
-        this.setState({[e.target.name]: e.target.value})
+        const name = e.target.name;
+        const value = e.target.value;
+        if (name === 'image') {
+            debugger
+            this.setState({image: e.target.files });
+        } else {
+            this.setState({[name]: value});
+        }
     }
 
     handleSelectChange = (selectedOption, field) => {
          this.setState({ [field.name]: selectedOption });
     }
-     handleFileUpload = event => {
-         this.setState({
-             image: event.target.files
-         });
-     };
 
     handleSubmit = (e) => {
         const state = this.state;
@@ -90,13 +96,14 @@ export default class ProfileForm extends React.Component {
                 placeholder = 'Last Name'
                 value = {this.state.lastName}
                 />
-                <Input
-                type = 'file'
-                inputClassName='form-control-file'
-                ref = 'upload'
-                accept = 'image/*'
-                onChange = {this.handleFileUpload}
+        
+                <div className='form-group'>
+                       <input id="upload" ref="upload" type="file" accept="image/*"
+                        onChange={this.handleInputChange}
                 />
+
+
+                </div>
                 <Input
                 type = 'tel'
                 name ='phone'
@@ -108,11 +115,26 @@ export default class ProfileForm extends React.Component {
                 {enrollmentInput(enrollment, handleSelectChange)}
                 {majorInput(major, handleSelectChange)}
                 {languageInput(languagePreferences, handleSelectChange)}
-                {coursesTakenInput(coursesTakenInput, handleSelectChange)}
-                <button onClick={this.handleSubmit}>Submit</button>
+                {coursesTakenInput(courseTaken, handleSelectChange)}
+                <button 
+                className = 'btn btn-outline-primary btn-lg btn-block'
+                onClick={this.handleSubmit}>Submit</button>
             </form>
 
         );
     }
 }
 
+
+const msp = state => ({
+
+})
+
+const mdp = profile => dispatch => ({
+    createNewProfile: profile => dispatch(createNewProfile(profile))
+});
+
+export default connect(
+    msp,
+    mdp
+)(withRouter(NewProfile));

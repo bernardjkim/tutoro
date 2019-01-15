@@ -4,7 +4,7 @@ import ProfileForm from './NewForm/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {logoutUser} from './action';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 class Home extends React.Component {
@@ -57,8 +57,9 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         height: '80%',
-        width: '80%',
-        minWidth: '320px'
+        width: '50%',
+        minWidth: '320px',
+        // overflow: 'hidden',
     },
 }
 

@@ -14,13 +14,15 @@ export const languageInput = (value, handleSelectChange) => {
         return {value: el.name, label: el.nativeName};
     });
     return (
+        <div className='Select-input'>
         <Select
             name = 'languagePreferences'
             placeholder='Language Preference'
             value={value}
             onChange={handleSelectChange}
             options={lan}
-        />
+            />
+        </div>
 
     );
 
@@ -29,13 +31,15 @@ export const locationPrefInput = (value, handleSelectChange) => {
 
     return (
 
+        <div className='Select-input'>
         <Select
             name = "locationPreferences"
             placeholder='Location Preference'
             value={value}
             onChange={handleSelectChange}
             options={locationPrefOptions}
-        />
+            />
+        </div>
 
 
     );
@@ -45,6 +49,7 @@ export const locationPrefInput = (value, handleSelectChange) => {
 export const majorInput = (value, handleSelectChange) => {
     
     return (
+        <div className='Select-input'>
         <Select
             name = 'major'
             placeholder='Major'
@@ -52,7 +57,8 @@ export const majorInput = (value, handleSelectChange) => {
             isMulti= {true}
             onChange={handleSelectChange}
             options={majorOptions}
-        />
+            />
+        </div>
 
     );
 }
@@ -60,20 +66,23 @@ export const majorInput = (value, handleSelectChange) => {
 export const enrollmentInput = (value, handleSelectChange) => {
 
     return(
+        <div className='Select-input'>
         <Select
             name = 'enrollment'
             placeholder='Enrollment'
             value={value}
             onChange={handleSelectChange}
             options={enrollmentOption}
-        />
+            />
+        </div>
     );
 }
 
 export const coursesTakenInput = (value, handleSelectChange) => {
 
     return(
-        <div className='form-group'>
+
+        <div className='Select-input'>
         <Select
             name='courseTaken'
             isMulti= {true}
