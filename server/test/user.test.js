@@ -3,7 +3,6 @@ process.env.NODE_ENV = "test";
 
 let mongoose = require("mongoose");
 let User = require("../models/User");
-// let Book = require('../app/models/book');
 
 //Require the dev-dependencies
 let chai = require("chai");
@@ -56,7 +55,7 @@ describe("Users", () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a("object");
-          res.body.should.have.property("errors");
+          res.body.should.have.property("error");
           done();
         });
     });
@@ -74,7 +73,7 @@ describe("Users", () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a("object");
-          res.body.should.have.property("errors");
+          res.body.should.have.property("error");
           done();
         });
     });
@@ -92,7 +91,7 @@ describe("Users", () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a("object");
-          res.body.should.have.property("errors");
+          res.body.should.have.property("error");
           done();
         });
     });
@@ -104,17 +103,18 @@ describe("Users", () => {
         password2: "password"
       };
       const mongoUser = new User(user);
-      mongoUser.save();
-      chai
-        .request(server)
-        .post("/api/user")
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a("object");
-          // res.body.should.have.property("errors");
-          done();
-        });
+      mongoUser.save(_ => {
+        chai
+          .request(server)
+          .post("/api/user")
+          .send(user)
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.be.a("object");
+            res.body.should.have.property("error");
+            done();
+          });
+      });
     });
 
     it("it should not POST a new user for the second request", async () => {
@@ -151,16 +151,26 @@ describe("Users", () => {
    * TODO:
    */
   describe("/GET user", () => {
-    it("it should GET a list of users", done => {
-      chai
-        .request(server)
-        .get("/api/user")
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("array");
-          res.body.length.should.be.eql(0);
-          done();
-        });
+    it.skip("it should GET a list of users", done => {
+      throw new Error("fail");
+      // chai
+      //   .request(server)
+      //   .get("/api/user")
+      //   .end((err, res) => {
+      //     res.should.have.status(200);
+      //     res.body.should.be.a("array");
+      //     res.body.length.should.be.eql(0);
+      //     done();
+      //   });
+    });
+  });
+
+  /**
+   * Test the /GET/current route
+   */
+  describe("/GET user/current", () => {
+    it.skip("it should GET the current user", () => {
+      throw new Error("fail");
     });
   });
 
@@ -171,7 +181,7 @@ describe("Users", () => {
     it("it should GET a user", async () => {
       let user = {
         email: "test@uw.edu",
-        password: "hash"
+        password: "password"
       };
       const mongoUser = new User(user);
       await mongoUser.save();

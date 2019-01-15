@@ -28,7 +28,7 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { userId } = req.user;
+    const userId = req.user.id;
 
     try {
       if (await Profile.findOne({ userId }))
@@ -44,7 +44,7 @@ router.post(
 
       // TODO: validate fields???
       const profile = new Profile({
-        userId: userId,
+        userId,
         firstName: fields.firstName,
         lastName: fields.lastName,
         phone: fields.phone,
@@ -67,7 +67,7 @@ router.post(
       }
 
       await profile.save();
-      return res.status(200).json({ success: true, profile });
+      return res.status(201).json({ success: true, profile });
     } catch (err) {
       if (err.name === "UnsupportedMediaTypeError")
         return res.status(400).json({
@@ -89,6 +89,45 @@ router.post(
       return res.status(500).json({
         error: {
           message: "Unable to create profile",
+          description: "Internal server error"
+        }
+      });
+    }
+  }
+);
+
+/**
+ * Get list of profiles
+ */
+router.get("/", undefinedHandler);
+
+/**
+ * Get current user profile
+ */
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+      const profile = await Profile.findOne({ userId });
+      if (!profile)
+        return res.status(404).json({
+          error: {
+            message: "Unable to get profile",
+            description: "This profile does not exist"
+          }
+        });
+
+      const data = await getFile(profile.image);
+
+      return res.status(200).json({ success: true, profilePic: data, profile });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({
+        error: {
+          message: "Unable to get profile",
           description: "Internal server error"
         }
       });
@@ -125,3 +164,5 @@ router.get("/:userId", async (req, res) => {
     });
   }
 });
+
+module.exports = router;

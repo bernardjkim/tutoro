@@ -34,7 +34,16 @@ const undefinedHandler = (req, res) => {
  */
 router.post("/", async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-  if (!isValid) return res.status(400).json(errors);
+  if (!isValid)
+    return res.status(400).json({
+      error: {
+        message: "Unable to create new user",
+        description: "Invalid parameters",
+        errors
+        //TODO: use parameters field [{ name: [parameter name], message: [error message] }]
+        // parameters: []
+      }
+    });
 
   try {
     const userExists = User.findOne({ email: req.body.email });
@@ -44,8 +53,10 @@ router.post("/", async (req, res) => {
 
     if (await userExists)
       return res.status(400).json({
-        message: "Unable to create new user",
-        description: "A user has already signed up with this email"
+        error: {
+          message: "Unable to create new user",
+          description: "A user has already signed up with this email"
+        }
       });
 
     user.password = await hash;
@@ -67,6 +78,20 @@ router.post("/", async (req, res) => {
  * Get all users
  */
 router.get("/", undefinedHandler);
+
+/**
+ * Validate current user with jwt
+ */
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      email: req.user.email
+    });
+  }
+);
 
 /**
  * Get a single user
@@ -119,22 +144,6 @@ router.post("/login", async (req, res) => {
     return res.status(404).json({ error: error.message });
   }
 });
-
-/**
- * Validate current user with jwt
- */
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json({
-      id: req.user.id,
-      // firstName: req.user.firstName,
-      // lastName: req.user.lastName,
-      email: req.user.email
-    });
-  }
-);
 
 // /**
 //  * Create user profile
