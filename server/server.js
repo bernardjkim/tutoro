@@ -6,10 +6,9 @@ const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 
-// const users = require("./routes/api/user");
-// const profile = require("./routes/api/profile");
 const user = require("./routes/user/user");
 const profile = require("./routes/profile/profile");
+const session = require("./routes/session/session");
 
 const app = express();
 
@@ -45,6 +44,7 @@ require("./utils/passport/passport")(passport);
 // routes
 app.use("/api/user", user);
 app.use("/api/profile", profile);
+app.use("/api/session", session);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
