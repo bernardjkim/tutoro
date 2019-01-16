@@ -22,7 +22,6 @@ export default  userData => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err =>{
-      debugger
       dispatch({
         type: RECEIVE_LOGIN_ERRORS,
         payload: err.response.data

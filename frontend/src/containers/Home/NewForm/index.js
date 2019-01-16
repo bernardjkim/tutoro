@@ -127,7 +127,7 @@ class NewProfile extends React.Component {
 
 
 const msp = state => ({
-
+    userId: state.global.user.id
 })
 
 const mdp = profile => dispatch => ({
