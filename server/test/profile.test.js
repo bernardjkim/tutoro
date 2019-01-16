@@ -138,8 +138,6 @@ describe("Profiles", () => {
         const res = await chai.request(server).get(`/api/profile/${id}`);
         res.should.have.status(200);
       });
-
-      it.skip("it should not GET a non existent profile", done => {});
     });
   });
 });
