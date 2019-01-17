@@ -9,6 +9,7 @@ const morgan = require("morgan");
 const user = require("./routes/user/user");
 const profile = require("./routes/profile/profile");
 const session = require("./routes/session/session");
+const language = require("./routes/language/language");
 
 const app = express();
 
@@ -45,6 +46,7 @@ require("./utils/passport/passport")(passport);
 app.use("/api/user", user);
 app.use("/api/profile", profile);
 app.use("/api/session", session);
+app.use("/api/language", language);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
