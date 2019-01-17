@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Language = require("../../models/Language");
+const Location = require("../../models/Location");
 
 /**
  * Undefined endpoint
@@ -16,18 +16,18 @@ const undefinedHandler = (req, res) => {
 };
 
 /**
- * Get list of languages
+ * Get list of locations
  */
 router.get("/", async (req, res) => {
-  Language.find({}, function(err, languages) {
+  Location.find({}, function(err, locations) {
     if (err)
       return res.status(500).json({
         error: {
-          message: "Unable to get languages",
+          message: "Unable to get locations",
           description: "Internal server error"
         }
       });
-    return res.status(200).json({ success: true, languages });
+    return res.status(200).json({ success: true, locations });
   });
 });
 

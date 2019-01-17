@@ -42,6 +42,8 @@ router.post(
       const form = new multiparty.Form();
       const [fields, files] = await form.parseAsync(req);
 
+      console.log(fields);
+      console.log(files);
       // TODO: validate fields???
       const profile = new Profile({
         userId,

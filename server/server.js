@@ -10,6 +10,9 @@ const user = require("./routes/user/user");
 const profile = require("./routes/profile/profile");
 const session = require("./routes/session/session");
 const language = require("./routes/language/language");
+const location = require("./routes/location/location");
+const major = require("./routes/major/major");
+const course = require("./routes/course/course");
 
 const app = express();
 
@@ -47,6 +50,9 @@ app.use("/api/user", user);
 app.use("/api/profile", profile);
 app.use("/api/session", session);
 app.use("/api/language", language);
+app.use("/api/location", location);
+app.use("/api/major", major);
+app.use("/api/course", course);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
