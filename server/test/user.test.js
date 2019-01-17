@@ -9,6 +9,7 @@ let chai = require("chai");
 let chaiHttp = require("chai-http");
 let server = require("../server");
 let should = chai.should();
+let expect = chai.expect();
 
 chai.use(chaiHttp);
 
@@ -16,6 +17,9 @@ describe("Users", () => {
   beforeEach(done => {
     //Before each test we empty the database
     User.deleteMany({}, err => {
+      // User.findOne({ email: "test@uw.edu" }).then(user => {
+      //   console.log(user);
+      // });
       done();
     });
   });
@@ -117,32 +121,27 @@ describe("Users", () => {
       });
     });
 
-    it("it should not POST a new user for the second request", async () => {
+    it("it should not POST a new user for the second request", done => {
       let user = {
         email: "test@uw.edu",
         password: "password",
         password2: "password"
       };
 
-      // check that one request was successful & the other failed
-      let created = false;
-      let failed = false;
-
-      const res1 = chai
+      chai
         .request(server)
         .post("/api/user")
-        .send(user);
-      const res2 = chai
-        .request(server)
-        .post("/api/user")
-        .send(user);
-
-      const status1 = (await res1).status;
-      const status2 = (await res2).status;
-
-      // Assuming only status codes are 201 and 400
-      // Should receive on of each
-      status1.should.not.eql(status2);
+        .send(user)
+        .end(() => {
+          chai
+            .request(server)
+            .post("/api/user")
+            .send(user)
+            .end((err, res) => {
+              res.should.have.status(400);
+              done();
+            });
+        });
     });
   });
 
@@ -153,15 +152,6 @@ describe("Users", () => {
   describe("/GET user", () => {
     it.skip("it should GET a list of users", done => {
       throw new Error("fail");
-      // chai
-      //   .request(server)
-      //   .get("/api/user")
-      //   .end((err, res) => {
-      //     res.should.have.status(200);
-      //     res.body.should.be.a("array");
-      //     res.body.length.should.be.eql(0);
-      //     done();
-      //   });
     });
   });
 
@@ -169,8 +159,27 @@ describe("Users", () => {
    * Test the /GET/current route
    */
   describe("/GET user/current", () => {
-    it.skip("it should GET the current user", () => {
-      throw new Error("fail");
+    it("it should GET the current user", done => {
+      let user = {
+        email: "test@uw.edu",
+        password: "password",
+        password2: "password"
+      };
+      chai
+        .request(server)
+        .post("/api/user")
+        .send(user)
+        .end((err, res) => {
+          chai
+            .request(server)
+            .get("/api/user/current")
+            .set("Authorization", res.body.token)
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.body.should.be.a("object");
+              done();
+            });
+        });
     });
   });
 
@@ -178,25 +187,28 @@ describe("Users", () => {
    * Test the /GET/:id route
    */
   describe("/GET user/:id", () => {
-    it("it should GET a user", async () => {
+    it("it should GET a user", done => {
       let user = {
         email: "test@uw.edu",
         password: "password"
       };
       const mongoUser = new User(user);
-      await mongoUser.save();
-
-      // First create a new user
-      const res = await chai.request(server).get(`/api/user/${mongoUser.id}`);
-      res.should.have.status(200);
-      res.body.should.be.a("object");
+      mongoUser.save().then(user => {
+        chai
+          .request(server)
+          .get(`/api/user/${user.id}`)
+          .end((err, res) => {
+            // console.log(res.body);
+            res.should.have.status(200);
+            done();
+          });
+      });
     });
 
     it("it should not GET a non existent user", done => {
-      let user = {
+      const user = {
         email: "test@uw.edu",
-        password: "password",
-        password2: "password"
+        password: "password"
       };
       const mongoUser = new User(user);
       chai
