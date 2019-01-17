@@ -9,6 +9,7 @@ let chai = require("chai");
 let chaiHttp = require("chai-http");
 let server = require("../server");
 let should = chai.should();
+let expect = chai.expect();
 
 chai.use(chaiHttp);
 
@@ -16,7 +17,9 @@ describe("Users", () => {
   beforeEach(done => {
     //Before each test we empty the database
     User.deleteMany({}, err => {
-      User.findOne({ email: "test@uw.edu" });
+      // User.findOne({ email: "test@uw.edu" }).then(user => {
+      //   console.log(user);
+      // });
       done();
     });
   });
@@ -118,32 +121,27 @@ describe("Users", () => {
       });
     });
 
-    it("it should not POST a new user for the second request", async () => {
+    it("it should not POST a new user for the second request", done => {
       let user = {
         email: "test@uw.edu",
         password: "password",
         password2: "password"
       };
 
-      // check that one request was successful & the other failed
-      let created = false;
-      let failed = false;
-
-      const res1 = chai
+      chai
         .request(server)
         .post("/api/user")
-        .send(user);
-      const res2 = chai
-        .request(server)
-        .post("/api/user")
-        .send(user);
-
-      const status1 = (await res1).status;
-      const status2 = (await res2).status;
-
-      // Assuming only status codes are 201 and 400
-      // Should receive on of each
-      await status1.should.not.eql(status2);
+        .send(user)
+        .end(() => {
+          chai
+            .request(server)
+            .post("/api/user")
+            .send(user)
+            .end((err, res) => {
+              res.should.have.status(400);
+              done();
+            });
+        });
     });
   });
 
@@ -161,7 +159,7 @@ describe("Users", () => {
    * Test the /GET/current route
    */
   describe("/GET user/current", () => {
-    it("it should GET the current user", () => {
+    it("it should GET the current user", done => {
       let user = {
         email: "test@uw.edu",
         password: "password",
@@ -177,10 +175,8 @@ describe("Users", () => {
             .get("/api/user/current")
             .set("Authorization", res.body.token)
             .end((err, res) => {
-              res.should.have.status(201);
-
+              res.should.have.status(200);
               res.body.should.be.a("object");
-              res.body.should.have.property("token");
               done();
             });
         });
@@ -219,7 +215,6 @@ describe("Users", () => {
         .request(server)
         .get(`/api/user/${mongoUser.id}`)
         .end((err, res) => {
-          // console.log(res.body);
           res.should.have.status(404);
           res.body.should.be.a("object");
           done();
