@@ -1,7 +1,8 @@
 import {
 RECIEVE_PROFILE_ERROR,
 RECIEVE_COURSES,
-RECIEVE_PROFILE
+RECIEVE_PROFILE,
+RECIEVE_COURSES_NAME,
 } from './constant';
 
 const initState = {
