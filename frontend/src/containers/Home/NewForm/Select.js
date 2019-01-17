@@ -86,7 +86,7 @@ export const coursesTakenInput = (value, handleSelectChange) => {
         <Select
             name='courseTaken'
             isMulti= {true}
-            placeholder='Taken Courses'
+            placeholder='Courses that you most enjoyed'
             value={value}
             onChange={handleSelectChange}
             options={courseTakenOption}

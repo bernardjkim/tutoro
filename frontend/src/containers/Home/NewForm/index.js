@@ -2,7 +2,10 @@ import React from 'react';
 import Input from '../../../components/Input';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {createNewProfile} from './axios';
+import {
+    createNewProfile,
+    
+} from './axios';
 import {
     majorInput, 
     enrollmentInput,
@@ -22,6 +25,7 @@ class NewProfile extends React.Component {
             lastName: '',
             enrollment:'',
             major: [],
+            coursesName: '',
             courseTaken: [],
             locationPreferences:'',
             languagePreferences: '',
@@ -127,7 +131,7 @@ class NewProfile extends React.Component {
 
 
 const msp = state => ({
-
+    userId: state.global.user.id
 })
 
 const mdp = profile => dispatch => ({

@@ -1,0 +1,36 @@
+.navbar {
+    background-color: #563D7C;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-bar-brand {
+    color: white;
+    line-height: 32px;
+    font-weight: 700;
+    font-size: 30px;
+    &:hover {
+        color: white;
+    }
+}
+
+.logo-nav {
+    width:40px;
+    height:40px;
+}
+
+
+
+.menu-icon {
+    color :white;
+    font-size: 30px;
+    &:hover {
+        text-decoration: none;
+        color: #d8d8d8;
+    }
+}
+.dropdown-item {
+    color: #a1a3a5;
+    font-size: 20px;
+    font-weight: 500;
+}
