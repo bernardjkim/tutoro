@@ -24,36 +24,24 @@ const ProfileSchema = new Schema({
     required: true
   },
   major: {
-    type: [String],
+    type: [{ type: Schema.Types.ObjectId, ref: "majors" }],
     required: true,
-    default: [],
-    enum: [
-      "Undeclared",
-      "Computer Science",
-      "English",
-      "Geology",
-      "Physics",
-      "Psychology",
-      "Meme"
-    ]
+    default: []
   },
   coursesTaken: {
-    type: [String],
+    type: [{ type: Schema.Types.ObjectId, ref: "courses" }],
     required: true,
-    default: [],
-    enum: ["CSE 142", "CSE 143", "CSE 311", "ASTR 101"]
+    default: []
   },
   locationPreferences: {
-    type: [String],
+    type: [{ type: Schema.Types.ObjectId, ref: "locations" }],
     required: true,
-    default: [],
-    enum: ["Odegaard"]
+    default: []
   },
   languagePreferences: {
-    type: [String],
+    type: [{ type: Schema.Types.ObjectId, ref: "languages" }],
     required: true,
-    default: [],
-    enum: ["English", "Korean", "Spanish"]
+    default: []
   },
   enrollment: {
     type: String,
