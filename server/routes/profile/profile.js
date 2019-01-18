@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Promise = require("bluebird");
 const passport = require("passport");
-// const bcrypt = require("bcryptjs");
 const fileType = require("file-type");
 const fs = require("fs");
 const multiparty = Promise.promisifyAll(require("multiparty"), {
@@ -10,6 +9,8 @@ const multiparty = Promise.promisifyAll(require("multiparty"), {
 });
 
 const Profile = require("../../models/Profile");
+const Major = require("../../models/Major");
+const Course = require("../../models/Course");
 
 const { uploadFile, getFile } = require("../../utils/s3");
 /**
@@ -42,15 +43,51 @@ router.post(
       const form = new multiparty.Form();
       const [fields, files] = await form.parseAsync(req);
 
-      console.log(fields);
-      console.log(files);
+      // parse majors
+      let major = [];
+      let coursesTaken = [];
+      let locationPreferences = [];
+      let languagePreferences = [];
+
+      if (fields.major) {
+        await (async () => {
+          for (const item of JSON.parse(fields.major)) {
+            const res = Major.findOne({ name: item.name });
+            major.push(await res);
+          }
+        })();
+      }
+
+      if (fields.coursesTaken) {
+        (await (async () => {
+          for (const item of JSON.parse(fields.coursesTaken)) {
+            const res = Course.findOne({
+              name: item.name,
+              number: item.number
+            });
+            courseTaken.push(await res);
+          }
+        }))();
+      }
+
+      if (fields.languagePreferences) {
+        (await (async () => {
+          for (const item of JSON.parse(fields.languagePreferences)) {
+            const res = Language.findOne({
+              tag: item.tag
+            });
+            languagePreferences.push(await res);
+          }
+        }))();
+      }
+
       // TODO: validate fields???
       const profile = new Profile({
         userId,
         firstName: fields.firstName,
         lastName: fields.lastName,
         phone: fields.phone,
-        major: fields.major,
+        major,
         coursesTaken: fields.coursesTaken,
         locationPreferences: fields.locationPreferences,
         languagePreferences: fields.languagePreferences,

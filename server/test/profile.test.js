@@ -71,6 +71,28 @@ describe("Profiles", () => {
         .field("lastName", "last")
         .field("phone", 5555555555)
         .field("enrollment", "Freshman")
+        .field(
+          "major",
+          JSON.stringify([
+            { name: "Computer Science" },
+            { name: "Mathematics" }
+          ])
+        )
+        .field(
+          "coursesTaken",
+          JSON.stringify([
+            { name: "CSE", number: 142 },
+            { name: "CSE", number: 143 }
+          ])
+        )
+        .field(
+          "locationPreferences",
+          JSON.stringify([{ tag: "OUG" }, { tag: "ALB" }])
+        )
+        .field(
+          "languagePreferences",
+          JSON.stringify([{ tag: "en" }, { tag: "ko" }])
+        )
         .attach("file", "./test/test.png", "test.png")
         .end((err, res) => {
           console.log(res.body);
