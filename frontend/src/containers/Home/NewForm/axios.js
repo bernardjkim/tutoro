@@ -1,5 +1,7 @@
 import axios from 'axios';
-import {receiveProfileError} from './action';
+import {
+    receiveProfileError
+} from './action';
 
 export const createNewProfile = profile => dispatch => {
     // append every inforamtion in to a formData along with image
@@ -15,12 +17,24 @@ export const createNewProfile = profile => dispatch => {
     axios
         .post(`/api/users/${userId}/profile`, formData)
         .then((res) => {
-            console.log(res);
+            
         })
         .catch(err =>{
-        dispatch(receiveProfileError)
+        dispatch(receiveProfileError(err))
         }
     );
 
 };
+
+export const getCourses = name => dispatch  => {
+    // get courses under that name 
+    // for ex. name == CSE then fetch all classes under CSE
+
+    axios
+        .get(`/api/courses/${name}`)
+        .then(res=> {
+            dispatch()
+
+        })
+}
 

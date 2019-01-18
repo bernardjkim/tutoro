@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run server",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "install": "concurrently \"npm run -install\" \"npm run frontend-install\"",
+    "install": "concurrently \"npm run server-install\" \"npm run frontend-install\"",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
     "server-install": "npm install --prefix server",

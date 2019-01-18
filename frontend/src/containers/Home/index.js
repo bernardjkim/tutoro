@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import ProfileForm from './NewForm/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Nav from './Nav/index';
+import {fetchProfile} from './axios';
 import {logoutUser} from './action';
 
 
@@ -10,16 +12,21 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profileModal: false,
+            profile: this.props.profile,
+            newProfile: this.props.profile ? false: true,
         }
     }
 
+    componentDidMount() {
+        this.props.fetchProfile();
+    }
+
     modalOpen = () => {
-        this.setState({profileModal: true});
+        this.setState({newProfile: true});
     }
 
     closeModal = () => {
-        this.setState({profileModal: false});
+        this.setState({newProfile: false});
     }
 
     handleSubmit = (e) => {
@@ -29,10 +36,10 @@ class Home extends React.Component {
     render() {
         return (
             <div>
+                <Nav/>
                 <div>Home</div>
-                <button onClick={this.handleSubmit}>Log Out</button>
                 <Modal
-                isOpen={this.state.profileModal}
+                isOpen={this.state.newProfile}
                 style={customStyles}
                 contentLabel='Profile Modal'
                 >
@@ -56,17 +63,18 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         height: '80%',
-        width: '80%',
-        minWidth: '320px'
+        width: '50%',
+        minWidth: '320px',
     },
 }
 
 const msp = state => ({
-    // later use
+    profile: state.home.profile
 });
 
 const mdp = dispatch => ({
     logoutUser: ()=> dispatch(logoutUser()),
+    fetchProfile: ()=> dispatch(fetchProfile()),
 })
 
 export default connect(

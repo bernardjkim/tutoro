@@ -40,18 +40,13 @@
     font-size: 40px;
 }
 .signup-logo {
-    height: 120px;
-    width: 120px;
+    height: 150px;
+    width: 150px;
     overflow: hidden;
-    transform: scale(1.8);
-    -webkit-transform: scale(1.8);
-    -moz-transform: scale(1.8);
-    -ms-transform: scale(1.8);
-    -o-transform: scale(1.8);
 }
 .logo-container {
-    height: 110px;
-    width: 120px;
+    height: 150px;
+    width: 150px;
     overflow: hidden;
 
 }
@@ -68,9 +63,9 @@
     height: 45px;
     color: white;
     font-size: 25px;
-    background-color: #a018a0;
+    background-color: #563d7c;
     &:hover {
-        background-color: purple;
+        background-color: #461546;
     }
     
 }
@@ -87,5 +82,5 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rebeccapurple;
+      background-color: #563d7c;
   }

@@ -1,15 +1,23 @@
 import React from 'react';
-import Select from 'react-select';
-import LanOp from './languages';
+import Input from '../../../components/Input';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
-    majorOptions,
-    enrollmentOption,
-    courseTakenOption,
-    locationPrefOptions
-} from './options';
+    createNewProfile,
+    
+} from './axios';
+import {
+    majorInput, 
+    enrollmentInput,
+    languageInput,
+    locationPrefInput,
+    coursesTakenInput
+} from './Select';
 
 
-export default class ProfileForm extends React.Component {
+
+
+class NewProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +25,7 @@ export default class ProfileForm extends React.Component {
             lastName: '',
             enrollment:'',
             major: [],
+            coursesName: '',
             courseTaken: [],
             locationPreferences:'',
             languagePreferences: '',
@@ -27,97 +36,20 @@ export default class ProfileForm extends React.Component {
         }
         
     }
-    languageInput = () => {
-        let lan = Object.values(LanOp).map(el=> {
-            return {value: el.name, label: el.nativeName};
-        });
-        const {languagePreferences} = this.state;
-        return (
-            <Select
-                name = 'languagePreferences'
-                placeholder='Language Preference'
-                value={languagePreferences}
-                onChange={this.handleSelectChange}
-                options={lan}
-            />
-
-        );
-
-    }
-
-    locationPrefInput = () => {
-        const {locationPreferences} = this.state;
-        return (
-            <Select
-                name = "locationPreferences"
-                placeholder='Location Preference'
-                value={locationPreferences}
-                onChange={this.handleSelectChange}
-                options={locationPrefOptions}
-            />
-
-        );
-
-    }
-
-    majorInput = () => {
-        const {major} = this.state;
-        
-        return (
-            <Select
-                name = 'major'
-                placeholder='Major'
-                value={major}
-                isMulti= {true}
-                onChange={this.handleSelectChange}
-                options={majorOptions}
-            />
-
-        );
-    }
-
-    enrollmentInput =() => {
-
-        const { enrollment } = this.state;
-        return(
-            <Select
-                name = 'enrollment'
-                placeholder='Enrollment'
-                value={enrollment}
-                onChange={this.handleSelectChange}
-                options={enrollmentOption}
-            />
-        );
-    }
-
-    coursesTakenInput = () => {
-
-        const { courseTaken } = this.state;
-        return(
-            <Select
-                name='courseTaken'
-                isMulti= {true}
-                placeholder='Taken Courses'
-                value={courseTaken}
-                onChange={this.handleSelectChange}
-                options={courseTakenOption}
-                />
-        );
-
-    }
-
     handleInputChange = e => {
-        this.setState({[e.target.name]: e.target.value})
+        const name = e.target.name;
+        const value = e.target.value;
+        if (name === 'image') {
+            debugger
+            this.setState({image: e.target.files });
+        } else {
+            this.setState({[name]: value});
+        }
     }
 
     handleSelectChange = (selectedOption, field) => {
          this.setState({ [field.name]: selectedOption });
     }
-     handleFileUpload = event => {
-         this.setState({
-             image: event.target.files
-         });
-     };
 
     handleSubmit = (e) => {
         const state = this.state;
@@ -143,36 +75,70 @@ export default class ProfileForm extends React.Component {
     }
     
     render() {
+        const {
+            locationPreferences,
+            major,
+            languagePreferences,
+            enrollment,
+            courseTaken
+        } = this.state;
+
+        const handleSelectChange = this.handleSelectChange;
         return(
             <form>
-                <input type='text' 
-                name='firstName'
-                onChange ={this.handleInputChange} 
-                placeholder='First Name'
-                value={this.state.firstName}/>
-                <input type='text' 
-                name='lastName'
-                onChange ={this.handleInputChange} 
-                placeholder='Last  Name'
-                value={this.state.lastName}/>
-                <input id="upload" ref="upload" type="file" accept="image/*"
-                        onChange={this.handleFileUpload}
+                <Input
+                type = 'text'
+                name ='firstName'
+                onChange = {this.handleInputChange}
+                placeholder = 'First Name'
+                value = {this.state.firstName}
                 />
-                < input type = "tel"
-                id = "phone"
-                name = "phone"
-                onChange={this.handleInputChange}
-                placeholder='Phone Number'
-                required />
-                {this.locationPrefInput()}
-                {this.enrollmentInput()}
-                {this.majorInput()}
-                {this.languageInput()}
-                {this.coursesTakenInput()}
-                <button onClick={this.handleSubmit}>Submit</button>
+                <Input
+                type = 'text'
+                name ='lastName'
+                onChange = {this.handleInputChange}
+                placeholder = 'Last Name'
+                value = {this.state.lastName}
+                />
+        
+                <div className='form-group'>
+                       <input id="upload" ref="upload" type="file" accept="image/*"
+                        onChange={this.handleInputChange}
+                />
+
+
+                </div>
+                <Input
+                type = 'tel'
+                name ='phone'
+                onChange = {this.handleInputChange}
+                placeholder = 'Phone Number'
+                value = {this.state.phone}
+                />  
+                {locationPrefInput(locationPreferences, handleSelectChange)} 
+                {enrollmentInput(enrollment, handleSelectChange)}
+                {majorInput(major, handleSelectChange)}
+                {languageInput(languagePreferences, handleSelectChange)}
+                {coursesTakenInput(courseTaken, handleSelectChange)}
+                <button 
+                className = 'btn btn-outline-primary btn-lg btn-block'
+                onClick={this.handleSubmit}>Submit</button>
             </form>
 
         );
     }
 }
 
+
+const msp = state => ({
+    userId: state.global.user.id
+})
+
+const mdp = profile => dispatch => ({
+    createNewProfile: profile => dispatch(createNewProfile(profile))
+});
+
+export default connect(
+    msp,
+    mdp
+)(withRouter(NewProfile));
