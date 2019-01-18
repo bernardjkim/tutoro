@@ -11,7 +11,7 @@ const profile = require("./routes/profile/profile");
 const session = require("./routes/session/session");
 const language = require("./routes/language/language");
 const location = require("./routes/location/location");
-const major = require("./routes/major/major");
+const major = require("./routes/major/majors");
 const course = require("./routes/course/course");
 
 const app = express();
