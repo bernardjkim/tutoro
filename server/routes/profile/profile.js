@@ -59,26 +59,37 @@ router.post(
       }
 
       if (fields.coursesTaken) {
-        (await (async () => {
+        await (async () => {
           for (const item of JSON.parse(fields.coursesTaken)) {
             const res = Course.findOne({
               name: item.name,
               number: item.number
             });
-            courseTaken.push(await res);
+            coursesTaken.push(await res);
           }
-        }))();
+        })();
       }
 
       if (fields.languagePreferences) {
-        (await (async () => {
+        await (async () => {
           for (const item of JSON.parse(fields.languagePreferences)) {
             const res = Language.findOne({
               tag: item.tag
             });
             languagePreferences.push(await res);
           }
-        }))();
+        })();
+      }
+
+      if (fields.locationPreferences) {
+        await (async () => {
+          for (const item of JSON.parse(fields.locationPreferences)) {
+            const res = Location.findOne({
+              tag: item.tag
+            });
+            locationPreferences.push(await res);
+          }
+        })();
       }
 
       // TODO: validate fields???
@@ -88,9 +99,9 @@ router.post(
         lastName: fields.lastName,
         phone: fields.phone,
         major,
-        coursesTaken: fields.coursesTaken,
-        locationPreferences: fields.locationPreferences,
-        languagePreferences: fields.languagePreferences,
+        coursesTaken,
+        locationPreferences,
+        languagePreferences,
         enrollment: fields.enrollment
       });
 
