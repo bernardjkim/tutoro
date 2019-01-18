@@ -95,7 +95,6 @@ describe("Profiles", () => {
         )
         .attach("file", "./test/test.png", "test.png")
         .end((err, res) => {
-          console.log(res.body);
           res.should.have.status(201);
           res.body.should.be.a("object");
           res.body.should.have.property("profile");
