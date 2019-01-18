@@ -1,12 +1,9 @@
 import {
-RECIEVE_PROFILE_ERROR,
 RECIEVE_COURSES,
-RECIEVE_PROFILE,
 RECIEVE_COURSES_NAME,
 } from './constant';
 
 const initState = {
-    profile: {},
     courses: {},
     errors: {}
 }
@@ -15,12 +12,6 @@ export default (state = initState, action) => {
     const newState = Object.assign({}, state);
     Object.freeze(state);
     switch (action.type) {
-        case RECIEVE_PROFILE_ERROR:
-            newState.errors = action.payload;
-            return newState;
-        case RECIEVE_PROFILE:
-            newState.profile = action.payload;
-            return newState;
         case RECIEVE_COURSES:
             newState.courses = action.payload;
             return newState;

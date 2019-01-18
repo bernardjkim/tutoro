@@ -1,7 +1,6 @@
 import {
     RECIEVE_PROFILE_ERROR,
     RECIEVE_COURSES,
-    RECIEVE_PROFILE,
     RECIEVE_COURSES_NAME
 } from './constant';
 
@@ -10,10 +9,6 @@ export const receiveProfileError = (err) => ({
     payload: err.response.data
 });
 
-export const receiveProfile = res => ({
-    type: RECIEVE_PROFILE,
-    payload: res.response.data
-});
 
 export const receiveCourses = res => ({
     type: RECIEVE_COURSES,

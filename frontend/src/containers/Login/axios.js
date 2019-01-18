@@ -7,7 +7,7 @@ import {RECEIVE_LOGIN_ERRORS} from './constant';
 // login user
 export default  userData => dispatch => {
   axios
-    .post('/api/users/login', userData)
+    .post('/api/session', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;

@@ -6,19 +6,13 @@ const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 
-<<<<<<< HEAD
-const users = require("./routes/api/user");
-// const user = require("./routes/user/user");
-const profile = require("./routes/api/profile");
-=======
 const user = require("./routes/user/user");
 const profile = require("./routes/profile/profile");
 const session = require("./routes/session/session");
 const language = require("./routes/language/language");
 const location = require("./routes/location/location");
-const major = require("./routes/major/major");
+const major = require("./routes/major/majors");
 const course = require("./routes/course/course");
->>>>>>> ca3c0677683baea28667fadc7398634ad4326d8c
 
 const app = express();
 
@@ -52,10 +46,6 @@ app.use(passport.initialize()); // add passport middleware
 require("./utils/passport/passport")(passport);
 
 // routes
-<<<<<<< HEAD
-app.use("/api/users", users);
-// app.use('/api/profile', profile);
-=======
 app.use("/api/user", user);
 app.use("/api/profile", profile);
 app.use("/api/session", session);
@@ -63,7 +53,6 @@ app.use("/api/language", language);
 app.use("/api/location", location);
 app.use("/api/major", major);
 app.use("/api/course", course);
->>>>>>> ca3c0677683baea28667fadc7398634ad4326d8c
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
