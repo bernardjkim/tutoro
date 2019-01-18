@@ -42,7 +42,7 @@ class Login extends Component {
   }
 
   render() {
-    const errors = this.props.errors.map(error => <li className='session-error'>{error}</li>);
+    const errors = this.props.errors.map((error, idx) => <li key={idx} className='session-error'>{error}</li>);
     const {email, password} = this.state;
     return (
         <div id='login-form-container'>

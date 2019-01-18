@@ -1,16 +1,26 @@
 import { combineReducers } from 'redux';
-import { RECIEVE_PROFILE, OPEN_NEWPROFILE_FORM } from './constant';
+import {
+    RECIEVE_PROFILE,
+    RECIEVE_PROFILE_PIC,
+     OPEN_NEWPROFILE_FORM
+} from './constant';
 
-
-const profileReducer = (state = {}, action) => {
+const iniState = {profile:{}, profilePic: false}
+const profileReducer = (state = iniState, action) => {
+    const newState = Object.assign({}, state);
     Object.freeze(state);
     switch (action.type) {
         case RECIEVE_PROFILE:
-            return action.payload;
+        newState.profile = action.payload;
+            return newState;
         case OPEN_NEWPROFILE_FORM:
         // if no profile we make profile: false and 
         // make new profile
-            return false;
+            newState.profile = false;
+            return  newState;
+        case RECIEVE_PROFILE_PIC:
+            newState.profilePic = action.payload;
+            return newState;
         default:
             return state;
     }
