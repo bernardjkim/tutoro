@@ -6,7 +6,6 @@ import {RECEIVE_LOGIN_ERRORS} from './constant';
 
 // login user
 export default  userData => dispatch => {
-  debugger
   axios
     .post('/api/session', userData)
     .then(res => {
@@ -21,7 +20,6 @@ export default  userData => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err =>{
-      debugger
       dispatch({
         type: RECEIVE_LOGIN_ERRORS,
         payload: err.response.data

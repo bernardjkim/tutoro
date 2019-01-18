@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import ProfileForm from './NewForm/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Nav from './Nav/index'
 import {logoutUser} from './action';
 // import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,7 +12,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profileModal: true,
+            profileModal: false,
         }
     }
 
@@ -30,8 +31,8 @@ class Home extends React.Component {
     render() {
         return (
             <div>
+                <Nav/>
                 <div>Home</div>
-                <button onClick={this.handleSubmit}>Log Out</button>
                 <Modal
                 isOpen={this.state.profileModal}
                 style={customStyles}
@@ -59,7 +60,6 @@ const customStyles = {
         height: '80%',
         width: '50%',
         minWidth: '320px',
-        // overflow: 'hidden',
     },
 }
 
