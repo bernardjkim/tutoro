@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from './Nav/index';
 import {fetchProfile} from './axios';
+import encode from '../util/encode';
 import {logoutUser} from './action';
 
 
@@ -14,13 +15,13 @@ class Home extends React.Component {
         this.state = {
             profile: this.props.profile,
             newProfile: this.props.profile ? false: true,
+            profilePic: this.props.profilePic,
         }
     }
 
     componentDidMount() {
         this.props.fetchProfile();
     }
-
     modalOpen = () => {
         this.setState({newProfile: true});
     }
@@ -29,6 +30,20 @@ class Home extends React.Component {
         this.setState({newProfile: false});
     }
 
+
+    profilePic =() => {
+        
+        const pic = this.props.profilePic;
+        
+        if (pic) {
+            console.log(pic)
+            return (
+                <img src= {`data:image/png;base64,${encode(pic)}`} style ={{width: 130, height: 130, backgroundSize: 'cover'}}/>
+            );
+        } else {
+            return <div>Mola</div>;
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.logoutUser();
@@ -37,7 +52,7 @@ class Home extends React.Component {
         return (
             <div>
                 <Nav/>
-                <div>Home</div>
+                {this.profilePic()}
                 <Modal
                 isOpen={this.state.newProfile}
                 style={customStyles}
@@ -69,7 +84,8 @@ const customStyles = {
 }
 
 const msp = state => ({
-    profile: state.home.profile
+    profile: state.home.profile.profile,
+    profilePic: state.home.profile.profilePic,
 });
 
 const mdp = dispatch => ({

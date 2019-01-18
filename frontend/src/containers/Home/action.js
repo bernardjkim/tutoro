@@ -1,7 +1,8 @@
 import {
   RECEIVE_CURRENT_USER,
   RECIEVE_PROFILE,
-  OPEN_NEWPROFILE_FORM
+  OPEN_NEWPROFILE_FORM,
+  RECIEVE_PROFILE_PIC
 } from './constant';
 import setAuthToken from '../util/set_auth_token';
 
@@ -16,6 +17,11 @@ export const receiveProfile = profile => ({
   type: RECIEVE_PROFILE,
   payload: profile
 });
+
+export const receiveProfilePic = pic => ({
+  type: RECIEVE_PROFILE_PIC,
+  payload: pic
+})
 
 export const openNewProfileForm = ()=> ({
   type: OPEN_NEWPROFILE_FORM,
