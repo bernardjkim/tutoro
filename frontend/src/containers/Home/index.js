@@ -12,7 +12,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newProfile: !this.props.profile,
+            profile: this.props.profile,
+            newProfile: this.props.profile ? false: true,
         }
     }
 
