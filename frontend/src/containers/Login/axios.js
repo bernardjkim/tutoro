@@ -22,7 +22,7 @@ export default  userData => dispatch => {
     .catch(err =>{
       dispatch({
         type: RECEIVE_LOGIN_ERRORS,
-        payload: err.response.data
+        payload: err.response.data.error.parameters
       })
 
     }
