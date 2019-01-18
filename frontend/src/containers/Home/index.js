@@ -3,25 +3,29 @@ import Modal from 'react-modal';
 import ProfileForm from './NewForm/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Nav from './Nav/index'
+import Nav from './Nav/index';
+import {fetchProfile} from './axios';
 import {logoutUser} from './action';
-// import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profileModal: false,
+            newProfile: !this.props.profile,
         }
     }
 
+    componentDidMount() {
+        this.props.fetchProfile();
+    }
+
     modalOpen = () => {
-        this.setState({profileModal: true});
+        this.setState({newProfile: true});
     }
 
     closeModal = () => {
-        this.setState({profileModal: false});
+        this.setState({newProfile: false});
     }
 
     handleSubmit = (e) => {
@@ -34,7 +38,7 @@ class Home extends React.Component {
                 <Nav/>
                 <div>Home</div>
                 <Modal
-                isOpen={this.state.profileModal}
+                isOpen={this.state.newProfile}
                 style={customStyles}
                 contentLabel='Profile Modal'
                 >
@@ -64,11 +68,12 @@ const customStyles = {
 }
 
 const msp = state => ({
-    // later use
+    profile: state.home.profile
 });
 
 const mdp = dispatch => ({
     logoutUser: ()=> dispatch(logoutUser()),
+    fetchProfile: ()=> dispatch(fetchProfile()),
 })
 
 export default connect(

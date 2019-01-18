@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-
-import newProfileErrorReducer from './NewForm/reducer';
 import { RECIEVE_PROFILE, OPEN_NEWPROFILE_FORM } from './constant';
 
 
@@ -17,7 +15,6 @@ const profileReducer = (state = {}, action) => {
             return state;
     }
 }
-
 export default combineReducers({
-    newProfileError: newProfileErrorReducer
+    profile: profileReducer
 })
