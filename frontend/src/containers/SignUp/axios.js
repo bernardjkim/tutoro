@@ -22,7 +22,7 @@ export const signupUser = userData => dispatch => {
     .catch(err =>{
       dispatch({
         type: RECEIVE_SIGNUP_ERRORS,
-        payload: err.response.data
+        payload: err.response.data.error.parameters
       })
     }
     );
