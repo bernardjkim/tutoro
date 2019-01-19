@@ -23,7 +23,7 @@ let mongoURI;
 if (process.env.NODE_ENV === "test") {
   mongoURI = process.env.MONGO_URI_TEST;
 } else {
-  mongoURI = process.env.mongoURI;
+  mongoURI = process.env.MONGO_URI;
   //use morgan to log at command line
   app.use(morgan("combined")); //'combined' outputs the Apache style LOGs
 }

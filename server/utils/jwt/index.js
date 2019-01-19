@@ -9,7 +9,7 @@ const jsonwebtoken = require("jsonwebtoken");
  * @return  {Promise}         signed jwt token
  */
 function sign(payload, options = { expiresIn: 36000000 }) {
-  const key = process.env.secretOrKey;
+  const key = process.env.SECRET_OR_KEY;
 
   return new Promise((resolve, reject) => {
     jsonwebtoken.sign(payload, key, options, (err, token) => {
