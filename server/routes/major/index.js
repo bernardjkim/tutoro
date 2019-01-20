@@ -1,7 +1,10 @@
+// Load module alias
+require("module-alias/register");
+
 const express = require("express");
 const router = express.Router();
 
-const Language = require("../../models/Language");
+const Major = require("@models/Major");
 
 /**
  * Undefined endpoint
@@ -16,18 +19,18 @@ const undefinedHandler = (req, res) => {
 };
 
 /**
- * Get list of languages
+ * Get list of majors
  */
 router.get("/", async (req, res) => {
-  Language.find({}, function(err, languages) {
+  Major.find({}, function(err, majors) {
     if (err)
       return res.status(500).json({
         error: {
-          message: "Unable to get languages",
+          message: "Unable to get majors",
           description: "Internal server error"
         }
       });
-    return res.status(200).json({ success: true, languages });
+    return res.status(200).json({ success: true, majors });
   });
 });
 

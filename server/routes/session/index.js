@@ -1,11 +1,13 @@
+// Load module alias
+require("module-alias/register");
+
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
 
-const User = require("../../models/User");
+const User = require("@models/User");
 
-const validateLoginInput = require("../../utils/validations/login");
-const { sign } = require("../../utils/jwt");
+const validateLoginInput = require("@utils/validations/login");
+const { sign } = require("@utils/jwt");
 
 /**
  * Undefined endpoint
@@ -44,18 +46,21 @@ router.post("/", async (req, res) => {
           description: "This user does not exist"
         }
       });
-
-    const match = await bcrypt.compare(password, user.password);
-    if (!match)
-      return res.status(400).json({
-        error: {
-          message: "Unable to create session",
-          description: "Incorrect password"
-        }
-      });
-
     const token = await sign({ id: user.id });
-    return res.status(201).json({ success: true, token });
+
+    // // test a matching password
+    user.comparePassword(password, function(err, isMatch) {
+      if (!isMatch)
+        return res.status(400).json({
+          error: {
+            message: "Unable to create session",
+            description: "Incorrect password"
+          }
+        });
+      else {
+        return res.status(201).json({ success: true, token });
+      }
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({

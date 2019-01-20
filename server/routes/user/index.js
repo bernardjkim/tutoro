@@ -1,13 +1,14 @@
+// Load module alias
+require("module-alias/register");
+
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const bcrypt = require("bcryptjs");
 
-const User = require("../../models/User");
+const User = require("@models/User");
 
-const validateRegisterInput = require("../../utils/validations/signup");
-const validateLoginInput = require("../../utils/validations/login");
-const { sign } = require("../../utils/jwt");
+const validateRegisterInput = require("@utils/validations/signup");
+const { sign } = require("@utils/jwt");
 
 /**
  * Undefined endpoint
@@ -37,8 +38,10 @@ router.post("/", async (req, res) => {
 
   try {
     const userExists = User.findOne({ email: req.body.email });
-    const hash = bcrypt.hash(req.body.password, 10);
-    const user = new User({ email: req.body.email });
+    const user = new User({
+      email: req.body.email,
+      password: req.body.password
+    });
     const token = sign({ id: user.id });
 
     if (await userExists)
@@ -49,7 +52,6 @@ router.post("/", async (req, res) => {
         }
       });
 
-    user.password = await hash;
     await user.save();
 
     return res.status(201).json({ success: true, token: await token });

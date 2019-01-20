@@ -1,3 +1,6 @@
+// Load module alias
+require("module-alias/register");
+
 const express = require("express");
 const router = express.Router();
 const Promise = require("bluebird");
@@ -8,11 +11,11 @@ const multiparty = Promise.promisifyAll(require("multiparty"), {
   multiArgs: true
 });
 
-const Profile = require("../../models/Profile");
-const Major = require("../../models/Major");
-const Course = require("../../models/Course");
+const Profile = require("@models/Profile");
+const Major = require("@models/Major");
+const Course = require("@models/Course");
 
-const { uploadFile, getFile } = require("../../utils/s3");
+const { uploadFile, getFile } = require("@utils/s3");
 /**
  * Undefined endpoint
  */
