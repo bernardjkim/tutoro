@@ -5,37 +5,42 @@ const passport = require("passport");
 const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const Promise = require("bluebird"); // eslint-disable-line no-global-assign
 
-const user = require("./routes/user/user");
-const profile = require("./routes/profile/profile");
-const session = require("./routes/session/session");
-const language = require("./routes/language/language");
-const location = require("./routes/location/location");
-const major = require("./routes/major/major");
-const course = require("./routes/course/course");
+const user = require("./routes/user");
+const profile = require("./routes/profile");
+const session = require("./routes/session");
+const language = require("./routes/language");
+const location = require("./routes/location");
+const major = require("./routes/major");
+const course = require("./routes/course");
 
 const app = express();
 
 // Read in .env variables
 dotenv.config();
 
-let mongoURI;
-if (process.env.NODE_ENV === "test") {
-  mongoURI = process.env.MONGO_URI_TEST;
-} else {
-  mongoURI = process.env.MONGO_URI;
-  //use morgan to log at command line
-  app.use(morgan("combined")); //'combined' outputs the Apache style LOGs
-}
+const env = process.env.NODE_ENV;
 
-// DB connect
-mongoose
-  .connect(
-    mongoURI,
-    { useNewUrlParser: true, useCreateIndex: true }
-  )
-  // .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+// Mongo Config
+const mongoURI =
+  env === "test" ? process.env.MONGO_URI_TEST : process.env.MONGO_URI;
+const mongoOptions = { useNewUrlParser: true, useCreateIndex: true };
+
+// Use morgan for logging
+if (env !== "test") app.use(morgan("combined")); //'combined' outputs the Apache style LOGs
+
+// Plugin bluebird promise in mongoose
+mongoose.Promise = Promise;
+
+// Connect to mongo db
+mongoose.connect(
+  mongoURI,
+  mongoOptions
+);
+mongoose.connection.on("error", () => {
+  throw new Error(`unable to connect to database: ${mongoURI}`);
+});
 
 // Body Parser
 app.use(bodyParser.json());
@@ -43,9 +48,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Passport Config
 app.use(passport.initialize()); // add passport middleware
-require("./utils/passport/passport")(passport);
+require("./utils/passport")(passport);
 
-// routes
+// Routes
 app.use("/api/user", user);
 app.use("/api/profile", profile);
 app.use("/api/session", session);
@@ -54,7 +59,7 @@ app.use("/api/location", location);
 app.use("/api/major", major);
 app.use("/api/course", course);
 
-// Server static assets if in production
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("../frontend/build"));

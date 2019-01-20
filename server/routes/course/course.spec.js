@@ -1,13 +1,16 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = "test";
 
+// Load module alias
+require("module-alias/register");
+
 let mongoose = require("mongoose");
-let Course = require("../models/Course");
+// let Course = require("@models/Course");
 
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = require("../server");
+let server = require("@root/server");
 let should = chai.should();
 
 chai.use(chaiHttp);

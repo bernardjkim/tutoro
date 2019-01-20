@@ -1,15 +1,18 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = "test";
 
-let mongoose = require("mongoose");
+// Load module alias
+require("module-alias/register");
 
-let User = require("../models/User");
+// let mongoose = require("mongoose");
+
+let User = require("@models/User");
 
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = require("../server");
-let should = chai.should();
+let server = require("@root/server");
+// let should = chai.should();
 
 chai.use(chaiHttp);
 
@@ -57,7 +60,7 @@ describe("Sessions", () => {
     /**
      * Test the /DELETE route
      */
-    describe("/GET profile", () => {
+    describe("/DELETE session", () => {
       it.skip("it should GET a list of profiles", done => {});
     });
   });

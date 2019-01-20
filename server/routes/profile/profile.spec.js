@@ -1,14 +1,17 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = "test";
 
+// Load module alias
+require("module-alias/register");
+
 let mongoose = require("mongoose");
-let Profile = require("../models/Profile");
-let User = require("../models/User");
+let Profile = require("@models/Profile");
+let User = require("@models/User");
 
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = require("../server");
+let server = require("@root/server");
 let should = chai.should();
 
 chai.use(chaiHttp);
@@ -93,7 +96,7 @@ describe("Profiles", () => {
           "languagePreferences",
           JSON.stringify([{ tag: "en" }, { tag: "ko" }])
         )
-        .attach("file", "./test/test.png", "test.png")
+        .attach("file", "./test.png", "test.png")
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a("object");
@@ -112,7 +115,7 @@ describe("Profiles", () => {
         .field("lastName", "last")
         .field("phone", 5555555555)
         .field("enrollment", "Freshman")
-        .attach("file", "./test/test.png", "test.png")
+        .attach("file", "./test.png", "test.png")
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a("object");
@@ -154,7 +157,7 @@ describe("Profiles", () => {
           .field("lastName", "last")
           .field("phone", 5555555555)
           .field("enrollment", "Freshman")
-          .attach("file", "./test/test.png", "test.png");
+          .attach("file", "./test.png", "test.png");
 
         // Get profile
         const res = await chai.request(server).get(`/api/profile/${id}`);

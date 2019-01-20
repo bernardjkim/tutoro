@@ -14,6 +14,7 @@
     "file-type": "^10.7.0",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.4.0",
+    "module-alias": "^2.1.0",
     "mongoose": "^5.4.1",
     "morgan": "^1.9.1",
     "multiparty": "^4.2.1",
@@ -32,5 +33,10 @@
     "test": "mocha --timeout 5000 --exit"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "_moduleAliases": {
+    "@utils": "utils",
+    "@models": "models",
+    "@root": "."
+  }
 }
