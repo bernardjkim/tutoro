@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const Promise = require("bluebird"); // eslint-disable-line no-global-assign
 
-const user = require("./routes/user");
+const user = require("./routes/user/user.route");
 const profile = require("./routes/profile");
 const session = require("./routes/session");
 const language = require("./routes/language");
@@ -58,6 +58,10 @@ app.use("/api/language", language);
 app.use("/api/location", location);
 app.use("/api/major", major);
 app.use("/api/course", course);
+app.use((err, req, res, next) => {
+  // console.error(err);
+  return res;
+});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
