@@ -4,51 +4,18 @@ require("module-alias/register");
 const express = require("express");
 const router = express.Router();
 
-const Course = require("@models/Course");
+const courses = require("@root/seed/course.json");
 
 /**
- * Undefined endpoint
- */
-const undefinedHandler = (req, res) => {
-  return res.status(404).json({
-    error: {
-      message: "Unable to reach API endpoint",
-      description: "Endpoint is currently undefined"
-    }
-  });
-};
-
-/**
- * Get list of course names
+ * Get list of courses
  */
 router.get("/", async (req, res) => {
-  Course.find().distinct("name", (err, courses) => {
-    if (err)
-      return res.status(500).json({
-        error: {
-          message: "Unable to get course names",
-          description: "Internal server error"
-        }
-      });
-    return res.status(200).json({ success: true, courses });
+  const result = [];
+  courses.map(doc => {
+    result.push({ value: doc.name, label: doc.name });
   });
-});
 
-/**
- * Get list of courses with specified name
- */
-router.get("/:name", async (req, res) => {
-  const { name } = req.params;
-  Course.find({ name }, (err, courses) => {
-    if (err)
-      return res.status(500).json({
-        error: {
-          message: "Unable to get course names",
-          description: "Internal server error"
-        }
-      });
-    return res.status(200).json({ success: true, courses });
-  });
+  return res.status(200).json({ success: true, courses: result });
 });
 
 module.exports = router;

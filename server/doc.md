@@ -155,7 +155,7 @@ A successful response contains a user's profile
     "lastName": "last",
     "phone": "5555555555",
     "enrollment": "Freshman",
-    "image": "1547766014195-test.png",
+    "image": {...},
     "__v": 0
   }
 }
@@ -163,10 +163,42 @@ A successful response contains a user's profile
 
 _RESPONSE PARAMETERS_
 
-| Element   | Detail |
-| --------- | ------ |
-| `success` | ---    |
-| `profile` | ---    |
+| Element      | Detail              |
+| ------------ | ------------------- |
+| `success`    | ---                 |
+| `profilePic` | Profile image data. |
+| `profile`    | ---                 |
+
+## Get a list of profiles
+
+_API endpoint_
+
+`GET hostname/api/profile?name=<course name>&number=<course number>`
+
+### Response
+
+A successful response contains a list of profiles
+
+> Example JSON response
+
+```json
+{
+  "success": true,
+  "profiles": [
+    "profile": {...},
+    "profile": {...},
+    `...`
+  ]
+}
+```
+
+_RESPONSE PARAMETERS_
+
+| Element      | Detail              |
+| ------------ | ------------------- |
+| `success`    | ---                 |
+| `profilePic` | Profile image data. |
+| `profile`    | ---                 |
 
 ## Get The Current Profile
 
@@ -200,7 +232,7 @@ A successful response contains a user's profile
     "lastName": "last",
     "phone": "5555555555",
     "enrollment": "Freshman",
-    "image": "1547766014195-test.png",
+    "image": {...},
     "__v": 0
   }
 }
@@ -208,10 +240,11 @@ A successful response contains a user's profile
 
 _RESPONSE PARAMETERS_
 
-| Element   | Detail |
-| --------- | ------ |
-| `success` | ---    |
-| `profile` | ---    |
+| Element      | Detail              |
+| ------------ | ------------------- |
+| `success`    | ---                 |
+| `profilePic` | Profile image data. |
+| `profile`    | ---                 |
 
 ## Get A Profile
 
@@ -245,7 +278,7 @@ A successful response contains a user's profile
     "lastName": "last",
     "phone": "5555555555",
     "enrollment": "Freshman",
-    "image": "1547766014195-test.png",
+    "image": {...},
     "__v": 0
   }
 }
@@ -253,10 +286,11 @@ A successful response contains a user's profile
 
 _RESPONSE PARAMETERS_
 
-| Element   | Detail |
-| --------- | ------ |
-| `success` | ---    |
-| `profile` | ---    |
+| Element      | Detail              |
+| ------------ | ------------------- |
+| `success`    | ---                 |
+| `profilePic` | Profile image data. |
+| `profile`    | ---                 |
 
 ---
 
@@ -344,7 +378,7 @@ _RESPONSE PARAMETERS_
 
 _API endpoint_
 
-`GET hostname/api/locations`
+`GET hostname/api/location`
 
 ### Response
 
@@ -379,7 +413,7 @@ _RESPONSE PARAMETERS_
 
 _API endpoint_
 
-`GET hostname/api/majors`
+`GET hostname/api/major`
 
 ### Response
 
@@ -410,7 +444,7 @@ _RESPONSE PARAMETERS_
 
 # Courses
 
-## Get A List Of Courses Names
+## Get A List Of Courses
 
 _API endpoint_
 
@@ -419,43 +453,6 @@ _API endpoint_
 ### Response
 
 A successful response contains a list of courses names.
-
-> Example JSON response
-
-```json
-{
-  "success": true,
-  "courseNames": [
-    { "name": "AFRAM" },
-    { "name": "CMS" },
-    { "name": "CHID" },
-    `...`
-  ]
-}
-```
-
-_RESPONSE PARAMETERS_
-
-| Element       | Detail                 |
-| ------------- | ---------------------- |
-| `success`     | ---                    |
-| `courseNames` | Array of course names. |
-
-## Get A List Of Courses
-
-_API endpoint_
-
-`GET hostname/api/course/:name`
-
-_REQUSET PARAMETERS_
-
-| Element                                           | Detail       |
-| ------------------------------------------------- | ------------ |
-| `name` <br><span class="required">REQUIRED</span> | Course name. |
-
-### Response
-
-A successful response contains a list of courses with specified name.
 
 > Example JSON response
 
@@ -485,11 +482,7 @@ A successful response contains a list of courses with specified name.
 
 _RESPONSE PARAMETERS_
 
-| Element   | Detail           |
-| --------- | ---------------- |
-| `success` | ---              |
-| `course`  | Array of course. |
-
----
-
-# Language
+| Element       | Detail                 |
+| ------------- | ---------------------- |
+| `success`     | ---                    |
+| `courseNames` | Array of course names. |
