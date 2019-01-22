@@ -1,7 +1,12 @@
 import axios from 'axios';
 import {
-    receiveProfileError
+    receiveProfileError,
+    receiveCourses,
+    receiveLocations,
+    receiveLanguages,
+    receiveMajors
 } from './action';
+import { receiveProfile, receiveProfilePic } from '../action';
 
 export const createNewProfile = profile => dispatch => {
     // append every inforamtion in to a formData along with image
@@ -13,28 +18,33 @@ export const createNewProfile = profile => dispatch => {
             formData.append(key, profile[key][0]);
         }
     });
-    const {userId} = profile;
     axios
-        .post(`/api/users/${userId}/profile`, formData)
+        .post(`/api/profile`, formData)
         .then((res) => {
-            
+            dispatch(receiveProfile(res.data.profile));
+            dispatch(receiveProfilePic(res.data.profilePic)); 
         })
         .catch(err =>{
-        dispatch(receiveProfileError(err))
+            dispatch(receiveProfileError(err.response.data))
         }
     );
 
 };
 
-export const getCourses = name => dispatch  => {
+export const getFormOptions = () => dispatch  => {
     // get courses under that name 
     // for ex. name == CSE then fetch all classes under CSE
 
     axios
-        .get(`/api/courses/${name}`)
-        .then(res=> {
-            dispatch()
-
-        })
+        .get(`/api/course`)
+        .then(res=>dispatch(receiveCourses(res.data)));
+    axios
+        .get(`/api/location`)
+        .then(res=> dispatch(receiveLocations(res.data)));
+    axios
+        .get(`/api/language`)
+        .then(res=> dispatch(receiveLanguages(res.data)));
+    axios
+        .get(`/api/major`)
+        .then(res=> dispatch(receiveMajors(res.data)));
 }
-

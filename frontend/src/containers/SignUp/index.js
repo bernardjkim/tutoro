@@ -36,7 +36,7 @@ class Signup extends Component {
   otherFrom() {
     this.props.history.push('/login');
   }
-
+  
   handleSubmit(e) {
     e.preventDefault();
 
