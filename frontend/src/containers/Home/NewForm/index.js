@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createNewProfile } from "./axios";
 import {
+<<<<<<< HEAD
   majorInput,
   enrollmentInput,
   languageInput,
@@ -36,6 +37,58 @@ class NewProfile extends React.Component {
       this.setState({ image: e.target.files });
     } else {
       this.setState({ [name]: value });
+=======
+    createNewProfile,
+    getFormOptions,
+
+} from './axios';
+import {
+    majorInput, 
+    enrollmentInput,
+    languageInput,
+    locationPrefInput,
+    coursesTakenInput
+} from './Select';
+
+
+
+
+class NewProfile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            enrollment:'',
+            major: [],
+            coursesName: '',
+            courseTaken: [],
+            locationPreferences:'',
+            languagePreferences: '',
+            image:'',
+            userId: this.props.userId,
+            phone: ''
+            
+        }
+        
+    }
+
+    componentDidMount() {
+        this.props.getFormOptions();
+        debugger
+
+    }
+
+    handleInputChange = e => {
+        const name = e.target.name;
+        const value = e.target.value;
+        if (name === 'image') {
+            debugger
+            this.setState({image: e.target.files });
+        } else {
+            this.setState({[name]: value});
+        }
+>>>>>>> f16f03ceae3af7ccf858d47a00deb173a441c781
     }
   };
 
@@ -130,7 +183,13 @@ const msp = state => ({
 });
 
 const mdp = profile => dispatch => ({
+<<<<<<< HEAD
   createNewProfile: profile => dispatch(createNewProfile(profile))
+=======
+    createNewProfile: profile => dispatch(createNewProfile(profile)),
+    getFormOptions: () =>  dispatch(getFormOptions()),
+
+>>>>>>> f16f03ceae3af7ccf858d47a00deb173a441c781
 });
 
 export default connect(

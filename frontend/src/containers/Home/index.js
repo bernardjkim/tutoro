@@ -9,39 +9,25 @@ import encode from "../util/encode";
 import { logoutUser } from "./action";
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      profile: this.props.profile,
-      newProfile: this.props.profile ? false : true,
-      profilePic: this.props.profilePic
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            profile: this.props.profile,
+            // newProfile: this.props.profile ? false: true,
+            newProfile:  true,
+            profilePic: this.props.profilePic,
+        }
+    }
 
-  componentDidMount() {
-    this.props.fetchProfile();
-  }
-  modalOpen = () => {
-    this.setState({ newProfile: true });
-  };
+    componentDidMount() {
+        this.props.fetchProfile();
+    }
+    modalOpen = () => {
+        this.setState({newProfile: true});
+    }
 
-  closeModal = () => {
-    this.setState({ newProfile: false });
-  };
-
-  profilePic = () => {
-    const pic = this.props.profilePic;
-
-    if (pic) {
-      console.log(pic);
-      return (
-        <img
-          src={`data:image/png;base64,${encode(pic)}`}
-          style={{ width: 130, height: 130, backgroundSize: "cover" }}
-        />
-      );
-    } else {
-      return <div>Mola</div>;
+    closeModal = () => {
+        this.setState({newProfile: false});
     }
   };
   handleSubmit = e => {
