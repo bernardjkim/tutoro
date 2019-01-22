@@ -19,36 +19,53 @@ const undefinedHandler = (req, res) => {
 };
 
 /**
- * Get list of course names
+ * Get list of courses
  */
 router.get("/", async (req, res) => {
-  Course.find().distinct("name", (err, courses) => {
-    if (err)
-      return res.status(500).json({
-        error: {
-          message: "Unable to get course names",
-          description: "Internal server error"
-        }
-      });
-    return res.status(200).json({ success: true, courses });
+  const courses = await Course.find().catch(e => {
+    res.status(500).json({
+      error: {
+        message: "Unable to get course names",
+        description: "Internal server error"
+      }
+    });
+    return next(e);
   });
+
+  return res.status(200).json({ success: true, courses });
 });
 
-/**
- * Get list of courses with specified name
- */
-router.get("/:name", async (req, res) => {
-  const { name } = req.params;
-  Course.find({ name }, (err, courses) => {
-    if (err)
-      return res.status(500).json({
-        error: {
-          message: "Unable to get course names",
-          description: "Internal server error"
-        }
-      });
-    return res.status(200).json({ success: true, courses });
-  });
-});
+// /**
+//  * Get list of course names
+//  */
+// router.get("/", async (req, res) => {
+//   Course.find().distinct("name", (err, courses) => {
+//     if (err)
+//       return res.status(500).json({
+//         error: {
+//           message: "Unable to get course names",
+//           description: "Internal server error"
+//         }
+//       });
+//     return res.status(200).json({ success: true, courses });
+//   });
+// });
+
+// /**
+//  * Get list of courses with specified name
+//  */
+// router.get("/:name", async (req, res) => {
+//   const { name } = req.params;
+//   Course.find({ name }, (err, courses) => {
+//     if (err)
+//       return res.status(500).json({
+//         error: {
+//           message: "Unable to get course names",
+//           description: "Internal server error"
+//         }
+//       });
+//     return res.status(200).json({ success: true, courses });
+//   });
+// });
 
 module.exports = router;

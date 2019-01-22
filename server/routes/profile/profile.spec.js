@@ -128,8 +128,16 @@ describe("Profiles", () => {
      * Test the /GET route
      */
     describe("/GET profile", () => {
-      it.skip("it should GET a list of profiles", done => {
-        throw new Error("Fail");
+      it("it should GET a list of profiles", done => {
+        chai
+          .request(server)
+          .get("/api/profile?name=CSE&number=142")
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a("object");
+            // res.body.should.have.property("error");
+            done();
+          });
       });
     });
 

@@ -16,8 +16,8 @@ dotenv.config();
 // DB connect
 mongoose
   .connect(
-    // process.env.mongoURI,
-    process.env.MONGO_URI_TEST,
+    process.env.MONGO_URI,
+    // process.env.MONGO_URI_TEST,
     { useNewUrlParser: true, useCreateIndex: true }
   )
   // .then(() => console.log("MongoDB connected"))

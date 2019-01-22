@@ -17,7 +17,41 @@ const Course = require("@models/Course");
 
 const { uploadFile, getFile } = require("@utils/s3");
 
-async function create(req, res) {
+/**
+ * Load user and append to req.
+ */
+function load(req, res, next, id) {
+  User.findById(id)
+    .then(user => {
+      if (!user)
+        return res.status(404).json({
+          error: {
+            message: "Unablge to get user",
+            description: `User with id ${id} does not exist`
+          }
+        });
+      req.user = user; // eslint-disable-line no-param-reassign
+      return next();
+    })
+    .catch(e => {
+      res.status(500).json({
+        error: {
+          message: "Unable to get user",
+          description: "Internal server error"
+        }
+      });
+      return next(e);
+    });
+}
+
+/**
+ * Create new profile
+ *
+ * @property  {string}  req.user.id - The user id.
+ *
+ * @returns   {Profile}
+ */
+async function create(req, res, next) {
   const userId = req.user.id;
 
   // Verify profile has not already been created
@@ -116,77 +150,56 @@ async function create(req, res) {
     profile.image = data.key;
   }
 
-  await profile.save();
-  return res.status(201).json({ success: true, profile });
+  const mongoProfile = await profile.save().catch(e => {
+    res.status(400).json({
+      error: {
+        message: "Unable to create profile",
+        description: "Invalid profile fields"
+      }
+    });
+    return next(e);
+  });
+  if (mongoProfile) {
+    const profileObj = mongoProfile.toObject();
+    profileObj.image = files.file[0];
+    return res.status(201).json({ success: true, profile: profileObj });
+  }
 }
 
-// /**
-//  * Get list of profiles
-//  */
-// router.get("/", undefinedHandler);
+/**
+ * Get profile
+ *
+ * @property  {string}  req.user.id - The user id.
+ *
+ * @returns {Profile}
+ */
+async function get(req, res, next) {
+  const userId = req.user.id;
 
-// /**
-//  * Get current user profile
-//  */
-// router.get(
-//   "/current",
-//   passport.authenticate("jwt", { session: false }),
-//   async (req, res) => {
-//     const userId = req.user.id;
+  const profile = await Profile.findOne({ userId }).catch(e => {
+    res.status(500).json({
+      error: {
+        message: "Unable to get profile",
+        description: "Internal server error"
+      }
+    });
+    return next(e);
+  });
 
-//     try {
-//       const profile = await Profile.findOne({ userId });
-//       if (!profile)
-//         return res.status(404).json({
-//           error: {
-//             message: "Unable to get profile",
-//             description: "This profile does not exist"
-//           }
-//         });
+  if (!profile) {
+    res.status(404).json({
+      error: {
+        message: "Unable to get profile",
+        description: "This profile does not exist"
+      }
+    });
+    return next("This profile does not exist");
+  }
 
-//       const data = await getFile(profile.image);
+  const data = await getFile(profile.image);
+  const profileObj = profile.toObject();
+  profileObj.image = data;
+  return res.status(200).json({ success: true, profile: profileObj });
+}
 
-//       return res.status(200).json({ success: true, profilePic: data, profile });
-//     } catch (err) {
-//       console.error(err);
-//       return res.status(500).json({
-//         error: {
-//           message: "Unable to get profile",
-//           description: "Internal server error"
-//         }
-//       });
-//     }
-//   }
-// );
-
-// /**
-//  * Get user profile
-//  */
-// router.get("/:userId", async (req, res) => {
-//   const { userId } = req.params;
-
-//   try {
-//     const profile = await Profile.findOne({ userId });
-//     if (!profile)
-//       return res.status(404).json({
-//         error: {
-//           message: "Unable to get profile",
-//           description: "This profile does not exist"
-//         }
-//       });
-
-//     const data = await getFile(profile.image);
-
-//     return res.status(200).json({ success: true, profilePic: data, profile });
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).json({
-//       error: {
-//         message: "Unable to get profile",
-//         description: "Internal server error"
-//       }
-//     });
-//   }
-// });
-
-module.exports = { create };
+module.exports = { create, get, load };
