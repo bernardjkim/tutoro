@@ -8,7 +8,7 @@ import {
 
 const initState = {
     courses: {},
-    error: {},
+    error: '',
     locations: {},
     languages: {},
     majors: {},

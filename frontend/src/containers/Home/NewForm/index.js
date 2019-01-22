@@ -31,7 +31,6 @@ class NewProfile extends React.Component {
             locationPreferences:'',
             languagePreferences: '',
             image:'',
-            userId: this.props.userId,
             phone: ''
             
         }
@@ -40,15 +39,12 @@ class NewProfile extends React.Component {
 
     componentDidMount() {
         this.props.getFormOptions();
-        debugger
-
     }
 
     handleInputChange = e => {
         const name = e.target.name;
         const value = e.target.value;
         if (name === 'image') {
-            debugger
             this.setState({image: e.target.files });
         } else {
             this.setState({[name]: value});
@@ -83,6 +79,8 @@ class NewProfile extends React.Component {
     }
     
     render() {
+        const { error } = this.props;
+        const errMsg = <p className='error-message'>{error}</p>
         const {
             locationPreferences,
             major,
@@ -91,9 +89,12 @@ class NewProfile extends React.Component {
             courseTaken
         } = this.state;
 
+        const { majors, courses, locations, languages } = this.props.options;
+
         const handleSelectChange = this.handleSelectChange;
         return(
             <form>
+                {errMsg}
                 <Input
                 type = 'text'
                 name ='firstName'
@@ -113,8 +114,6 @@ class NewProfile extends React.Component {
                        <input id="upload" ref="upload" type="file" accept="image/*"
                         onChange={this.handleInputChange}
                 />
-
-
                 </div>
                 <Input
                 type = 'tel'
@@ -123,11 +122,11 @@ class NewProfile extends React.Component {
                 placeholder = 'Phone Number'
                 value = {this.state.phone}
                 />  
-                {locationPrefInput(locationPreferences, handleSelectChange)} 
+                {locationPrefInput(locationPreferences, handleSelectChange, locations)} 
                 {enrollmentInput(enrollment, handleSelectChange)}
-                {majorInput(major, handleSelectChange)}
-                {languageInput(languagePreferences, handleSelectChange)}
-                {coursesTakenInput(courseTaken, handleSelectChange)}
+                {majorInput(major, handleSelectChange, majors)}
+                {languageInput(languagePreferences, handleSelectChange, languages)}
+                {coursesTakenInput(courseTaken, handleSelectChange,courses)}
                 <button 
                 className = 'btn btn-outline-primary btn-lg btn-block'
                 onClick={this.handleSubmit}>Submit</button>
@@ -139,7 +138,8 @@ class NewProfile extends React.Component {
 
 
 const msp = state => ({
-    userId: state.global.user.id
+    error : state.home.options.error,
+    options: state.home.options
 })
 
 const mdp = profile => dispatch => ({

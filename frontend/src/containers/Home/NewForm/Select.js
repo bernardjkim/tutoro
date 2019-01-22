@@ -1,15 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 import LanOp from './languages';
-import {
-    majorOptions,
-    enrollmentOption,
-    courseTakenOption,
-    locationPrefOptions
-    } from './options';
 
-
-export const languageInput = (value, handleSelectChange) => {
+export const languageInput = (value, handleSelectChange, options) => {
     let lan = Object.values(LanOp).map(el=> {
         return {value: el.name, label: el.nativeName};
     });
@@ -20,14 +13,14 @@ export const languageInput = (value, handleSelectChange) => {
             placeholder='Language Preference'
             value={value}
             onChange={handleSelectChange}
-            options={lan}
+            options={options}
             />
         </div>
 
     );
 
 }
-export const locationPrefInput = (value, handleSelectChange) => {
+export const locationPrefInput = (value, handleSelectChange, options) => {
 
     return (
 
@@ -37,7 +30,7 @@ export const locationPrefInput = (value, handleSelectChange) => {
             placeholder='Location Preference'
             value={value}
             onChange={handleSelectChange}
-            options={locationPrefOptions}
+            options={options}
             />
         </div>
 
@@ -46,7 +39,7 @@ export const locationPrefInput = (value, handleSelectChange) => {
 
 }
 
-export const majorInput = (value, handleSelectChange) => {
+export const majorInput = (value, handleSelectChange, options) => {
     
     return (
         <div className='Select-input'>
@@ -56,7 +49,7 @@ export const majorInput = (value, handleSelectChange) => {
             value={value}
             isMulti= {true}
             onChange={handleSelectChange}
-            options={majorOptions}
+            options={options}
             />
         </div>
 
@@ -64,7 +57,28 @@ export const majorInput = (value, handleSelectChange) => {
 }
 
 export const enrollmentInput = (value, handleSelectChange) => {
-
+    const enrollmentOption = [
+            {
+                value: 'Freshman',
+                label: 'Freshman'
+            },
+            {
+                value: 'Sophmore',
+                label: 'Sophmore'
+            },
+            {
+                value: 'Junior',
+                label: 'Junior'
+            },
+            {
+                value: 'Senior',
+                label: 'Senior'
+            },
+            {
+                value: 'Graduate',
+                label: 'Graduate'
+            }
+        ]
     return(
         <div className='Select-input'>
         <Select
@@ -78,7 +92,7 @@ export const enrollmentInput = (value, handleSelectChange) => {
     );
 }
 
-export const coursesTakenInput = (value, handleSelectChange) => {
+export const coursesTakenInput = (value, handleSelectChange, options) => {
 
     return(
 
@@ -89,7 +103,7 @@ export const coursesTakenInput = (value, handleSelectChange) => {
             placeholder='Courses that you most enjoyed'
             value={value}
             onChange={handleSelectChange}
-            options={courseTakenOption}
+            options={options}
             />
         </div>
     );

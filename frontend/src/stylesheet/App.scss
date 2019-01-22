@@ -3,10 +3,12 @@
 @import './NewProfile.scss';
 @import './bootstrap.css';
 @import './Nav.scss';
+@import './error.scss';
 //563D7C
 
 body {
-    * {        box-sizing: border-box;
+    * {        
+        box-sizing: border-box;
         font-family: Helvetica sans-serif;
     }
     button {
