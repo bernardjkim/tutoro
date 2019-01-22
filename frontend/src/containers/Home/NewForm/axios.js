@@ -15,7 +15,7 @@ export const createNewProfile = profile => dispatch => {
     });
     const {userId} = profile;
     axios
-        .post(`/api/users/${userId}/profile`, formData)
+        .post(`/api/profile`, formData)
         .then((res) => {
             
         })
