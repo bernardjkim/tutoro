@@ -146,7 +146,17 @@ describe("Profiles", () => {
      */
     describe("/GET profile/current", () => {
       it.skip("it should GET the current user's profile", done => {
-        throw new Error("Fail");
+        chai
+          .request(server)
+          .get("/api/profile/current")
+          .set("Authorization", token)
+          .end((err, res) => {
+            console.log(res.body);
+            res.should.have.status(400);
+            res.body.should.be.a("object");
+            res.body.should.have.property("error");
+            done();
+          });
       });
     });
 

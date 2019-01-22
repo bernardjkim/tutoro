@@ -202,4 +202,34 @@ async function get(req, res, next) {
   return res.status(200).json({ success: true, profile: profileObj });
 }
 
-module.exports = { create, get, load };
+/**
+ * Get profile list.
+ *
+ * @property  {string}  req.query.name    - Course name.
+ * @property  {number}  req.query.number  - Course number.
+ *
+ * @returns   {Profile[]}
+ */
+async function list(req, res, next) {
+  const { name, number } = req.query;
+
+  const course = await Course.findOne({ name, number });
+
+  const profiles = await Profile.find({
+    coursesTaken: { $elemMatch: course }
+  })
+    .limit(50)
+    .exec()
+    .catch(e => {
+      res.status(500).json({
+        error: {
+          message: "Unable to get profile",
+          description: "Internal server error"
+        }
+      });
+      return next(e);
+    });
+
+  return res.status(200).json({ success: true, profiles });
+}
+module.exports = { create, get, list, load };

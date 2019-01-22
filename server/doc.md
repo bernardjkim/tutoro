@@ -444,7 +444,7 @@ _RESPONSE PARAMETERS_
 
 # Courses
 
-## Get A List Of Courses Names
+## Get A List Of Courses
 
 _API endpoint_
 
@@ -453,43 +453,6 @@ _API endpoint_
 ### Response
 
 A successful response contains a list of courses names.
-
-> Example JSON response
-
-```json
-{
-  "success": true,
-  "courseNames": [
-    { "name": "AFRAM" },
-    { "name": "CMS" },
-    { "name": "CHID" },
-    `...`
-  ]
-}
-```
-
-_RESPONSE PARAMETERS_
-
-| Element       | Detail                 |
-| ------------- | ---------------------- |
-| `success`     | ---                    |
-| `courseNames` | Array of course names. |
-
-## Get A List Of Courses
-
-_API endpoint_
-
-`GET hostname/api/course/:name`
-
-_REQUSET PARAMETERS_
-
-| Element                                           | Detail       |
-| ------------------------------------------------- | ------------ |
-| `name` <br><span class="required">REQUIRED</span> | Course name. |
-
-### Response
-
-A successful response contains a list of courses with specified name.
 
 > Example JSON response
 
@@ -519,9 +482,7 @@ A successful response contains a list of courses with specified name.
 
 _RESPONSE PARAMETERS_
 
-| Element   | Detail           |
-| --------- | ---------------- |
-| `success` | ---              |
-| `course`  | Array of course. |
-
----
+| Element       | Detail                 |
+| ------------- | ---------------------- |
+| `success`     | ---                    |
+| `courseNames` | Array of course names. |
