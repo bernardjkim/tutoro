@@ -53,6 +53,8 @@ describe("Sessions", () => {
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a("object");
+          res.body.should.have.property("token");
+
           done();
         });
     });
@@ -61,7 +63,7 @@ describe("Sessions", () => {
      * Test the /DELETE route
      */
     describe("/DELETE session", () => {
-      it.skip("it should GET a list of profiles", done => {});
+      it.skip("it should DELETE session", done => {});
     });
   });
 });
