@@ -5,6 +5,8 @@ import {
      OPEN_NEWPROFILE_FORM
 } from './constant';
 
+import optionsReducers from './NewForm/reducer';
+
 const iniState = {profile:{}, profilePic: false}
 const profileReducer = (state = iniState, action) => {
     const newState = Object.assign({}, state);
@@ -26,5 +28,6 @@ const profileReducer = (state = iniState, action) => {
     }
 }
 export default combineReducers({
-    profile: profileReducer
+    profile: profileReducer,
+    options: optionsReducers
 })

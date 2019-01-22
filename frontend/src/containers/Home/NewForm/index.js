@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     createNewProfile,
-    
+    getFormOptions,
+
 } from './axios';
 import {
     majorInput, 
@@ -36,6 +37,13 @@ class NewProfile extends React.Component {
         }
         
     }
+
+    componentDidMount() {
+        this.props.getFormOptions();
+        debugger
+
+    }
+
     handleInputChange = e => {
         const name = e.target.name;
         const value = e.target.value;
@@ -135,7 +143,9 @@ const msp = state => ({
 })
 
 const mdp = profile => dispatch => ({
-    createNewProfile: profile => dispatch(createNewProfile(profile))
+    createNewProfile: profile => dispatch(createNewProfile(profile)),
+    getFormOptions: () =>  dispatch(getFormOptions()),
+
 });
 
 export default connect(
