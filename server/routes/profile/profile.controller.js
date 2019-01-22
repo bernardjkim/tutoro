@@ -14,6 +14,8 @@ const multiparty = Promise.promisifyAll(require("multiparty"), {
 const Profile = require("@models/Profile");
 const Major = require("@models/Major");
 const Course = require("@models/Course");
+const Language = require("@models/Language");
+const Location = require("@models/Location");
 
 const { uploadFile, getFile } = require("@utils/s3");
 
@@ -205,18 +207,17 @@ async function get(req, res, next) {
 /**
  * Get profile list.
  *
- * @property  {string}  req.query.name    - Course name.
- * @property  {number}  req.query.number  - Course number.
+ * @property  {string}  req.query.course    - Course name.
  *
  * @returns   {Profile[]}
  */
 async function list(req, res, next) {
-  const { name, number } = req.query;
+  const { course } = req.query;
 
-  const course = await Course.findOne({ name, number });
+  const mongoCourse = await Course.findOne({ name: course });
 
   const profiles = await Profile.find({
-    coursesTaken: { $elemMatch: course }
+    coursesTaken: { $elemMatch: mongoCourse }
   })
     .limit(50)
     .exec()

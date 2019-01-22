@@ -33,17 +33,7 @@ router.post(
 /**
  * Get list of profiles
  */
-router.get("/", async (req, res) => {
-  const { name, number } = req.query;
-
-  const course = await Course.findOne({ name, number });
-
-  const profiles = await Profile.find({
-    coursesTaken: { $elemMatch: course }
-  });
-
-  return res.status(200).json({ success: true, profiles });
-});
+router.get("/", profile.list);
 
 /**
  * Get current user profile

@@ -1,8 +1,6 @@
 // Load module alias
 require("module-alias/register");
 
-const passport = require("passport");
-
 const validateRegisterInput = require("@utils/validations/signup");
 const { sign } = require("@utils/jwt");
 

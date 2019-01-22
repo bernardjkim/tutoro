@@ -131,7 +131,7 @@ describe("Profiles", () => {
       it("it should GET a list of profiles", done => {
         chai
           .request(server)
-          .get("/api/profile?name=CSE&number=142")
+          .get("/api/profile?course=CSE%20142")
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a("object");

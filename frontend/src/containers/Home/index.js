@@ -4,32 +4,33 @@ import ProfileForm from "./NewForm/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Nav from "./Nav/index";
-import { fetchProfile } from "./axios";
-import encode from "../util/encode";
+import { fetchProfile, fetchCourses } from "./axios";
+// import encode from "../util/encode";
 import { logoutUser } from "./action";
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            profile: this.props.profile,
-            // newProfile: this.props.profile ? false: true,
-            newProfile:  true,
-            profilePic: this.props.profilePic,
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: this.props.profile,
+      newProfile: this.props.profile ? false : true,
+      // newProfile: true,
+      profilePic: this.props.profilePic
+    };
+  }
 
-    componentDidMount() {
-        this.props.fetchProfile();
-    }
-    modalOpen = () => {
-        this.setState({newProfile: true});
-    }
-
-    closeModal = () => {
-        this.setState({newProfile: false});
-    }
+  componentDidMount() {
+    this.props.fetchProfile();
+    this.props.fetchCourses();
+  }
+  modalOpen = () => {
+    this.setState({ newProfile: true });
   };
+
+  closeModal = () => {
+    this.setState({ newProfile: false });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -141,12 +142,14 @@ const customStyles = {
 
 const msp = state => ({
   profile: state.home.profile.profile,
-  profilePic: state.home.profile.profilePic
+  profilePic: state.home.profile.profilePic,
+  courses: state.home.courses
 });
 
 const mdp = dispatch => ({
   logoutUser: () => dispatch(logoutUser()),
-  fetchProfile: () => dispatch(fetchProfile())
+  fetchProfile: () => dispatch(fetchProfile()),
+  fetchCourses: () => dispatch(fetchCourses())
 });
 
 export default connect(

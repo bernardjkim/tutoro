@@ -9,7 +9,7 @@ const User = require("@models/User");
 const validateLoginInput = require("@utils/validations/login");
 const { sign } = require("@utils/jwt");
 
-async function create(req, res) {
+async function create(req, res, next) {
   const { errors, isValid } = validateLoginInput(req.body);
   if (!isValid) {
     res.status(400).json({

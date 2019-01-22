@@ -41,7 +41,7 @@ clearTables()
         Major.findOne({ name: "Biology" }).then(res => {
           console.log(res);
         });
-        Course.findOne({ name: "CSE", number: 142 }).then(res => {
+        Course.findOne({ name: "CSE 142" }).then(res => {
           console.log(res);
           process.exit();
         });
@@ -67,14 +67,17 @@ function seedTable(Model, data) {
 
 function clearTables() {
   return new Promise(async (resolve, reject) => {
-    try {
-      Language.deleteMany({});
-      Location.deleteMany({});
-      Major.deleteMany({});
-      Course.deleteMany({});
-      resolve();
-    } catch (e) {
-      reject(e);
-    }
+    Promise.all([
+      Language.deleteMany({}),
+      Location.deleteMany({}),
+      Major.deleteMany({}),
+      Course.deleteMany({})
+    ])
+      .then(() => {
+        resolve();
+      })
+      .catch(e => {
+        reject(e);
+      });
   });
 }

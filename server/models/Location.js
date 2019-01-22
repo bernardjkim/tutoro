@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const LocationSchema = new Schema({
   tag: {
-    type: String
+    type: String,
+    unique: true
   },
   name: {
     type: String,
