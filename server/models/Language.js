@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const LanguageSchema = new Schema({
   tag: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   name: {
     type: String,

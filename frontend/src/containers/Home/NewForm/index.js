@@ -1,22 +1,15 @@
-import React from 'react';
-import Input from '../../../components/Input';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from "react";
+import Input from "../../../components/Input";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { createNewProfile, getFormOptions } from "./axios";
 import {
-    createNewProfile,
-    getFormOptions,
-
-} from './axios';
-import {
-    majorInput, 
-    enrollmentInput,
-    languageInput,
-    locationPrefInput,
-    coursesTakenInput
-} from './Select';
-
-
-
+  majorInput,
+  enrollmentInput,
+  languageInput,
+  locationPrefInput,
+  coursesTakenInput
+} from "./Select";
 
 class NewProfile extends React.Component {
     constructor(props) {
@@ -54,26 +47,29 @@ class NewProfile extends React.Component {
     handleSelectChange = (selectedOption, field) => {
          this.setState({ [field.name]: selectedOption });
     }
+  };
 
-    handleSubmit = (e) => {
-        const state = this.state;
-        e.preventDefault();
-        const finalState = {}
-        // change {value: ... , label: .... } to just string
-        Object.keys(state).forEach(key => {
-            if (key !== 'image' 
-            && 
-            // check if it is an array
-            Object.prototype.toString.call(state[key]) === "[object Object]") {
-                finalState[key] = state[key].value;
-            } else if (Array.isArray(state[key])) {
-                finalState[key] = state[key].map(el=> {
-                    return el.value
-                });
-            } else {
-                finalState[key] = state[key];
-            }
+  handleSelectChange = (selectedOption, field) => {
+    this.setState({ [field.name]: selectedOption });
+  };
+
+  handleSubmit = e => {
+    const state = this.state;
+    e.preventDefault();
+    const finalState = {};
+    // change {value: ... , label: .... } to just string
+    Object.keys(state).forEach(key => {
+      if (
+        key !== "image" &&
+        // check if it is an array
+        Object.prototype.toString.call(state[key]) === "[object Object]"
+      ) {
+        finalState[key] = state[key].value;
+      } else if (Array.isArray(state[key])) {
+        finalState[key] = state[key].map(el => {
+          return el.value;
         });
+<<<<<<< HEAD
         this.props.createNewProfile(finalState);
 
     }
@@ -134,21 +130,90 @@ class NewProfile extends React.Component {
 
         );
     }
+=======
+      } else {
+        finalState[key] = state[key];
+      }
+    });
+    this.props.createNewProfile(finalState);
+  };
+
+  render() {
+    const {
+      locationPreferences,
+      major,
+      languagePreferences,
+      enrollment,
+      courseTaken
+    } = this.state;
+
+    const handleSelectChange = this.handleSelectChange;
+    return (
+      <form>
+        <Input
+          type="text"
+          name="firstName"
+          onChange={this.handleInputChange}
+          placeholder="First Name"
+          value={this.state.firstName}
+        />
+        <Input
+          type="text"
+          name="lastName"
+          onChange={this.handleInputChange}
+          placeholder="Last Name"
+          value={this.state.lastName}
+        />
+
+        <div className="form-group">
+          <input
+            id="upload"
+            ref="upload"
+            type="file"
+            accept="image/*"
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <Input
+          type="tel"
+          name="phone"
+          onChange={this.handleInputChange}
+          placeholder="Phone Number"
+          value={this.state.phone}
+        />
+        {locationPrefInput(locationPreferences, handleSelectChange)}
+        {enrollmentInput(enrollment, handleSelectChange)}
+        {majorInput(major, handleSelectChange)}
+        {languageInput(languagePreferences, handleSelectChange)}
+        {coursesTakenInput(courseTaken, handleSelectChange)}
+        <button
+          className="btn btn-outline-primary btn-lg btn-block"
+          onClick={this.handleSubmit}
+        >
+          Submit
+        </button>
+      </form>
+    );
+  }
+>>>>>>> master
 }
 
-
 const msp = state => ({
+<<<<<<< HEAD
     error : state.home.options.error,
     options: state.home.options
 })
+=======
+  userId: state.global.user.id
+});
+>>>>>>> master
 
 const mdp = profile => dispatch => ({
-    createNewProfile: profile => dispatch(createNewProfile(profile)),
-    getFormOptions: () =>  dispatch(getFormOptions()),
-
+  createNewProfile: profile => dispatch(createNewProfile(profile)),
+  getFormOptions: () => dispatch(getFormOptions())
 });
 
 export default connect(
-    msp,
-    mdp
+  msp,
+  mdp
 )(withRouter(NewProfile));

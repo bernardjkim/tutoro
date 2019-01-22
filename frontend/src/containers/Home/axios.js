@@ -1,20 +1,29 @@
-import axios from 'axios';
-import { 
-    receiveProfile, 
-    openNewProfileForm,
-    receiveProfilePic,
-} from './action';
+import axios from "axios";
+import {
+  receiveProfile,
+  openNewProfileForm,
+  receiveProfilePic,
+  receiveCourses
+} from "./action";
 
 export const fetchProfile = () => dispatch => {
   axios
-    .get('/api/profile/current')
+    .get("/api/profile/current")
     .then(res => {
-        dispatch(receiveProfile(res.data.profile));
-        dispatch(receiveProfilePic(res.data.profilePic));
+      dispatch(receiveProfile(res.data.profile));
+      dispatch(receiveProfilePic(res.data.profilePic));
     })
-    .catch(err =>{
-    // if we do not find the profile we make a new profile
-      dispatch(openNewProfileForm())
-    }
-    );
+    .catch(err => {
+      // if we do not find the profile we make a new profile
+      dispatch(openNewProfileForm());
+    });
+};
+
+export const fetchCourses = () => dispatch => {
+  axios
+    .get("/api/course")
+    .then(res => {
+      dispatch(receiveCourses());
+    })
+    .catch(err => {});
 };

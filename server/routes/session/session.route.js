@@ -4,7 +4,7 @@ require("module-alias/register");
 const express = require("express");
 const router = express.Router();
 
-const locations = require("@root/seed/location.json");
+const session = require("./session.controller");
 
 /**
  * Undefined endpoint
@@ -19,14 +19,13 @@ const undefinedHandler = (req, res) => {
 };
 
 /**
- * Get list of locations
+ * Create new session
  */
-router.get("/", async (req, res) => {
-  const result = [];
-  locations.map(doc => {
-    result.push({ value: doc.tag, label: doc.name });
-  });
-  return res.status(200).json({ success: true, locations: result });
-});
+router.post("/", session.create);
+
+/**
+ * Delete session
+ */
+router.delete("/", undefinedHandler);
 
 module.exports = router;

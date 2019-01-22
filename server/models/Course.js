@@ -2,15 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
-  tag: {
-    type: String,
-    required: true
-  },
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
-  nativeName: {
+  title: {
     type: String,
     required: true
   }
