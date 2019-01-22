@@ -491,5 +491,3 @@ _RESPONSE PARAMETERS_
 | `course`  | Array of course. |
 
 ---
-
-# Language

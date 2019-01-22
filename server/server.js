@@ -9,7 +9,7 @@ const Promise = require("bluebird"); // eslint-disable-line no-global-assign
 
 const user = require("./routes/user/user.route");
 const profile = require("./routes/profile");
-const session = require("./routes/session");
+const session = require("./routes/session/session.route");
 const language = require("./routes/language");
 const location = require("./routes/location");
 const major = require("./routes/major");
