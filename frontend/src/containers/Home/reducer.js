@@ -8,18 +8,17 @@ import {
 
 import optionsReducers from "./NewForm/reducer";
 
-const iniState = { profile: false,};
+const iniState = { profile: {}, newForm: false};
 const profileReducer = (state = iniState, action) => {
   const newState = Object.assign({}, state);
   Object.freeze(state);
   switch (action.type) {
     case RECIEVE_PROFILE:
+      newState.newForm = false;
       newState.profile = action.payload;
       return newState;
     case OPEN_NEWPROFILE_FORM:
-      // if no profile we make profile: false and
-      // make new profile
-      newState.profile = false;
+      newState.newForm = true;
       return newState;
     case RECIEVE_PROFILE_PIC:
       newState.profilePic = action.payload;

@@ -22,7 +22,7 @@ export const createNewProfile = profile => dispatch => {
         .post(`/api/profile`, formData)
         .then((res) => {
             dispatch(receiveProfile(res.data.profile));
-            dispatch(receiveProfilePic(res.data.profilePic)); 
+            dispatch(receiveProfilePic(res.data.profile.image)); 
         })
         .catch(err =>{
             dispatch(receiveProfileError(err.response.data))
