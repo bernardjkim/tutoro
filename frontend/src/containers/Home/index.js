@@ -113,7 +113,7 @@ class Home extends React.Component {
         </div>
 
         <Modal
-          isOpen={this.state.newProfile}
+          isOpen={!this.props.profile}
           style={customStyles}
           contentLabel="Profile Modal"
         >

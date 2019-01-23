@@ -88,7 +88,8 @@ async function create(req, res, next) {
     res.status(400).json({
       error: {
         message: "Unable to create new user",
-        description: "A user has already signed up with this email"
+        description: "A user has already signed up with this email",
+        parameters: { email: "A user has already signed up with this email" }
       }
     });
     return next(e);
