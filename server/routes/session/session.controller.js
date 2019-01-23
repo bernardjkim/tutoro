@@ -35,6 +35,17 @@ async function create(req, res, next) {
     return next(e);
   });
 
+  if (!user) {
+    res.status(404).json({
+      error: {
+        message: "Unable to create session",
+        description: "Invalid email",
+        parameters: { email: "Invalid email" }
+      }
+    });
+    return next(new Error("Invalid email"));
+  }
+
   // Generate jwt token
   const token = await sign({ id: user.id }).catch(e => {
     res.status(500).json({
@@ -52,7 +63,8 @@ async function create(req, res, next) {
       res.status(400).json({
         error: {
           message: "Unable to create session",
-          description: "Incorrect password"
+          description: "Incorrect password",
+          parameters: { password: "Incorrect password" }
         }
       });
       return next(new Error("Incorrect password"));

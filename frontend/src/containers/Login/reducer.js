@@ -8,7 +8,7 @@ export default (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_LOGIN_ERRORS:
-      return { ...state, error: action.payload };
+      return action.payload;
     case CLEAR_ERRORS:
       return {};
     case RECEIVE_CURRENT_USER:
