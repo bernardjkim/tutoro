@@ -25,7 +25,8 @@ export const receiveProfilePic = pic => ({
 });
 
 export const openNewProfileForm = () => ({
-  type: OPEN_NEWPROFILE_FORM
+  type: OPEN_NEWPROFILE_FORM,
+  
 });
 
 export const receiveCourses = courses => ({

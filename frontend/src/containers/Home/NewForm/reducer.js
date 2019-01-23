@@ -7,11 +7,11 @@ import {
 } from './constant';
 
 const initState = {
-    courses: {},
+    courses: [],
     error: '',
-    locations: {},
-    languages: {},
-    majors: {},
+    locations: [],
+    languages: [],
+    majors: [],
 
 
 }
@@ -27,7 +27,7 @@ export default (state = initState, action) => {
             newState.error = action.payload;
             return newState;
         case RECIEVE_MAJOR_OPTIONS:
-            newState.courses = action.payload;
+            newState.majors = action.payload;
             return newState;
         case RECEIVE_LOCATION_OPTIONS:
             newState.locations = action.payload;

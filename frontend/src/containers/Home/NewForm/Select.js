@@ -1,11 +1,9 @@
 import React from 'react';
 import Select from 'react-select';
+import SelectVir from "react-virtualized-select";
 import LanOp from './languages';
 
 export const languageInput = (value, handleSelectChange, options) => {
-    let lan = Object.values(LanOp).map(el=> {
-        return {value: el.name, label: el.nativeName};
-    });
     return (
         <div className='Select-input'>
         <Select

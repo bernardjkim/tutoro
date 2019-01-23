@@ -87,8 +87,10 @@ async function create(req, res, next) {
   let languagePreferences = [];
 
   if (fields.major) {
+    debugger
     await (async () => {
-      for (const item of JSON.parse(fields.major)) {
+      // for (const item of JSON.parse(fields.major)) {
+      for (const item of (fields.major)) {
         const res = Major.findOne({ name: item.name });
         major.push(await res);
       }
@@ -97,10 +99,9 @@ async function create(req, res, next) {
 
   if (fields.coursesTaken) {
     await (async () => {
-      for (const item of JSON.parse(fields.coursesTaken)) {
+      for (const item of (fields.coursesTaken)) {
         const res = Course.findOne({
-          name: item.name,
-          number: item.number
+          name: item.name
         });
         coursesTaken.push(await res);
       }
@@ -109,7 +110,7 @@ async function create(req, res, next) {
 
   if (fields.languagePreferences) {
     await (async () => {
-      for (const item of JSON.parse(fields.languagePreferences)) {
+      for (const item of (fields.languagePreferences)) {
         const res = Language.findOne({
           tag: item.tag
         });
@@ -120,7 +121,7 @@ async function create(req, res, next) {
 
   if (fields.locationPreferences) {
     await (async () => {
-      for (const item of JSON.parse(fields.locationPreferences)) {
+      for (const item of (fields.locationPreferences)) {
         const res = Location.findOne({
           tag: item.tag
         });

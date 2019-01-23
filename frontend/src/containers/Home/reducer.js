@@ -8,7 +8,7 @@ import {
 
 import optionsReducers from "./NewForm/reducer";
 
-const iniState = { profile: {}, profilePic: false };
+const iniState = { profile: false,};
 const profileReducer = (state = iniState, action) => {
   const newState = Object.assign({}, state);
   Object.freeze(state);

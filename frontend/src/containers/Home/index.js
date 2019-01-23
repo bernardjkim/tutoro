@@ -21,7 +21,6 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.fetchProfile();
-    this.props.fetchCourses();
   }
   modalOpen = () => {
     this.setState({ newProfile: true });

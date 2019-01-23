@@ -15,7 +15,7 @@ export const createNewProfile = profile => dispatch => {
         if (key !== 'image') {
             formData.append(key, profile[key]);
         } else {
-            formData.append(key, profile[key][0]);
+            formData.append('file', profile[key][0]);
         }
     });
     axios
@@ -37,7 +37,10 @@ export const getFormOptions = () => dispatch  => {
 
     axios
         .get(`/api/course`)
-        .then(res=>dispatch(receiveCourses(res.data)));
+        .then(res=>{
+            dispatch(receiveCourses(res.data));
+
+        });
     axios
         .get(`/api/location`)
         .then(res=> dispatch(receiveLocations(res.data)));
@@ -46,5 +49,6 @@ export const getFormOptions = () => dispatch  => {
         .then(res=> dispatch(receiveLanguages(res.data)));
     axios
         .get(`/api/major`)
-        .then(res=> dispatch(receiveMajors(res.data)));
+        .then(res=> {
+            dispatch(receiveMajors(res.data))});
 }
