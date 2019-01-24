@@ -86,49 +86,41 @@ async function create(req, res, next) {
   let locationPreferences = [];
   let languagePreferences = [];
 
-  if (fields.major) {
-    debugger
-    await (async () => {
-      // for (const item of JSON.parse(fields.major)) {
-      for (const item of (fields.major)) {
+  await (async () => {
+    if (fields.major) {
+      for (const item of fields.major) {
         const res = Major.findOne({ name: item.name });
         major.push(await res);
       }
-    })();
-  }
+    }
 
-  if (fields.coursesTaken) {
-    await (async () => {
-      for (const item of JSON.parse(fields.coursesTaken)) {
+    if (fields.coursesTaken) {
+      for (const item of fields.coursesTaken) {
         const res = Course.findOne({
           name: item.name
         });
         coursesTaken.push(await res);
       }
-    })();
-  }
+    }
 
-  if (fields.languagePreferences) {
-    await (async () => {
-      for (const item of JSON.parse(fields.languagePreferences)) {
+    if (fields.languagePreferences) {
+      for (const item of fields.languagePreferences) {
         const res = Language.findOne({
           tag: item.tag
         });
         languagePreferences.push(await res);
       }
-    })();
-  }
+    }
 
-  if (fields.locationPreferences) {
-    await (async () => {
-      for (const item of JSON.parse(fields.locationPreferences)) {
+    if (fields.locationPreferences) {
+      for (const item of fields.locationPreferences) {
         const res = Location.findOne({
           tag: item.tag
         });
         locationPreferences.push(await res);
       }
-    })();
-  }
+    }
+  })();
 
   const profile = new Profile({
     userId,
@@ -163,8 +155,9 @@ async function create(req, res, next) {
     return next(e);
   });
   if (mongoProfile) {
-    const profileObj = mongoProfile.toObject();
-    profileObj.image = files.file[0];
+    const data = await getFile(profile.image);
+    const profileObj = profile.toObject();
+    profileObj.image = data;
     return res.status(201).json({ success: true, profile: profileObj });
   }
 }
@@ -218,9 +211,13 @@ async function list(req, res, next) {
   const mongoCourse = await Course.findOne({ name: course });
 
   const profiles = await Profile.find({
-    coursesTaken: { $elemMatch: mongoCourse }
+    coursesTaken: mongoCourse
   })
     .limit(50)
+    .populate("major")
+    .populate("locationPreferences")
+    .populate("languagePreferences")
+    .populate("coursesTaken")
     .exec()
     .catch(e => {
       res.status(500).json({

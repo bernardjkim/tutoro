@@ -45,7 +45,7 @@ const ProfileSchema = new Schema({
   },
   enrollment: {
     type: String,
-    enum: ["Freshman", "Sophmore", "Junior", "Senior", "Graduate"]
+    enum: ["Freshman", "Sophomore", "Junior", "Senior", "Other"]
   }
 });
 

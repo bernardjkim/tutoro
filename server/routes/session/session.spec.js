@@ -4,15 +4,12 @@ process.env.NODE_ENV = "test";
 // Load module alias
 require("module-alias/register");
 
-// let mongoose = require("mongoose");
-
 let User = require("@models/User");
 
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
 let server = require("@root/server");
-// let should = chai.should();
 
 chai.use(chaiHttp);
 

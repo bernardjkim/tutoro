@@ -55,8 +55,8 @@ module.exports = {
                 label: 'Senior'
             },
             {
-                value: 'Graduate',
-                label: 'Graduate'
+                value: 'Other',
+                label: 'Other'
             }
         ],
     courseTakenOption: [
