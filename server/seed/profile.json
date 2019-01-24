@@ -1,0 +1,212 @@
+[
+  {
+    "firstName": "Abba",
+    "lastName": "Portman",
+    "phone": 7496083851,
+    "enrollment": "Junior",
+    "major": ["Computer Science"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Fidelity",
+    "lastName": "Goble",
+    "phone": 1103239800,
+    "enrollment": "Junior",
+    "major": ["English"],
+    "locationPreferences": ["ALB"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["ENGL 131"]
+  },
+  {
+    "firstName": "Tammie",
+    "lastName": "Rois",
+    "phone": 3031260756,
+    "enrollment": "Other",
+    "major": ["Korean"],
+    "locationPreferences": ["CSE"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Merrilee",
+    "lastName": "Jesteco",
+    "phone": 1296754969,
+    "enrollment": "Other",
+    "major": ["English"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Nancey",
+    "lastName": "Bakeup",
+    "phone": 2819837577,
+    "enrollment": "Sophomore",
+    "major": ["Mathematics"],
+    "locationPreferences": ["OUG"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["ENGL 121"]
+  },
+  {
+    "firstName": "Val",
+    "lastName": "Meriguet",
+    "phone": 8966414293,
+    "enrollment": "Sophomore",
+    "major": ["Mathematics"],
+    "locationPreferences": ["ARC"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["ENGL 111"]
+  },
+  {
+    "firstName": "Killie",
+    "lastName": "Kohn",
+    "phone": 5753914877,
+    "enrollment": "Other",
+    "major": ["Mathematics"],
+    "locationPreferences": ["ALB"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Kissee",
+    "lastName": "Halfhide",
+    "phone": 2454026992,
+    "enrollment": "Sophomore",
+    "major": ["Korean"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Eddie",
+    "lastName": "Mellmer",
+    "phone": 4006344568,
+    "enrollment": "Freshman",
+    "major": ["Germanics"],
+    "locationPreferences": ["OUG"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["ENGL 131"]
+  },
+  {
+    "firstName": "Kenneth",
+    "lastName": "Pilgram",
+    "phone": 8239270828,
+    "enrollment": "Senior",
+    "major": ["English"],
+    "locationPreferences": ["OUG"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Wally",
+    "lastName": "Thams",
+    "phone": 3007659002,
+    "enrollment": "Freshman",
+    "major": ["Mathematics"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["ENGL 121"]
+  },
+  {
+    "firstName": "Katya",
+    "lastName": "Gadsden",
+    "phone": 3009689757,
+    "enrollment": "Other",
+    "major": ["Biology"],
+    "locationPreferences": ["ALB"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["CSE 142", "CSE 143"]
+  },
+  {
+    "firstName": "Kikelia",
+    "lastName": "Plumbe",
+    "phone": 1872155563,
+    "enrollment": "Freshman",
+    "major": ["Biology"],
+    "locationPreferences": ["OUG"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["ENGL 111"]
+  },
+  {
+    "firstName": "Agosto",
+    "lastName": "Pinder",
+    "phone": 8878768581,
+    "enrollment": "Other",
+    "major": ["Computer Science"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["CSE 142", "CSE 143"]
+  },
+  {
+    "firstName": "Julio",
+    "lastName": "Arias",
+    "phone": 2142369486,
+    "enrollment": "Freshman",
+    "major": ["Computer Science"],
+    "locationPreferences": ["ALB"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["CSE 142", "CSE 143"]
+  },
+  {
+    "firstName": "Deeann",
+    "lastName": "Goghin",
+    "phone": 2819112769,
+    "enrollment": "Sophomore",
+    "major": ["English"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Felecia",
+    "lastName": "Peebles",
+    "phone": 1195507629,
+    "enrollment": "Sophomore",
+    "major": ["Biology"],
+    "locationPreferences": ["ALB"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Lisa",
+    "lastName": "Auden",
+    "phone": 5029367448,
+    "enrollment": "Sophomore",
+    "major": ["Mathematics"],
+    "locationPreferences": ["ALB"],
+    "languagePreferences": ["en"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Abba0",
+    "lastName": "Portman",
+    "phone": 7496083851,
+    "enrollment": "Junior",
+    "major": ["Computer Science"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Abba1",
+    "lastName": "Portman",
+    "phone": 7496083851,
+    "enrollment": "Junior",
+    "major": ["Computer Science"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  },
+  {
+    "firstName": "Abba2",
+    "lastName": "Portman",
+    "phone": 7496083851,
+    "enrollment": "Junior",
+    "major": ["Computer Science"],
+    "locationPreferences": ["SUZ"],
+    "languagePreferences": ["ko"],
+    "coursesTaken": ["MATH 124", "MATH 125", "MATH 126"]
+  }
+]
