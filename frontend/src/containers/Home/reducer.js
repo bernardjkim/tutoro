@@ -3,12 +3,13 @@ import {
   RECIEVE_PROFILE,
   RECIEVE_PROFILE_PIC,
   OPEN_NEWPROFILE_FORM,
-  RECEIVE_COURSES
+  RECEIVE_COURSES,
+  RECEIVE_PROFILE_WITH_COURSE
 } from "./constant";
 
 import optionsReducers from "./NewForm/reducer";
 
-const iniState = { profile: {}, newForm: false};
+const iniState = { profile: {}, newForm: false, profileswithCourse: {}};
 const profileReducer = (state = iniState, action) => {
   const newState = Object.assign({}, state);
   Object.freeze(state);

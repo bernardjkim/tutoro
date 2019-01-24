@@ -1,7 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
 import SelectVir from "react-virtualized-select";
-import LanOp from './languages';
 
 export const languageInput = (value, handleSelectChange, options) => {
     return (
@@ -61,8 +60,8 @@ export const enrollmentInput = (value, handleSelectChange) => {
                 label: 'Freshman'
             },
             {
-                value: 'Sophmore',
-                label: 'Sophmore'
+                value: 'Sophomore',
+                label: 'Sophomore'
             },
             {
                 value: 'Junior',

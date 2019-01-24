@@ -1,8 +1,20 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {fetchProfileWithCourse} from '../action';
 
 class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: '',
+    }
+  }
+  
+
+  handlechange=(e) => {
+    this.setState({search: e.target.value})
+  }
 
 
     render() {
@@ -16,6 +28,8 @@ class Search extends React.Component {
                   className="form-control mr-sm-2 w-100"
                   type="search"
                   placeholder="Search"
+                  onChange= {this.handlechange}
+                  value = {this.state.search}
                   aria-label="Search"
                 />
               </form>
@@ -88,8 +102,8 @@ const msp = state => ({
 
 });
 
-const mdp = state => ({
-
+const mdp = dispatch => ({
+  fetchProfileWithCourse: className => dispatch(fetchProfileWithCourse(className))
 });
 
 export default connect(msp, mdp)(withRouter(Search));
