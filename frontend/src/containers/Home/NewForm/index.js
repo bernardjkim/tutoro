@@ -3,13 +3,7 @@ import Input from "../../../components/Input";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createNewProfile, getFormOptions } from "./axios";
-import {
-  majorInput,
-  enrollmentInput,
-  languageInput,
-  locationPrefInput,
-  coursesTakenInput
-} from "./Select";
+import { Select, AsyncSelect } from "../../../components/Select";
 
 class NewProfile extends React.Component {
     constructor(props) {
@@ -23,8 +17,7 @@ class NewProfile extends React.Component {
             locationPreferences:'',
             languagePreferences: '',
             image:'',
-            phone: ''
-            
+            phone: ''   
         }
         
     }
@@ -33,9 +26,6 @@ class NewProfile extends React.Component {
         this.props.getFormOptions();
     }
 
-    getCoursesRecom = e => {
-        
-    }
 
     handleInputChange = e => {
         const name = e.target.name;
@@ -95,6 +85,29 @@ class NewProfile extends React.Component {
                 courseTaken
             } = this.state;
 
+            const enrollmentOption = [
+                {
+                    value: 'Freshman',
+                    label: 'Freshman'
+                },
+                {
+                    value: 'Sophomore',
+                    label: 'Sophomore'
+                },
+                {
+                    value: 'Junior',
+                    label: 'Junior'
+                },
+                {
+                    value: 'Senior',
+                    label: 'Senior'
+                },
+                {
+                    value: 'Graduate',
+                    label: 'Graduate'
+                }
+            ];
+
             const { majors, courses, locations, languages } = this.props.options;
 
             const handleSelectChange = this.handleSelectChange;
@@ -130,11 +143,42 @@ class NewProfile extends React.Component {
                     placeholder = 'Phone Number'
                     value = {this.state.phone}
                     />  
-                    {locationPrefInput(locationPreferences, handleSelectChange, locations)} 
-                    {enrollmentInput(enrollment, handleSelectChange)}
-                    {majorInput(major, handleSelectChange, majors)}
-                    {languageInput(languagePreferences, handleSelectChange, languages)}
-                    {coursesTakenInput(courseTaken, handleSelectChange,courses)}
+                    <Select 
+                    value = {languagePreferences}
+                    options = {languages}
+                    placeholder = 'Language Preferred'
+                    onChange= {handleSelectChange}
+                    name = 'languagePreferences'
+                    />
+                    <Select 
+                    value = {locationPreferences}
+                    options = {locations}
+                    placeholder = 'Location Preference'
+                    onChange= {handleSelectChange}
+                    name = 'locationPreferences'
+                    />
+                    <Select 
+                    value = {major}
+                    options = {majors}
+                    placeholder = 'Major'
+                    onChange= {handleSelectChange}
+                    name = 'major'
+                    isMulti = {true}
+                    />
+                    <Select 
+                    value = {enrollment}
+                    options = {enrollmentOption}
+                    placeholder = 'Enrollment Status'
+                    onChange= {handleSelectChange}
+                    name = 'enrollment'
+                    />
+                    <AsyncSelect 
+                    value = {courseTaken}
+                    options = {courses}
+                    placeholder = 'Courses You Enjoyed'
+                    onChange= {handleSelectChange}
+                    name = 'courseTaken'
+                    />
                     <button 
                     className = 'btn btn-outline-primary btn-lg btn-block'
                     onClick={this.handleSubmit}>Submit</button>
@@ -149,7 +193,7 @@ const msp = state => ({
     options: state.home.options
 })
 
-const mdp = profile => dispatch => ({
+const mdp = dispatch => ({
   createNewProfile: profile => dispatch(createNewProfile(profile)),
   getFormOptions: () => dispatch(getFormOptions())
 });

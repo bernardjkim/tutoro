@@ -30,7 +30,7 @@ class Home extends React.Component {
         <Nav />
         <Search />
         <Modal
-          isOpen={true}
+          isOpen={this.props.newProfile}
           // isOpen={this.props.newProfile}
           style={customStyles}
           contentLabel="Profile Modal"

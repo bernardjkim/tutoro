@@ -3,7 +3,7 @@ import {
   RECIEVE_PROFILE,
   OPEN_NEWPROFILE_FORM,
   RECIEVE_PROFILE_PIC,
-  RECEIVE_COURSES,
+  RECIEVE_COURSES_OPTIONS,
   RECEIVE_PROFILE_WITH_COURSE
 } from "./constant";
 import setAuthToken from "../util/set_auth_token";
@@ -32,10 +32,11 @@ export const openNewProfileForm = () => ({
   
 });
 
-export const receiveCourses = courses => ({
-  type: RECEIVE_COURSES,
-  payload: courses
+export const receiveCourses = res => ({
+  type: RECIEVE_COURSES_OPTIONS,
+  payload: res.courses
 });
+
 
 export const logoutUser = () => dispatch => {
   // Remove token from localStorage

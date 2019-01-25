@@ -20,10 +20,10 @@ export const fetchProfile = () => dispatch => {
 };
 
 export const fetchCourses = () => dispatch => {
-  axios
-    .get("/api/course")
-    .then(res => {
-      dispatch(receiveCourses());
-    })
-    .catch(err => {});
+    axios
+      .get(`/api/course`)
+      .then(res => {
+        dispatch(receiveCourses(res.data));
+
+      });
 };
