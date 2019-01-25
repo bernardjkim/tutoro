@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {fetchProfileWithCourse} from '../action';
-
+import Detail from './detail';
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -12,23 +12,31 @@ class Search extends React.Component {
   }
   
 
-  handlechange=(e) => {
+  changeSearchInput = (e) => {
     this.setState({search: e.target.value})
+  }
+
+  submitSearchResult = e => {
+    e.preventDefault();
+    const { fetchProfileWithCourse } = this.props;
+    fetchProfileWithCourse(this.state.search)
   }
 
 
     render() {
+      const { profiles } = this.props;
+      const results = profiles.map((el, idx) => <Detail key={idx} profile={el}/>)
         return (
         <div className="mt-5">
           <div className="container">
             <h2 className="card-title gray-bg-light ">Search:</h2>
             <div className="p-3 gray-bg-light-mid border-radius-half mb-5">
-              <form className="form-inline d-flex justify-content-center">
+              <form className="form-inline d-flex justify-content-center" onSubmit={this.submitSearchResult}>
                 <input
                   className="form-control mr-sm-2 w-100"
                   type="search"
                   placeholder="Search"
-                  onChange= {this.handlechange}
+                  onChange= {this.changeSearchInput}
                   value = {this.state.search}
                   aria-label="Search"
                 />
@@ -39,55 +47,11 @@ class Search extends React.Component {
             <div className="card border-none border-radius-half gray-bg-light-mid">
               <div className="card-body ">
                 <h3 className="custom-card-sub mb-2 text-muted gray-bg-light-mid">
-                  3 matches found
+                  {`${profiles.length} results has been found`}
                 </h3>
                 <div className="gray-bg-light-mid">
                   <ul className="list-group gray-bg-light-mid border-radius-half">
-                    <li className="d-flex justify-content-between align-items-center bg-white p-3 border-radius-half mb-2">
-                      <div className="d-flex align-items-center">
-                        <img
-                          className="rounded-circle"
-                          src="https://www.w3schools.com/w3images/avatar2.png"
-                          width="64"
-                          height="64"
-                          alt="user avatar"
-                        />
-                        <div className="ml-3">Tutee #1</div>
-                      </div>
-                      <span className="badge badge-pill">
-                        <i className="material-icons">more_vert</i>
-                      </span>
-                    </li>
-                    <li className="d-flex justify-content-between align-items-center bg-white p-3 border-radius-half mb-2">
-                      <div className="d-flex align-items-center">
-                        <img
-                          className="rounded-circle"
-                          src="https://www.w3schools.com/w3images/avatar2.png"
-                          width="64"
-                          height="64"
-                          alt="user avatar"
-                        />
-                        <div className="ml-3">Tutee #2</div>
-                      </div>
-                      <span className="badge badge-pill">
-                        <i className="material-icons">more_vert</i>
-                      </span>
-                    </li>
-                    <li className="d-flex justify-content-between align-items-center bg-white p-3 border-radius-half mb-2">
-                      <div className="d-flex align-items-center">
-                        <img
-                          className="rounded-circle"
-                          src="https://www.w3schools.com/w3images/avatar2.png"
-                          width="64"
-                          height="64"
-                          alt="user avatar"
-                        />
-                        <div className="ml-3">Tutee #3</div>
-                      </div>
-                      <span className="badge badge-pill">
-                        <i className="material-icons">more_vert</i>
-                      </span>
-                    </li>
+                    {results}
                   </ul>
                 </div>
               </div>
@@ -99,7 +63,7 @@ class Search extends React.Component {
 }
 
 const msp = state => ({
-
+  profiles: state.home.profile.profileswithCourse
 });
 
 const mdp = dispatch => ({

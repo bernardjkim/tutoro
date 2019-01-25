@@ -9,7 +9,7 @@ import {
 
 import optionsReducers from "./NewForm/reducer";
 
-const iniState = { profile: {}, newForm: false, profileswithCourse: {}};
+const iniState = { profile: {}, newForm: false, profileswithCourse: []};
 const profileReducer = (state = iniState, action) => {
   const newState = Object.assign({}, state);
   Object.freeze(state);
@@ -26,6 +26,9 @@ const profileReducer = (state = iniState, action) => {
       return newState;
     case RECEIVE_COURSES:
       newState.courses = action.payload.courses;
+      return newState;
+    case RECEIVE_PROFILE_WITH_COURSE:
+      newState.profileswithCourse = action.payload.profiles;
       return newState;
     default:
       return state;

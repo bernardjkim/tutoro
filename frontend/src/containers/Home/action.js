@@ -51,7 +51,6 @@ export const fetchProfileWithCourse = courseName => dispatch => {
   axios
     .get(`/api/profile?name=${courseName}`)
     .then(res=> {
-      debugger
       dispatch({
       type: RECEIVE_PROFILE_WITH_COURSE,
       payload: res.data
