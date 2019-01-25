@@ -10,7 +10,6 @@ class Search extends React.Component {
       search: '',
     }
   }
-  
 
   changeSearchInput = (e) => {
     this.setState({search: e.target.value})
@@ -25,7 +24,11 @@ class Search extends React.Component {
 
     render() {
       const { profiles } = this.props;
-      const results = profiles.map((el, idx) => <Detail key={idx} profile={el}/>)
+      let results;
+
+      if (profiles[0]) {
+        results = profiles.map((el, idx) => <Detail key={idx} profile={el}/>)
+      }
         return (
         <div className="mt-5">
           <div className="container">
@@ -63,6 +66,8 @@ class Search extends React.Component {
 }
 
 const msp = state => ({
+  // uncommnet for testing
+  // profiles: [state.home.profile.profile]
   profiles: state.home.profile.profileswithCourse
 });
 

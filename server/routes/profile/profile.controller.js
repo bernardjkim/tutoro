@@ -146,7 +146,6 @@ async function create(req, res, next) {
   }
 
   const mongoProfile = await profile.save().catch(e => {
-    debugger
     res.status(400).json({
       error: {
         message: "Unable to create profile",

@@ -20,7 +20,6 @@ export default userData => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err => {
-      debugger;
       console.log("ERRRO>>>>>>>>>>>>>>>", err);
       dispatch({
         type: RECEIVE_LOGIN_ERRORS,
