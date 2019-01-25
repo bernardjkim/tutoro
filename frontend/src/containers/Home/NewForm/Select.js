@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import SelectVir from "react-virtualized-select";
-
+import AsyncSelect from 'react-select/lib/Async';
 export const languageInput = (value, handleSelectChange, options) => {
     return (
         <div className='Select-input'>
@@ -90,17 +90,33 @@ export const enrollmentInput = (value, handleSelectChange) => {
 }
 
 export const coursesTakenInput = (value, handleSelectChange, options) => {
+    const loadOptions = (input, callback) => {
+        // debugger
+        if (input.length > 1) {
+            const newOption = options.filter(el => {
+                const search = input.toLowerCase();
+                return el.label.toLowerCase().includes(search);
+            });
+            callback( newOption);
+        }
+       
+
+    }
 
     return(
 
         <div className='Select-input'>
-        <Select
+        < AsyncSelect
             name='courseTaken'
             isMulti= {true}
             placeholder='Courses that you most enjoyed'
             value={value}
+            autosize={true}
+            clearable={false}
+            cache={false}
+            closeOnSelect={false}
+            loadOptions = {loadOptions}
             onChange={handleSelectChange}
-            options={options}
             />
         </div>
     );

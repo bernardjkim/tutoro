@@ -33,6 +33,10 @@ class NewProfile extends React.Component {
         this.props.getFormOptions();
     }
 
+    getCoursesRecom = e => {
+        
+    }
+
     handleInputChange = e => {
         const name = e.target.name;
         const value = e.target.value;
