@@ -33,7 +33,6 @@ if (localStorage.jwtToken) {
 //   email: "test123@uw.edu",
 //   password: "test123@uw.edu"
 // };
-// store.dispatch(loginUser(testUser));
 
 class GlobalApp extends Component {
   render() {

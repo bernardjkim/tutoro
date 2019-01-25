@@ -154,7 +154,6 @@ async function create(req, res, next) {
     });
     return next(e);
   });
-
   if (mongoProfile) {
     const data = await getFile(profile.image);
     const profileObj = profile.toObject();

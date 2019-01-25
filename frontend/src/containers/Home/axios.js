@@ -11,7 +11,7 @@ export const fetchProfile = () => dispatch => {
     .get("/api/profile/current")
     .then(res => {
       dispatch(receiveProfile(res.data.profile));
-      dispatch(receiveProfilePic(res.data.profilePic));
+      dispatch(receiveProfilePic(res.data.profile.image));
     })
     .catch(err => {
       // if we do not find the profile we make a new profile
