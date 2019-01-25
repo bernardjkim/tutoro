@@ -133,7 +133,7 @@ describe("Users", () => {
     });
 
     it("it should not POST a new user with a missing password", done => {
-      let test = user;
+      let test = { ...user };
       test.password = undefined;
       createUser(test)
         .then(res => {
@@ -148,8 +148,9 @@ describe("Users", () => {
     });
 
     it("it should not POST a new user without a uw.edu email", done => {
-      let test = user;
+      let test = { ...user };
       test.email = "test@gmail.com";
+      console.log(test);
       createUser(test)
         .then(res => {
           res.should.have.status(400);
@@ -163,7 +164,7 @@ describe("Users", () => {
     });
 
     it("it should not POST a new user without matching passwords", done => {
-      let test = user;
+      let test = { ...user };
       test.password2 = "wrongpassword";
       createUser(test)
         .then(res => {

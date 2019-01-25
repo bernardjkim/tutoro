@@ -3,14 +3,9 @@ require("module-alias/register");
 
 const express = require("express");
 const router = express.Router();
-const Promise = require("bluebird");
 const passport = require("passport");
 
 const profile = require("./profile.controller");
-
-const Profile = require("@models/Profile");
-const Major = require("@models/Major");
-const Course = require("@models/Course");
 
 /**
  * Undefined endpoint
@@ -24,10 +19,22 @@ const undefinedHandler = (req, res) => {
   });
 };
 
+/**
+ * Create a profile
+ */
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   profile.create
+);
+
+/**
+ * Update a profile
+ */
+router.put(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  profile.update
 );
 
 /**
