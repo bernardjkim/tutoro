@@ -229,17 +229,20 @@ async function list(req, res, next) {
       return next(e);
     });
 
-  console.log(profiles.length);
-
   const result = [];
-  await (async () => {
-    for (const profile of profiles) {
-      const obj = profile.toObject();
-      const data = getFile(profile.image);
-      obj.image = await data;
-      result.push(obj);
-    }
-  })();
+
+  await Promise.all(
+    profiles.map(profile => {
+      return new Promise((resolve, reject) => {
+        const obj = profile.toObject();
+        getFile(profile.image).then(data => {
+          obj.image = data;
+          result.push(obj);
+          resolve();
+        });
+      });
+    })
+  );
 
   return res.status(200).json({ success: true, profiles: result });
 }
