@@ -39,7 +39,7 @@ Select.defaultProps = {
     className: 'Select-input'
 };
 
-export const AsyncSelect = ({ value, onChange, options, name, placeholder, isMulti, className }) => {
+export const AsyncSelect = ({clearable, value, onChange, options, name, placeholder, isMulti, className }) => {
     const loadOptions = (input, callback) => {
         if (input.length > 1) {
             const newOption = options.filter(el => {
@@ -49,12 +49,11 @@ export const AsyncSelect = ({ value, onChange, options, name, placeholder, isMul
             callback( newOption);
         }   
     }
-
     return(
-
         <div className={className}>
         < _AsyncSelect
             name = {name}
+            clearable={clearable}
             placeholder={placeholder}
             value={value}
             isMulti = {isMulti}

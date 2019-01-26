@@ -4,7 +4,6 @@ import {
   OPEN_NEWPROFILE_FORM,
   RECIEVE_PROFILE_PIC,
   RECIEVE_COURSES_OPTIONS,
-  RECEIVE_PROFILE_WITH_COURSE
 } from "./constant";
 import setAuthToken from "../util/set_auth_token";
 import axios from "axios";
@@ -48,12 +47,3 @@ export const logoutUser = () => dispatch => {
 };
 
 
-export const fetchProfileWithCourse = courseName => dispatch => {
-  axios
-    .get(`/api/profile?name=${courseName}`)
-    .then(res=> {
-      dispatch({
-      type: RECEIVE_PROFILE_WITH_COURSE,
-      payload: res.data
-    })})
-} 
