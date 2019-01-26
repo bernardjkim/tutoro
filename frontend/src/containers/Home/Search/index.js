@@ -1,25 +1,31 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {fetchProfileWithCourse} from '../action';
+import { fetchCourses, fetchProfileWithCourse } from '../axios';
 import Detail from './detail';
+import { AsyncSelect } from '../../../components/Select';
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: '',
+      search: null,
     }
   }
 
-  changeSearchInput = (e) => {
-    this.setState({search: e.target.value})
+  componentDidMount() {
+    this.props.fetchCourseOption();
   }
 
-  submitSearchResult = e => {
-    e.preventDefault();
+  changeSearchInput = (selectedOption, field) => {
     const { fetchProfileWithCourse } = this.props;
-    fetchProfileWithCourse(this.state.search)
-  }
+    this.setState({ [field.name]: selectedOption });
+    fetchProfileWithCourse(selectedOption.value);
+  };
+
+  // submitSearchResult = e => {
+  //   e.preventDefault();
+  //   fetchProfileWithCourse(this.state.search.value);
+  // }
 
 
     render() {
@@ -34,14 +40,16 @@ class Search extends React.Component {
           <div className="container">
             <h2 className="card-title gray-bg-light ">Search:</h2>
             <div className="p-3 gray-bg-light-mid border-radius-half mb-5">
-              <form className="form-inline d-flex justify-content-center" onSubmit={this.submitSearchResult}>
-                <input
-                  className="form-control mr-sm-2 w-100"
-                  type="search"
-                  placeholder="Search"
-                  onChange= {this.changeSearchInput}
-                  value = {this.state.search}
-                  aria-label="Search"
+              <form className="form-inline d-flex flex-row w-100" >
+                <AsyncSelect
+                className = 'form-control mr-sm-2 flex-grow-1 p-0 '
+                placeholder='Search a Course You Need Help On'
+                aria-label='Search'
+                name='search'
+                clearable={true}
+                value={this.state.search}
+                onChange = {this.changeSearchInput}
+                options={this.props.courses}
                 />
               </form>
             </div>
@@ -68,10 +76,12 @@ class Search extends React.Component {
 const msp = state => ({
   // uncommnet for testing
   // profiles: [state.home.profile.profile]
+  courses: state.home.options.courses,
   profiles: state.home.profile.profileswithCourse
 });
 
 const mdp = dispatch => ({
+  fetchCourseOption: () => dispatch(fetchCourses()),
   fetchProfileWithCourse: className => dispatch(fetchProfileWithCourse(className))
 });
 

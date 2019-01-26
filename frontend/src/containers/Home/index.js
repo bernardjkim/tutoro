@@ -19,13 +19,6 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.fetchProfile();
   }
-  modalOpen = () => {
-    this.setState({ newProfile: true });
-  };
-
-  closeModal = () => {
-    this.setState({ newProfile: false });
-  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -38,6 +31,7 @@ class Home extends React.Component {
         <Search />
         <Modal
           isOpen={this.props.newProfile}
+          // isOpen={this.props.newProfile}
           style={customStyles}
           contentLabel="Profile Modal"
         >
