@@ -3,8 +3,7 @@ import {
   RECIEVE_PROFILE,
   OPEN_NEWPROFILE_FORM,
   RECIEVE_PROFILE_PIC,
-  RECEIVE_COURSES,
-  RECEIVE_PROFILE_WITH_COURSE
+  RECIEVE_COURSES_OPTIONS,
 } from "./constant";
 import setAuthToken from "../util/set_auth_token";
 import axios from "axios";
@@ -32,10 +31,11 @@ export const openNewProfileForm = () => ({
   
 });
 
-export const receiveCourses = courses => ({
-  type: RECEIVE_COURSES,
-  payload: courses
+export const receiveCourses = res => ({
+  type: RECIEVE_COURSES_OPTIONS,
+  payload: res.courses
 });
+
 
 export const logoutUser = () => dispatch => {
   // Remove token from localStorage
@@ -47,12 +47,3 @@ export const logoutUser = () => dispatch => {
 };
 
 
-export const fetchProfileWithCourse = courseName => dispatch => {
-  axios
-    .get(`/api/profile?name=${courseName}`)
-    .then(res=> {
-      dispatch({
-      type: RECEIVE_PROFILE_WITH_COURSE,
-      payload: res.data
-    })})
-} 

@@ -24,9 +24,6 @@ const profileReducer = (state = iniState, action) => {
     case RECIEVE_PROFILE_PIC:
       newState.profilePic = action.payload;
       return newState;
-    case RECEIVE_COURSES:
-      newState.courses = action.payload.courses;
-      return newState;
     case RECEIVE_PROFILE_WITH_COURSE:
       newState.profileswithCourse = action.payload.profiles;
       return newState;

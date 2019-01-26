@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RECEIVE_PROFILE_WITH_COURSE } from './constant';
 import {
   receiveProfile,
   openNewProfileForm,
@@ -18,12 +19,21 @@ export const fetchProfile = () => dispatch => {
       dispatch(openNewProfileForm());
     });
 };
+export const fetchProfileWithCourse = courseName => dispatch => {
+  axios
+    .get(`/api/profile?course=${courseName}`)
+    .then(res=> {
+      dispatch({
+      type: RECEIVE_PROFILE_WITH_COURSE,
+      payload: res.data
+    })})
+} 
 
 export const fetchCourses = () => dispatch => {
-  axios
-    .get("/api/course")
-    .then(res => {
-      dispatch(receiveCourses());
-    })
-    .catch(err => {});
+    axios
+      .get(`/api/course`)
+      .then(res => {
+        dispatch(receiveCourses(res.data));
+
+      });
 };
