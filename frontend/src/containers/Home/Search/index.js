@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCourses, fetchProfileWithCourse } from '../axios';
 import Detail from './detail';
 import { AsyncSelect } from '../../../components/Select';
+import Loading from '../../../components/Loading';
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -29,8 +30,11 @@ class Search extends React.Component {
 
 
     render() {
-      const { profiles } = this.props;
+      const { profiles, loading } = this.props;
       let results;
+      if (loading) {
+        return <Loading/>
+      }
 
       if (profiles[0]) {
         results = profiles.map((el, idx) => <Detail key={idx} profile={el}/>)
@@ -76,6 +80,7 @@ class Search extends React.Component {
 const msp = state => ({
   // uncommnet for testing
   // profiles: [state.home.profile.profile]
+  loading: state.home.profile.loading,
   courses: state.home.options.courses,
   profiles: state.home.profile.profileswithCourse
 });

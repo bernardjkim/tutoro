@@ -1,6 +1,7 @@
 import React from 'react';
 import encode from "../../util/encode";
 
+
 export default ({profile}) => {
     const { firstName, lastName, image } = profile;
 
