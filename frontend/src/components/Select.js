@@ -82,3 +82,4 @@ AsyncSelect.defaultProps = {
     isMulti: false,
     className: 'Select-input'
 };
+
