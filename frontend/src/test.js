@@ -14,9 +14,11 @@ class FileUpload extends Component {
     const formData = new FormData();
     formData.append("file", this.state.file[0]);
     axios
-      .post(`/api/users/5c3a52bafe60710874d95287/profile`, formData, {
+      .put(`/api/profile`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNDkzMDcwZjZhNTkzZTUxNTAyZTcyMSIsImlhdCI6MTU0ODg5NjcwNSwiZXhwIjoxNTg0ODk2NzA1fQ.ZQ3HU_K4F4iNfjtniYnkfeG36yv-sE9xuWKavQ-TDJo"
         }
       })
       .then(response => {

@@ -86,41 +86,77 @@ async function create(req, res, next) {
   let locationPreferences = [];
   let languagePreferences = [];
 
-  await (async () => {
-    if (fields.major) {
-      for (const item of JSON.parse(fields.major)) {
-        const res = Major.findOne({ name: item.name });
-        major.push(await res);
-      }
-    }
+  let promises = [];
 
-    if (fields.coursesTaken) {
-      for (const item of JSON.parse(fields.coursesTaken)) {
-        const res = Course.findOne({
-          name: item.name
-        });
-        coursesTaken.push(await res);
-      }
-    }
+  if (fields.major) {
+    fields.major.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Major.findOne({ name: entry })
+            .then(res => {
+              major.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
 
-    if (fields.languagePreferences) {
-      for (const item of JSON.parse(fields.languagePreferences)) {
-        const res = Language.findOne({
-          tag: item.tag
-        });
-        languagePreferences.push(await res);
-      }
-    }
+  if (fields.coursesTaken) {
+    fields.coursesTaken.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Course.findOne({ name: entry })
+            .then(res => {
+              coursesTaken.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
 
-    if (fields.locationPreferences) {
-      for (const item of JSON.parse(fields.locationPreferences)) {
-        const res = Location.findOne({
-          tag: item.tag
-        });
-        locationPreferences.push(await res);
-      }
-    }
-  })();
+  if (fields.languagePreferences) {
+    fields.languagePreferences.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Language.findOne({ tag: entry })
+            .then(res => {
+              languagePreferences.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
+
+  if (fields.locationPreferences) {
+    fields.locationPreferences.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Location.findOne({ tag: entry })
+            .then(res => {
+              locationPreferences.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
+
+  await Promise.all(promises);
 
   const profile = new Profile({
     userId,
@@ -157,6 +193,32 @@ async function create(req, res, next) {
   if (mongoProfile) {
     const data = await getFile(profile.image);
     const profileObj = profile.toObject();
+
+    profileObj.enrollment = {
+      value: profileObj.enrollment,
+      label: profileObj.enrollment
+    };
+
+    profileObj.major = profileObj.major.map(entry => {
+      return { value: entry.name, label: entry.name };
+    });
+
+    profileObj.coursesTaken = profileObj.coursesTaken.map(entry => {
+      return { value: entry.name, label: entry.name };
+    });
+
+    profileObj.locationPreferences = profileObj.locationPreferences.map(
+      entry => {
+        return { value: entry.tag, label: entry.name };
+      }
+    );
+
+    profileObj.languagePreferences = profileObj.languagePreferences.map(
+      entry => {
+        return { value: entry.tag, label: entry.nativeName };
+      }
+    );
+
     profileObj.image = data;
     return res.status(201).json({ success: true, profile: profileObj });
   }
@@ -172,15 +234,20 @@ async function create(req, res, next) {
 async function get(req, res, next) {
   const userId = req.user.id;
 
-  const profile = await Profile.findOne({ userId }).catch(e => {
-    res.status(500).json({
-      error: {
-        message: "Unable to get profile",
-        description: "Internal server error"
-      }
+  const profile = await Profile.findOne({ userId })
+    .populate("coursesTaken")
+    .populate("major")
+    .populate("languagePreferences")
+    .populate("locationPreferences")
+    .catch(e => {
+      res.status(500).json({
+        error: {
+          message: "Unable to get profile",
+          description: "Internal server error"
+        }
+      });
+      return next(e);
     });
-    return next(e);
-  });
 
   if (!profile) {
     res.status(404).json({
@@ -194,6 +261,26 @@ async function get(req, res, next) {
 
   const data = await getFile(profile.image);
   const profileObj = profile.toObject();
+  profileObj.enrollment = {
+    value: profileObj.enrollment,
+    label: profileObj.enrollment
+  };
+
+  profileObj.major = profileObj.major.map(entry => {
+    return { value: entry.name, label: entry.name };
+  });
+
+  profileObj.coursesTaken = profileObj.coursesTaken.map(entry => {
+    return { value: entry.name, label: entry.name };
+  });
+
+  profileObj.locationPreferences = profileObj.locationPreferences.map(entry => {
+    return { value: entry.tag, label: entry.name };
+  });
+
+  profileObj.languagePreferences = profileObj.languagePreferences.map(entry => {
+    return { value: entry.tag, label: entry.nativeName };
+  });
   profileObj.image = data;
   return res.status(200).json({ success: true, profile: profileObj });
 }
@@ -207,8 +294,10 @@ async function get(req, res, next) {
  */
 async function list(req, res, next) {
   const { course } = req.query;
-
-  const mongoCourse = await Course.findOne({ name: course });
+  var t0 = new Date().getTime();
+  const mongoCourse = Course.findOne({ name: course });
+  var t1 = new Date().getTime();
+  console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
 
   const profiles = await Profile.find({
     coursesTaken: mongoCourse
@@ -283,41 +372,77 @@ async function update(req, res, next) {
   let locationPreferences = [];
   let languagePreferences = [];
 
-  await (async () => {
-    if (fields.major) {
-      for (const item of (fields.major)) {
-        const res = Major.findOne({ name: item.name });
-        major.push(await res);
-      }
-    }
+  let promises = [];
 
-    if (fields.coursesTaken) {
-      for (const item of (fields.coursesTaken)) {
-        const res = Course.findOne({
-          name: item.name
-        });
-        coursesTaken.push(await res);
-      }
-    }
+  if (fields.major) {
+    fields.major.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Major.findOne({ name: entry })
+            .then(res => {
+              major.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
 
-    if (fields.languagePreferences) {
-      for (const item of (fields.languagePreferences)) {
-        const res = Language.findOne({
-          tag: item.tag
-        });
-        languagePreferences.push(await res);
-      }
-    }
+  if (fields.coursesTaken) {
+    fields.coursesTaken.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Course.findOne({ name: entry })
+            .then(res => {
+              coursesTaken.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
 
-    if (fields.locationPreferences) {
-      for (const item of (fields.locationPreferences)) {
-        const res = Location.findOne({
-          tag: item.tag
-        });
-        locationPreferences.push(await res);
-      }
-    }
-  })();
+  if (fields.languagePreferences) {
+    fields.languagePreferences.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Language.findOne({ tag: entry })
+            .then(res => {
+              languagePreferences.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
+
+  if (fields.locationPreferences) {
+    fields.locationPreferences.forEach(entry => {
+      promises.push(
+        new Promise((resolve, reject) => {
+          Location.findOne({ tag: entry })
+            .then(res => {
+              locationPreferences.push(res);
+              resolve();
+            })
+            .catch(e => {
+              reject(e);
+            });
+        })
+      );
+    });
+  }
+
+  await Promise.all(promises);
 
   if (!files.file) {
     profile.image = "default-profile-1.png";
@@ -341,8 +466,6 @@ async function update(req, res, next) {
     enrollment: fields.enrollment
   });
 
-  debugger
-
   const mongoProfile = await profile.save().catch(e => {
     res.status(400).json({
       error: {
@@ -355,6 +478,32 @@ async function update(req, res, next) {
   if (mongoProfile) {
     const data = await getFile(profile.image);
     const profileObj = profile.toObject();
+
+    profileObj.enrollment = {
+      value: profileObj.enrollment,
+      label: profileObj.enrollment
+    };
+
+    profileObj.major = profileObj.major.map(entry => {
+      return { value: entry.name, label: entry.name };
+    });
+
+    profileObj.coursesTaken = profileObj.coursesTaken.map(entry => {
+      return { value: entry.name, label: entry.name };
+    });
+
+    profileObj.locationPreferences = profileObj.locationPreferences.map(
+      entry => {
+        return { value: entry.tag, label: entry.name };
+      }
+    );
+
+    profileObj.languagePreferences = profileObj.languagePreferences.map(
+      entry => {
+        return { value: entry.tag, label: entry.nativeName };
+      }
+    );
+
     profileObj.image = data;
     return res.status(200).json({ success: true, profile: profileObj });
   }
