@@ -3,15 +3,12 @@ import "./stylesheet/App.scss";
 // Redux
 import store from "./store";
 import { Provider } from "react-redux";
-import {
-  receiveCurrentUser,
-  logoutUser
-} from './containers/App/action'
+import { receiveCurrentUser, logoutUser } from "./containers/App/action";
 
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./containers/util/set_auth_token";
 
-import App from './containers/App/index';
+import App from "./containers/App/index";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -36,7 +33,7 @@ class GlobalApp extends Component {
   render() {
     return (
       <Provider store={store}>
-          <App/>
+        <App />
       </Provider>
     );
   }
