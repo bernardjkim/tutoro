@@ -294,11 +294,9 @@ async function get(req, res, next) {
  */
 async function list(req, res, next) {
   const { course } = req.query;
-  var t0 = new Date().getTime();
-  const mongoCourse = Course.findOne({ name: course });
-  var t1 = new Date().getTime();
-  console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
+  const mongoCourse = await Course.findOne({ name: course });
 
+  // var t0 = new Date().getTime();
   const profiles = await Profile.find({
     coursesTaken: mongoCourse
   })
@@ -307,7 +305,6 @@ async function list(req, res, next) {
     .populate("locationPreferences")
     .populate("languagePreferences")
     .populate("coursesTaken")
-    .exec()
     .catch(e => {
       res.status(500).json({
         error: {
@@ -317,6 +314,8 @@ async function list(req, res, next) {
       });
       return next(e);
     });
+  // var t1 = new Date().getTime();
+  // console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
 
   const result = [];
 
