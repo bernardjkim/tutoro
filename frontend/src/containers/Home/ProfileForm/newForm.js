@@ -13,7 +13,7 @@ class NewProfile extends React.Component {
             lastName: '',
             enrollment:'',
             major: [],
-            courseTaken: [],
+            coursesTaken: [],
             locationPreferences:'',
             languagePreferences: '',
             image:'',
@@ -177,7 +177,7 @@ class NewProfile extends React.Component {
                     options = {courses}
                     placeholder = 'Courses You Enjoyed'
                     onChange= {handleSelectChange}
-                    name = 'courseTaken'
+                    name = 'coursesTaken'
                     />
                     <button 
                     className = 'btn btn-outline-primary btn-lg btn-block'

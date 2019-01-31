@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {logoutUser} from './action'
+import { logoutUser, openUpdateProfile } from './action'
 import logo from '../../../images/logo.png'
 
 class NavBar extends React.Component {
 
     logoutUser = () => {
         this.props.logoutUser();
+    }
+
+    openUpdateProfile = () => {
+        this.props.openUpdateProfile();
     }
     render()  {
         return (
@@ -20,8 +24,7 @@ class NavBar extends React.Component {
                 </a>
                 
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a className="dropdown-item" href="#">Action</a>
-                    <a className="dropdown-item" href="#">Another action</a>
+                    <a className="dropdown-item" onClick={this.openUpdateProfile} href="#">Edit Profile</a>
                     <div className="dropdown-divider"></div>
                     <a className="dropdown-item" onClick={this.logoutUser} href="#">Log Out</a>
                 </div>
@@ -38,7 +41,8 @@ const msp = state => ({
 });
 
 const mdp = dispatch => ({
-    logoutUser: () => dispatch(logoutUser())
+    logoutUser: () => dispatch(logoutUser()),
+    openUpdateProfile: () => dispatch(openUpdateProfile())
 })
 
 export default connect(

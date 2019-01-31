@@ -3,16 +3,19 @@ import {
   RECIEVE_PROFILE,
   RECIEVE_PROFILE_PIC,
   OPEN_NEWPROFILE_FORM,
-  RECEIVE_PROFILE_WITH_COURSE
+  RECEIVE_PROFILE_WITH_COURSE,
+  OPEN_UPDATEPROFILE_FORM,
+  CLOSE_UPDATEPROFILE_FORM
 } from "./constant";
 
-import optionsReducers from "./NewForm/reducer";
+import optionsReducers from "./ProfileForm/reducer";
 
 
 const iniState = { 
   loading: false,
   profile: {}, 
   newForm: false, 
+  updateForm: false,
   profileswithCourse: []};
 
 const profileReducer = (state = iniState, action) => {
@@ -25,6 +28,12 @@ const profileReducer = (state = iniState, action) => {
       return newState;
     case OPEN_NEWPROFILE_FORM:
       newState.newForm = true;
+      return newState;
+    case OPEN_UPDATEPROFILE_FORM:
+      newState.updateForm = true;
+      return newState;
+    case CLOSE_UPDATEPROFILE_FORM:
+      newState.updateForm = false;
       return newState;
     case RECIEVE_PROFILE_PIC:
       newState.profilePic = action.payload;

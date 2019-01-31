@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
-import ProfileForm from "./NewForm/index";
+import ProfileForm from "./ProfileForm/newForm";
+import UpdateForm from './ProfileForm/updateForm';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Nav from "./Nav/index";
@@ -33,9 +34,16 @@ class Home extends React.Component {
           isOpen={this.props.newProfile}
           // isOpen={this.props.newProfile}
           style={customStyles}
-          contentLabel="Profile Modal"
+          contentLabel="New Profile Modal"
         >
-          <ProfileForm closeModal={this.closeModal} />
+          <ProfileForm />
+        </Modal>
+        <Modal
+          isOpen={this.props.updateForm}
+          style={customStyles}
+          contentLabel="Update Profile Modal"
+        >
+          <UpdateForm />
         </Modal>
       </div>
     );
@@ -60,7 +68,8 @@ const customStyles = {
 const msp = state => ({
   profile: state.home.profile.profile,
   profilePic: state.home.profile.profilePic,
-  newProfile: state.home.profile.newForm
+  newProfile: state.home.profile.newForm,
+  updateForm: state.home.profile.updateForm,
 });
 
 const mdp = dispatch => ({
