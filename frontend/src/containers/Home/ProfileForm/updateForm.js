@@ -11,8 +11,13 @@ class UpdateProfile extends React.Component {
     super(props);
     const { profile } = this.props;
     this.state = {
-      ...profile
+      ...profile,
+      editImage: false,
     };
+  }
+
+  editImage= () => {
+      this.setState({editImage: !this.state.editImage})
   }
 
   componentDidMount() {
@@ -68,9 +73,11 @@ class UpdateProfile extends React.Component {
       major,
       languagePreferences,
       enrollment,
-      coursesTaken
+      coursesTaken,
+      editImage,
+      image
     } = this.state;
-
+    debugger
     const enrollmentOption = [
       {
         value: "Freshman",
@@ -94,13 +101,52 @@ class UpdateProfile extends React.Component {
       }
     ];
 
+    // const renderImage = editImage ? 
+    // <div>
+    //             <div className="form-group">
+    //              <input
+    //                  id="upload"
+    //                  ref="upload"
+    //                  type="file"
+    //                  accept="image/*"
+    //                  onChange={this.handleInputChange}
+    //              />
+    //              </div>
+    //              <a onClick={this.editImage}></a>
+    // </div> :
+    // <div>
+    //             <img
+    //                 className="rounded-circle"
+    //                 src= {`data:image/png;base64,${encode(image)}`}
+    //                 width="64"
+    //                 height="64"
+    //                 alt="user avatar"
+    //             />
+    //             <a onClick={this.editImage}></a>
+    // </div> 
+
+    
+        
+
+
+
     const { majors, courses, locations, languages } = this.props.options;
 
     const handleSelectChange = this.handleSelectChange;
 
     return (
       <form>
+                         <div className="form-group">
+                 <input
+                     id="upload"
+                     ref="upload"
+                     type="file"
+                     accept="image/*"
+                     onChange={this.handleInputChange}
+                 />
+                 </div>
         {errMsg}
+        {/* {renderImage} */}
         <Input
           type="text"
           name="firstName"
@@ -116,15 +162,7 @@ class UpdateProfile extends React.Component {
           value={this.state.lastName}
         />
 
-        <div className="form-group">
-          <input
-            id="upload"
-            // ref="upload"
-            type="file"
-            // accept="image/*"
-            onChange={this.handleInputChange}
-          />
-        </div>
+
         <Input
           type="tel"
           name="phone"

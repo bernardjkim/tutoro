@@ -67,8 +67,6 @@ class NewProfile extends React.Component {
   };
 
   render() {
-    const { error } = this.props;
-    const errMsg = <p className="error-message">{error}</p>;
     const {
       locationPreferences,
       major,
@@ -106,7 +104,6 @@ class NewProfile extends React.Component {
 
     return (
       <form>
-        {errMsg}
         <Input
           type="text"
           name="firstName"
