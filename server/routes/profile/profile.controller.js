@@ -243,7 +243,6 @@ async function list(req, res, next) {
       });
     })
   );
-
   return res.status(200).json({ success: true, profiles: result });
 }
 
@@ -278,10 +277,34 @@ async function update(req, res, next) {
   const [fields, files] = await form.parseAsync(req);
 
   // parse majors
-  let major = [];
-  let coursesTaken = [];
-  let locationPreferences = [];
-  let languagePreferences = [];
+  let obj = {
+    major: [],
+    coursesTaken: [],
+    locationPreferences: [],
+    languagePreferences: [],
+  }
+
+
+  const arrField = ['major', 'coursesTaken', 'locationPreferences', 'languagePreferences']
+  await Promise.all(
+    arrField.map(field => {
+      const arr = fields[field];
+      arr.map(value => {
+        return new Promise((resolve, reject) => {
+
+          obj[field].push(value)
+        })
+      })
+      return new Promise((resolve, reject) => {
+        const obj = profile.toObject();
+        getFile(profile.image).then(data => {
+          obj.image = data;
+          result.push(obj);
+          resolve();
+        });
+      });
+    })
+  );
 
   await (async () => {
     if (fields.major) {

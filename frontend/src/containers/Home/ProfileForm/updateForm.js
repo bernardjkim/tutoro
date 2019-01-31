@@ -2,6 +2,7 @@ import React from "react";
 import Input from "../../../components/Input";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import encode from "../../util/encode";
 import { updateProfile, getFormOptions } from "./axios";
 import { Select, AsyncSelect } from "../../../components/Select";
 
@@ -10,13 +11,17 @@ class UpdateProfile extends React.Component {
         super(props);
         const { profile } = this.props;
         this.state = {
-            ...profile
-        }
-        
+            ...profile,
+            editImage: false
+        }      
     }
 
     componentDidMount() {
         this.props.getFormOptions();
+    }
+
+    editImage = () => {
+        this.setState({editImage: !this.state.editImage});
     }
 
 
@@ -74,9 +79,11 @@ class UpdateProfile extends React.Component {
         const {
             locationPreferences,
             major,
+            image,
             languagePreferences,
             enrollment,
-            coursesTaken
+            coursesTaken,
+            editImage
         } = this.state;
 
         const enrollmentOption = [
@@ -101,6 +108,25 @@ class UpdateProfile extends React.Component {
                 label: 'Graduate'
             }
         ];
+        const imageInput = editImage ?  <div>
+            <div className='form-group'>
+                    <input id="upload" ref="upload" type="file" accept="image/*"
+                            onChange={this.handleInputChange}
+                    />
+                <a onClick={this.editImage}>edit Image</a>
+                    
+                    </div>
+            </div> :<div>
+            <img
+                    className="rounded-circle"
+                    src= {`data:image/png;base64,${encode(image)}`}
+                    width="64"
+                    height="64"
+                    alt="user avatar"
+                />
+                <a onClick={this.editImage}>edit Image</a>
+
+        </div>
 
         const { majors, courses, locations, languages, } = this.props.options;
 
@@ -110,6 +136,7 @@ class UpdateProfile extends React.Component {
         return(
             <form>
                 {errMsg}
+                {imageInput}
                 <Input
                 type = 'text'
                 name ='firstName'
@@ -125,11 +152,7 @@ class UpdateProfile extends React.Component {
                 value = {this.state.lastName}
                 />
         
-                <div className='form-group'>
-                    <input id="upload" ref="upload" type="file" accept="image/*"
-                        onChange={this.handleInputChange}
-                />
-                </div>
+
                 <Input
                 type = 'tel'
                 name ='phone'
