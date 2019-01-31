@@ -101,29 +101,29 @@ class UpdateProfile extends React.Component {
       }
     ];
 
-    // const renderImage = editImage ? 
-    // <div>
-    //             <div className="form-group">
-    //              <input
-    //                  id="upload"
-    //                  ref="upload"
-    //                  type="file"
-    //                  accept="image/*"
-    //                  onChange={this.handleInputChange}
-    //              />
-    //              </div>
-    //              <a onClick={this.editImage}></a>
-    // </div> :
-    // <div>
-    //             <img
-    //                 className="rounded-circle"
-    //                 src= {`data:image/png;base64,${encode(image)}`}
-    //                 width="64"
-    //                 height="64"
-    //                 alt="user avatar"
-    //             />
-    //             <a onClick={this.editImage}></a>
-    // </div> 
+    const renderImage = editImage ? 
+    <div>
+                <div className="form-group">
+                 <input
+                     id="upload"
+                     ref="upload"
+                     type="file"
+                     accept="image/*"
+                     onChange={this.handleInputChange}
+                 />
+                 </div>
+                 <a onClick={this.editImage}>Edit Profile Image</a>
+    </div> :
+    <div>
+                <img
+                    className="rounded-circle"
+                    src= {`data:image/png;base64,${encode(image)}`}
+                    width="64"
+                    height="64"
+                    alt="user avatar"
+                />
+                <a onClick={this.editImage}>Edit Profile Image</a>
+    </div> 
 
     
         
@@ -136,17 +136,9 @@ class UpdateProfile extends React.Component {
 
     return (
       <form>
-                         <div className="form-group">
-                 <input
-                     id="upload"
-                     ref="upload"
-                     type="file"
-                     accept="image/*"
-                     onChange={this.handleInputChange}
-                 />
-                 </div>
+    
         {errMsg}
-        {/* {renderImage} */}
+        {renderImage}
         <Input
           type="text"
           name="firstName"
