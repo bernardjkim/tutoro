@@ -3,8 +3,6 @@ import "./stylesheet/App.scss";
 // Redux
 import store from "./store";
 import { Provider } from "react-redux";
-
-import loginUser from "./containers/Login/axios";
 import {
   receiveCurrentUser,
   logoutUser

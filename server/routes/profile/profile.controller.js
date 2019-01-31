@@ -88,14 +88,14 @@ async function create(req, res, next) {
 
   await (async () => {
     if (fields.major) {
-      for (const item of fields.major) {
+      for (const item of JSON.parse(fields.major)) {
         const res = Major.findOne({ name: item.name });
         major.push(await res);
       }
     }
 
     if (fields.coursesTaken) {
-      for (const item of fields.coursesTaken) {
+      for (const item of JSON.parse(fields.coursesTaken)) {
         const res = Course.findOne({
           name: item.name
         });
@@ -104,7 +104,7 @@ async function create(req, res, next) {
     }
 
     if (fields.languagePreferences) {
-      for (const item of fields.languagePreferences) {
+      for (const item of JSON.parse(fields.languagePreferences)) {
         const res = Language.findOne({
           tag: item.tag
         });
@@ -113,7 +113,7 @@ async function create(req, res, next) {
     }
 
     if (fields.locationPreferences) {
-      for (const item of fields.locationPreferences) {
+      for (const item of JSON.parse(fields.locationPreferences)) {
         const res = Location.findOne({
           tag: item.tag
         });
@@ -285,14 +285,14 @@ async function update(req, res, next) {
 
   await (async () => {
     if (fields.major) {
-      for (const item of fields.major) {
+      for (const item of (fields.major)) {
         const res = Major.findOne({ name: item.name });
         major.push(await res);
       }
     }
 
     if (fields.coursesTaken) {
-      for (const item of fields.coursesTaken) {
+      for (const item of (fields.coursesTaken)) {
         const res = Course.findOne({
           name: item.name
         });
@@ -301,7 +301,7 @@ async function update(req, res, next) {
     }
 
     if (fields.languagePreferences) {
-      for (const item of fields.languagePreferences) {
+      for (const item of (fields.languagePreferences)) {
         const res = Language.findOne({
           tag: item.tag
         });
@@ -310,7 +310,7 @@ async function update(req, res, next) {
     }
 
     if (fields.locationPreferences) {
-      for (const item of fields.locationPreferences) {
+      for (const item of (fields.locationPreferences)) {
         const res = Location.findOne({
           tag: item.tag
         });
@@ -340,6 +340,8 @@ async function update(req, res, next) {
     languagePreferences,
     enrollment: fields.enrollment
   });
+
+  debugger
 
   const mongoProfile = await profile.save().catch(e => {
     res.status(400).json({

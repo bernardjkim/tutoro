@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _Select from 'react-select';
-import _AsyncSelect from 'react-select/lib/Async';
+import RSelect from 'react-select';
+import RAsyncSelect from 'react-select/lib/Async';
 export const Select = ({ value, onChange, options, name, placeholder, isMulti, className }) => {
     return (
         <div className={className}>
-        <_Select
+        <RSelect
             name = {name}
             placeholder={placeholder}
             value={value}
@@ -51,7 +51,7 @@ export const AsyncSelect = ({clearable, value, onChange, options, name, placehol
     }
     return(
         <div className={className}>
-        < _AsyncSelect
+        < RAsyncSelect
             name = {name}
             clearable={clearable}
             placeholder={placeholder}

@@ -6,8 +6,6 @@ import {
   RECIEVE_COURSES_OPTIONS,
 } from "./constant";
 import setAuthToken from "../util/set_auth_token";
-import axios from "axios";
-import { RSA_NO_PADDING } from "constants";
 
 export const receiveCurrentUser = userData => {
   return {
