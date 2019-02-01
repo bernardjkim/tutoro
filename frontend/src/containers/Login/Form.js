@@ -1,21 +1,16 @@
 import React from 'react';
-import logo from '../../images/logo.png';
 
 export default ({
     errors,
     email,
     handleInput,
     password,
-    handleSubmit
+    handleSubmit,
+    otherForm
 }) => {
     return (
-        <form className='form-container login'>
-            <div id='signup-title'>Log In</div>
-            <div className='logo-container'>
-              <img className='signup-logo' 
-              alt='login_logo'
-              src={logo}/>
-            </div>
+        <form className='form-container signup login-form'>
+            <div id='signup-title'>WELCOME BACK !</div>
             <div>
                 {errors}
             </div>
@@ -32,9 +27,10 @@ export default ({
                 name='password'
                 value={password}
                 onChange={handleInput}
-                />
-                            
+                />            
                 <button className ='signup-button' onClick={handleSubmit}>Log In</button>
+                <p>Not Registered Yet? <a href='#' id='login-atag' onClick={otherForm} >Join Us!</a></p>
+
             </form>
 
     );

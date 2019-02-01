@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import Modal from 'react-modal';
 import Form from './Form';
-import Login from '../Login/index';
 import { connect } from 'react-redux';
 import { signupUser } from './axios';
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +16,7 @@ class Signup extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.otherFrom = this.otherFrom.bind(this);
-    this.displayError = this.displayError.bind(this);
-    this.closeModal= this.closeModal.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.otherForm = this.otherForm.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +29,7 @@ class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  otherFrom() {
+  otherForm() {
     this.props.history.push('/login');
   }
   
@@ -48,28 +44,6 @@ class Signup extends Component {
 
     this.props.signupUser(newUser);
   }
-
-  displayError() {
-     const errors = this.props.errors.map((error, idx) =>{
-        return (<p key={idx}>{error}</p>);
-    } );
-    if (this.props.errors.length > 0) {
-      return(
-        <div className='error-flash'>
-          {errors}
-        </div>
-      );
-    }
-    return null;
-  }
-
-  openModal() {
-    this.setState({modalOpen: true});
-  }
-
-  closeModal() {
-    this.setState({modalOpen: false});
-  }
  
   render() {
       const errors = this.props.errors.map((error, idx) =>{
@@ -83,50 +57,27 @@ class Signup extends Component {
     return (
 
           <div id='signup-background'>
-          <Modal
-          isOpen={this.state.modalOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel='Login Modal'
-          >
-          <Login 
-          closeModal={this.closeModal}
-          />
-          </Modal>
-          <Form
-          errors={errors}
-          password = {password}
-          password2 = {password2}
-          email = {email}
-          handleInput ={this.handleInput}
-          handleSubmit = {this.handleSubmit}
-          openModal = {this.openModal}
-          />
-           
+              <Form
+              errors={errors}
+              password = {password}
+              password2 = {password2}
+              email = {email}
+              handleInput ={this.handleInput}
+              handleSubmit = {this.handleSubmit}
+              otherForm = {this.otherForm}
+              /> 
+              <div id='splash-intro'>
+                <i className="fas fa-chalkboard-teacher splash-icon"></i>
+                <div >Find a UW tutor today from Tutoro</div>
+              </div>
+
           </div>
       
       );
     }
   }
-  
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      height: '595px',
-      width: '450px'
-    },
-    overlay: {
-      backgroundColor: 'rgba(23, 19, 19, 0.99)'
-    }
-  }
-  
-  
-  const mapStateToProps = state => ({
+    
+const mapStateToProps = state => ({
     global: state.global,
     errors: Object.values(state.signup)
 });
@@ -140,5 +91,4 @@ export default connect(
   mapDispatchToProps
 )(withRouter(Signup));
 
-Modal.setAppElement('body');
 

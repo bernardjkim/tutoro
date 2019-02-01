@@ -1,73 +1,75 @@
 #signup-background {
-    background-image: url('https://images.pexels.com/photos/247899/pexels-photo-247899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    // background-image: url('https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80');
+    background-image: linear-gradient(-135deg, #4F2C73, #4F2C73, #7A296A, #9177AC);
     width: 100%;
     height: 100vh;
     background-size: cover;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center; 
+    color: #6E4D8F;
 }
 
 
 .form-container {
     background: white;
-    width: 400px;
-    height: 550px;
-    margin-right: 50px;
+    width: 550px;
+    height: 100vh;
     input {
+        border:none;
+        color:#6E4D8F;
+        border-bottom: solid 1px #9177AC;
         margin:10px;
+        line-height: 20px;
         height: 40px;
         width:300px;
-        font-size: 25px;
-        border: 1px solid black;
-        border-radius: 4px;
+        font-size: 15px;
+        &:focus {
+            outline: none;
+        }
     }
 }
 
 .signup {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    padding: 50px 0;
 
 }
 
 
 #signup-title {
     margin: 10px;
-    margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: 100;
     font-size: 40px;
-}
-.signup-logo {
-    height: 150px;
-    width: 150px;
-    overflow: hidden;
-}
-.logo-container {
-    height: 150px;
-    width: 150px;
-    overflow: hidden;
-
+    color: #6E4D8F;
 }
 
 .session-error {
     color: #ef5353;
-    font-weight: 700;
+    font-weight: 100;
+    list-style: none;
     margin: 3px;
 }
 
 .signup-button {
-    width: 300px;
-    border-radius: 4px;
-    height: 45px;
+    width: 200px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
     color: white;
-    font-size: 25px;
-    background-color: #563d7c;
-    &:hover {
-        background-color: #461546;
-    }
-    
+    background-image: linear-gradient(to right, #4F2C73 0%, #B77AAB 51%, #7A296A 100%);
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+        &:hover {
+            background-position: right center;
+        }
+        
 }
 
 #login-atag {
@@ -76,11 +78,31 @@
     color: blue;
 }
 
-  .Overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #563d7c;
+
+
+#splash-intro {
+    margin-right: 230px;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: lighter;
+    * {
+        color: white;
+    }
+}
+
+.splash-icon {
+    font-size: 200px;
+    margin-bottom: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  #splash-intro {
+    display: none;
   }
+}
+
+.login-form {
+    padding: 80px 0;
+}

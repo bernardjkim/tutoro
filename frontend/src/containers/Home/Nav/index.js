@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logoutUser, openUpdateProfile } from './action'
-import logo from '../../../images/logo.png'
 
 class NavBar extends React.Component {
 
@@ -16,7 +15,6 @@ class NavBar extends React.Component {
         return (
             < nav className = "navbar navbar-expand-lg" >
                 <a className="navbar-brand nav-bar-brand" href="#">
-                    <img src={logo} className="d-inline-block align-top logo-nav" alt=""/>
                     Tutoro
                 </a>
                 <div className="dropdown">

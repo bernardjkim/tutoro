@@ -20,7 +20,7 @@ export const fetchProfile = () => dispatch => {
     });
 };
 export const fetchProfileWithCourse = courseName => dispatch => {
-  dispatch({type: 'LOADING'})
+  dispatch({type: 'LOADING'});
   axios
     .get(`/api/profile?course=${courseName}`)
     .then(res=> {

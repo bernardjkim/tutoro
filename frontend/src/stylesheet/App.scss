@@ -1,19 +1,36 @@
+$backgroundPurple: linear-gradient(45deg, #4F2C73 0%, #7A296A 100%);
+$purple1: #4F2C73;
+$purple2: #6E4D8F;
+$purple3: #9177AC;
+$fontColor: #984C8A;
+
+
+
 @import './signup.scss';
 @import './login.scss';
-@import './NewProfile.scss';
+@import './ProfileForm.scss';
 @import './bootstrap.css';
 @import './Nav.scss';
 @import './error.scss';
+@import './Home.scss';
 //563D7C
 
 body {
     * {        
         box-sizing: border-box;
-        font-family: Helvetica sans-serif;
+        font-family:  'Roboto', sans-serif;
+        color: $fontColor;
     }
     button {
         cursor: pointer;
     }
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $fontColor;
+        opacity: .9; /* Firefox */
 }
+}
+
+
+
 /*! `Custom` Bootstrap 4 theme */
 

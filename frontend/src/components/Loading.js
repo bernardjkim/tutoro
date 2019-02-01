@@ -6,7 +6,10 @@ const style = {
     justifyContent: "center"
 }
 
-export default  ({ type='bubbles' , color ='#563D7C' }) => (
+export default ({
+    type = 'bubbles',
+    color = '#6c2371'
+}) => (
     <div style = {style}>
         <ReactLoading  type={type} color={color} height={667} width={375} />
     </div>

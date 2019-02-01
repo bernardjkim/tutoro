@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import loginUser  from './axios';
 import Form from './Form';
+import { connect } from 'react-redux';
+import loginUser from './axios';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.otherFrom = this.otherFrom.bind(this);
+    this.otherForm = this.otherForm.bind(this);
   }
 
   componentDidMount() {
@@ -27,41 +27,55 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  otherFrom() {
+  otherForm() {
     this.props.history.push('/signup');
   }
-
+  
   handleSubmit(e) {
     e.preventDefault();
 
     const newUser = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.password2
     };
+
     this.props.loginUser(newUser);
   }
 
+ 
   render() {
-    const errors = this.props.errors.map((error, idx) => <li key={idx} className='session-error'>{error}</li>);
-    const {email, password} = this.state;
+      const errors = this.props.errors.map((error, idx) =>{
+        return (<li className= 'session-error' key={idx}>{error}</li>);
+    } );
+   const {
+     password,
+     email,
+   } = this.state;
     return (
-        <div id='login-form-container'>
-           <Form
-           errors = {errors}
-           email = {email}
-           password = {password}
-           handleInput = {this.handleInput}
-           handleSubmit = {this.handleSubmit}
-           />
-        </div>
-      
-    );
-  }
-}
 
+          <div id='signup-background'>
+              <Form
+              errors={errors}
+              password = {password}
+              email = {email}
+              handleInput ={this.handleInput}
+              handleSubmit = {this.handleSubmit}
+              otherForm = {this.otherForm}
+              /> 
+            <div id='splash-intro'>
+                <i className="fas fa-chalkboard-teacher splash-icon"></i>
+                <div >Find a UW tutor today from Tutoro</div>
+              </div>
+          </div>
+      
+      );
+    }
+  }
+    
 const mapStateToProps = state => ({
-  global: state.global,
-  errors: Object.values(state.login)
+    global: state.global,
+    errors: Object.values(state.login)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -72,3 +86,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(Login));
+
+

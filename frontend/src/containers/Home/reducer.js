@@ -45,6 +45,9 @@ const profileReducer = (state = iniState, action) => {
     case 'LOADING':
       newState.loading = true;
       return newState;
+    case 'STOP_LOADING':
+      newState.loading = false;
+      return newState;
     default:
       return state;
   }

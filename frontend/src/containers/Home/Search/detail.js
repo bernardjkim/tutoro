@@ -14,7 +14,7 @@ export default ({profile}) => {
                     height="64"
                     alt="user avatar"
                 />
-                <div className="ml-3">{`${firstName} ${lastName}`}</div>
+                <div className="ml-3 search-detail-name">{`${firstName} ${lastName}`}</div>
                 </div>
                 <span className="badge badge-pill">
                 <i className="material-icons">more_vert</i>

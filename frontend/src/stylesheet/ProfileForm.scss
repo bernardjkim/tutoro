@@ -1,0 +1,83 @@
+.Select-input {
+    margin: 50px 0;
+    padding-bottom: 20px;
+    border-bottom: dotted 1px $purple2;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    height: 80px;
+    width: 200px;
+    border-radius: 40px;
+    line-height: 65px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    i {
+        color: white;
+    }
+    &:hover {
+        background-color: #B77AAB;
+        border: none;
+    }
+}
+
+
+
+.profile-image-container {
+    background-image: $backgroundPurple;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+        color: white;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            color: gray;
+        }
+    }
+}
+
+.profile-image {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    margin-bottom: 25px;
+
+}
+
+.profile-input-container {
+    padding: 20px 60px;
+    width: 60%;
+    margin: auto;
+    min-width:400px;
+
+}
+
+.input {
+    width: 100%;
+    border: none;
+    color: $fontColor;
+    height: 40px;
+    margin: 0 6px;
+    &:focus {
+        outline: none;
+    }
+
+
+}
+
+#button-wrapper {
+    display: flex;
+    justify-content: center;
+}

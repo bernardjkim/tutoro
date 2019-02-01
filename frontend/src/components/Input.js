@@ -6,8 +6,8 @@ export default ({
     onChange = null,
     placeholder = '',
     value = '',
-    divClassName = 'form-group',
-    inputClassName = 'form-control',
+    divClassName = 'Select-input',
+    inputClassName = 'input',
 }) => (
     <div className = {divClassName}>
         <input
