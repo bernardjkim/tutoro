@@ -21,7 +21,7 @@ async function create(req, res, next) {
     });
     return next(new Error("Invalid parameters"));
   }
-
+  debugger
   const { email, password } = req.body;
 
   //

@@ -32,7 +32,6 @@ class Home extends React.Component {
         <Search />
         <Modal
           isOpen={this.props.newProfile}
-          // isOpen={this.props.newProfile}
           style={customStyles}
           contentLabel="New Profile Modal"
         >
@@ -53,15 +52,12 @@ class Home extends React.Component {
 Modal.setAppElement("body");
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    height: "80%",
-    width: "50%",
-    minWidth: "320px"
+    top: 0,
+    left: 0,
+    height: "100vh",
+    width: "100%",
+    minWidth: "320px",
+    padding: 0,
   }
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../images/logo.png';
 
 export default ({
     errors,
@@ -8,17 +7,12 @@ export default ({
     email,
     handleInput,
     handleSubmit,
-    openModal
+    otherForm
      }) => {
 
     return (
          <form className='form-container signup'>
-            <div id='signup-title'>Sign Up for Free</div>
-            <div className='logo-container'>
-              <img className='signup-logo' 
-              alt='signup_logo'
-              src={logo}/>
-            </div>
+            <div id='signup-title'>JOIN US!</div>
             <div>
                 {errors}
             </div>
@@ -44,8 +38,8 @@ export default ({
                 onChange={handleInput}
                 />
                 
-                <button className ='signup-button' onClick={handleSubmit}>Sign Up</button>
-             <p>Already a member? <a href='#' id='login-atag' onClick={openModal} >Log in</a></p>
+                <button className ='signup-button' onClick={handleSubmit}>JOIN</button>
+             <p>Already a member? <a href='#' id='login-atag' onClick={otherForm} >Log in</a></p>
             </form>
     );
 }

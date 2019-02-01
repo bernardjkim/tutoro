@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "../../../components/Input";
 import { withRouter } from "react-router-dom";
+import Loading from '../../../components/Loading';
 import { connect } from "react-redux";
 import encode from "../../util/encode";
 import { updateProfile, getFormOptions } from "./axios";
@@ -20,6 +21,51 @@ class UpdateProfile extends React.Component {
       this.setState({editImage: !this.state.editImage})
   }
 
+  profileImage = () => {
+      const { image, editImage } = this.state;
+      console.log(image);
+        const profielImage = image[0] ? 
+                <img
+                    src={URL.createObjectURL(image[0])}
+                    className='profile-image'
+                />:
+              <img
+                   src= {`data:image/png;base64,${encode(image)}`}
+                    className='profile-image'
+                />
+        if (editImage) {
+            return (
+                <div className='profile-image-container' >
+                    <input
+                        id="upload"
+                        ref="upload"
+                        type="file"
+                        className = 'custom-file-upload'
+                        accept="image/*"
+                        onChange={this.handleInputChange}
+                    />  
+                    <label className="custom-file-upload">
+                        <input
+                            id="upload"
+                            ref="upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={this.handleInputChange}
+                        />  
+                        <i className="fa fa-cloud-upload-alt"></i> Upload Image
+                    </label>
+                </div>
+            )
+        } else {
+            return (
+                <div className='profile-image-container'>
+                    {profielImage}
+                    <p onClick={this.editImage}>Edit Image</p>
+                </div>
+            )
+        }
+  }
+
   componentDidMount() {
     this.props.getFormOptions();
   }
@@ -29,6 +75,7 @@ class UpdateProfile extends React.Component {
     const value = e.target.value;
     if (e.target.files) {
       this.setState({ image: e.target.files });
+      this.editImage();
     } else {
       this.setState({ [name]: value });
     }
@@ -66,18 +113,17 @@ class UpdateProfile extends React.Component {
   };
 
   render() {
-    const { error } = this.props;
-    const errMsg = <p className="error-message">{error}</p>;
+      if (this.props.loading) {
+        return <Loading/>
+    }
     const {
       locationPreferences,
       major,
       languagePreferences,
       enrollment,
       coursesTaken,
-      editImage,
-      image
     } = this.state;
-    debugger
+
     const enrollmentOption = [
       {
         value: "Freshman",
@@ -101,110 +147,80 @@ class UpdateProfile extends React.Component {
       }
     ];
 
-    const renderImage = editImage ? 
-    <div>
-                <div className="form-group">
-                 <input
-                     id="upload"
-                     ref="upload"
-                     type="file"
-                     accept="image/*"
-                     onChange={this.handleInputChange}
-                 />
-                 </div>
-                 <a onClick={this.editImage}>Edit Profile Image</a>
-    </div> :
-    <div>
-                <img
-                    className="rounded-circle"
-                    src= {`data:image/png;base64,${encode(image)}`}
-                    width="64"
-                    height="64"
-                    alt="user avatar"
-                />
-                <a onClick={this.editImage}>Edit Profile Image</a>
-    </div> 
-
-    
-        
-
-
-
     const { majors, courses, locations, languages } = this.props.options;
 
     const handleSelectChange = this.handleSelectChange;
-
     return (
-      <form>
-    
-        {errMsg}
-        {renderImage}
-        <Input
-          type="text"
-          name="firstName"
-          onChange={this.handleInputChange}
-          placeholder="First Name"
-          value={this.state.firstName}
-        />
-        <Input
-          type="text"
-          name="lastName"
-          onChange={this.handleInputChange}
-          placeholder="Last Name"
-          value={this.state.lastName}
-        />
-
-
-        <Input
-          type="tel"
-          name="phone"
-          onChange={this.handleInputChange}
-          placeholder="Phone Number"
-          value={this.state.phone}
-        />
-        <Select
-          value={languagePreferences}
-          options={languages}
-          placeholder="Language Preferred"
-          onChange={handleSelectChange}
-          name="languagePreferences"
-        />
-        <Select
-          value={locationPreferences}
-          options={locations}
-          placeholder="Location Preference"
-          onChange={handleSelectChange}
-          name="locationPreferences"
-        />
-        <Select
-          value={major}
-          options={majors}
-          placeholder="Major"
-          onChange={handleSelectChange}
-          name="major"
-          isMulti={true}
-        />
-        <Select
-          value={enrollment}
-          options={enrollmentOption}
-          placeholder="Enrollment Status"
-          onChange={handleSelectChange}
-          name="enrollment"
-        />
-        <AsyncSelect
-          value={coursesTaken}
-          isMulti={true}
-          options={courses}
-          placeholder="Courses You Enjoyed"
-          onChange={handleSelectChange}
-          name="coursesTaken"
-        />
-        <button
-          className="btn btn-outline-primary btn-lg btn-block"
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </button>
+      <form className='profile-form'>
+        {this.profileImage()}
+        <div className='profile-input-container'>
+            <Input
+            type="text"
+            name="firstName"
+            onChange={this.handleInputChange}
+            placeholder="First Name"
+            value={this.state.firstName}
+            />
+            <Input
+            type="text"
+            name="lastName"
+            onChange={this.handleInputChange}
+            placeholder="Last Name"
+            value={this.state.lastName}
+            />
+            <Input
+            type="tel"
+            name="phone"
+            onChange={this.handleInputChange}
+            placeholder="Phone Number (No Space)"
+            value={this.state.phone}
+            />
+            <Select
+            value={languagePreferences}
+            options={languages}
+            placeholder="Language Preferred"
+            onChange={handleSelectChange}
+            name="languagePreferences"
+            />
+            <Select
+            value={locationPreferences}
+            options={locations}
+            placeholder="Location Preference"
+            onChange={handleSelectChange}
+            name="locationPreferences"
+            />
+            <Select
+            value={major}
+            options={majors}
+            placeholder="Major"
+            onChange={handleSelectChange}
+            name="major"
+            isMulti={true}
+            />
+            <Select
+            value={enrollment}
+            options={enrollmentOption}
+            placeholder="Enrollment Status"
+            onChange={handleSelectChange}
+            name="enrollment"
+            />
+            <AsyncSelect
+            value={coursesTaken}
+            options={courses}
+            placeholder="Courses You Enjoyed"
+            onChange={handleSelectChange}
+            name="coursesTaken"
+            isMulti={true}
+            />
+            <div id='button-wrapper'>
+                <button
+                className="signup-button"
+                onClick={this.handleSubmit}
+                >
+                Submit
+                </button>
+            </div>
+        </div>
       </form>
     );
   }
@@ -213,7 +229,8 @@ class UpdateProfile extends React.Component {
 const msp = state => ({
   error: state.home.options.error,
   profile: state.home.profile.profile,
-  options: state.home.options
+  options: state.home.options,
+  loading: state.home.profile.loading,
 });
 
 const mdp = dispatch => ({

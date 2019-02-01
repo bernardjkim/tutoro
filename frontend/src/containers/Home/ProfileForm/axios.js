@@ -11,6 +11,7 @@ import { receiveProfile, receiveProfilePic } from "../action";
 
 export const createNewProfile = profile => dispatch => {
   // append every inforamtion in to a formData along with image
+  dispatch({type: 'LOADING'});
   const formData = new FormData();
   Object.keys(profile).forEach(key => {
     if (key !== "image") {
@@ -24,14 +25,17 @@ export const createNewProfile = profile => dispatch => {
     .then(res => {
       dispatch(receiveProfile(res.data.profile));
       dispatch(receiveProfilePic(res.data.profile.image));
+      dispatch({ type: 'STOP_LOADING'});
     })
     .catch(err => {
       dispatch(receiveProfileError(err.response.data));
+      dispatch({ type: 'STOP_LOADING'});
     });
 };
 
 export const updateProfile = profile => dispatch => {
   // append every inforamtion in to a formData along with image
+  dispatch({type: 'LOADING'});
   const formData = new FormData();
   Object.keys(profile).forEach(key => {
     if (key !== "image") {
@@ -49,10 +53,12 @@ export const updateProfile = profile => dispatch => {
     .then(res => {
       dispatch(receiveProfile(res.data.profile));
       dispatch(receiveProfilePic(res.data.profile.image));
+      dispatch({ type: 'STOP_LOADING'});
     })
     .then(() => dispatch({ type: CLOSE_UPDATEPROFILE_FORM }))
     .catch(err => {
       dispatch(receiveProfileError(err.response.data));
+      dispatch({ type: 'STOP_LOADING'});
     });
 };
 
