@@ -1,11 +1,25 @@
 import React from 'react';
 import encode from "../../util/encode";
+import DetailProfile from './detailProfile';
 
+class Detail extends React.Component {
+    state = {
+        detailProfile: false,
+    }
 
-export default ({profile}) => {
-    const { firstName, lastName, image } = profile;
+    toggleDetailProfile = () => {
+        this.setState({ detailProfile: !this.state.detailProfile})
+    }
+    
+    render() {
 
-    return <li className="d-flex justify-content-between align-items-center bg-white p-3 border-radius-half mb-2">
+            const profile = this.state.detailProfile ?
+                <DetailProfile profile ={this.props.profile}/>
+                : null;
+            const { firstName, lastName, image } = this.props.profile;
+       return <div>
+                <li className="d-flex justify-content-between align-items-center bg-white p-3 border-radius-half mb-2 search-result"
+                    onClick={this.toggleDetailProfile}>
                 <div className="d-flex align-items-center">
                 <img
                     className="rounded-circle"
@@ -20,4 +34,11 @@ export default ({profile}) => {
                 <i className="material-icons">more_vert</i>
                 </span>
             </li>
+                {profile}
+            </div>
+    }
+
 }
+
+
+export default Detail;

@@ -23,7 +23,6 @@ class UpdateProfile extends React.Component {
 
   profileImage = () => {
       const { image, editImage } = this.state;
-      console.log(image);
         const profielImage = image[0] ? 
                 <img
                     src={URL.createObjectURL(image[0])}

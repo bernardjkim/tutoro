@@ -6,22 +6,28 @@ import Detail from './detail';
 import { AsyncSelect } from '../../../components/Select';
 import Loading from '../../../components/Loading';
 class Search extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        search: null,
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: null,
     }
+  }
 
-    componentDidMount() {
-      this.props.fetchCourseOption();
-    }
+  componentDidMount() {
+    this.props.fetchCourseOption();
+  }
 
-    changeSearchInput = (selectedOption, field) => {
-      const { fetchProfileWithCourse } = this.props;
-      this.setState({ [field.name]: selectedOption });
-      fetchProfileWithCourse(selectedOption.value);
-    };
+  changeSearchInput = (selectedOption, field) => {
+    const { fetchProfileWithCourse } = this.props;
+    this.setState({ [field.name]: selectedOption });
+    fetchProfileWithCourse(selectedOption.value);
+  };
+
+  // submitSearchResult = e => {
+  //   e.preventDefault();
+  //   fetchProfileWithCourse(this.state.search.value);
+  // }
+
 
     render() {
       const { profiles, loading } = this.props;
