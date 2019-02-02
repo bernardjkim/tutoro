@@ -14,6 +14,7 @@ const language = require("./routes/language");
 const location = require("./routes/location");
 const major = require("./routes/major");
 const course = require("./routes/course");
+const sendgrid = require("./routes/sendgrid/sendgrid.route");
 
 const app = express();
 
@@ -25,6 +26,8 @@ const env = process.env.NODE_ENV;
 // Mongo Config
 const mongoURI =
   env === "test" ? process.env.MONGO_URI_TEST : process.env.MONGO_URI;
+
+// const mongoURI = process.env.MONGO_URI_TEST;
 const mongoOptions = { useNewUrlParser: true, useCreateIndex: true };
 
 // Use morgan for logging
@@ -34,10 +37,7 @@ if (env !== "test") app.use(morgan("combined")); //'combined' outputs the Apache
 mongoose.Promise = Promise;
 
 // Connect to mongo db
-mongoose.connect(
-  mongoURI,
-  mongoOptions
-);
+mongoose.connect(mongoURI, mongoOptions);
 mongoose.connection.on("error", () => {
   throw new Error(`unable to connect to database: ${mongoURI}`);
 });
@@ -58,6 +58,7 @@ app.use("/api/language", language);
 app.use("/api/location", location);
 app.use("/api/major", major);
 app.use("/api/course", course);
+app.use("/api/sendgrid", sendgrid);
 app.use((err, req, res, next) => {
   // console.error(err);
   return res;

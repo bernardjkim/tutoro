@@ -1,6 +1,9 @@
 // Load module alias
 require("module-alias/register");
 
+const sgMail = require("@sendgrid/mail");
+const emails = require("../../sendgrid/emails/email-confirmation");
+
 const validateRegisterInput = require("@utils/validations/signup");
 const { sign } = require("@utils/jwt");
 
@@ -15,7 +18,7 @@ function load(req, res, next, id) {
       if (!user)
         return res.status(404).json({
           error: {
-            message: "Unablge to get user",
+            message: "Unable to get user",
             description: `User with id ${id} does not exist`
           }
         });
@@ -84,7 +87,7 @@ async function create(req, res, next) {
   });
 
   // Save user into mongodb
-  const mongoUser = user.save().catch(e => {
+  const mongoUser = await user.save().catch(e => {
     res.status(400).json({
       error: {
         message: "Unable to create new user",
@@ -95,8 +98,47 @@ async function create(req, res, next) {
     return next(e);
   });
 
-  if (await mongoUser)
+  if (mongoUser) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+      to: mongoUser.email,
+      from: "uw.turoro@gmail.com",
+      subject: "Confirm your account on Tutoro",
+      html: emails(mongoUser._id)
+    };
+    sgMail.send(msg);
     return res.status(201).json({ success: true, token: await token });
+  }
+}
+
+function verify(req, res, next) {
+  User.findById(req.user.id)
+    .then(user => {
+      user.set({ verified: true });
+      user
+        .save()
+        .then(savedUser => {
+          res.status(200).send("Successfully verified account");
+        })
+        .catch(e => {
+          res.status(500).json({
+            error: {
+              message: "Unable to verify account",
+              description: "Internal server error"
+            }
+          });
+          next(e);
+        });
+    })
+    .catch(e => {
+      res.status(404).json({
+        error: {
+          message: "Unable to verify account",
+          description: "This user does not exist"
+        }
+      });
+      next(e);
+    });
 }
 
 /**
@@ -114,4 +156,4 @@ function list(req, res, next) {}
  */
 function remove(req, res, next) {}
 
-module.exports = { load, get, create, update, list, remove };
+module.exports = { load, get, create, update, list, remove, verify };

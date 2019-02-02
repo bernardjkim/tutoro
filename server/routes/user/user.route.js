@@ -32,6 +32,9 @@ router.get(
 /** GET /api/user/:id - Get specified user */
 router.get("/:id", user.get);
 
+/** POST /api/user/verify/:id - Verify user account */
+router.get("/verify/:id", user.verify);
+
 /** Load user when API with id route parameter is hit */
 router.param("id", user.load);
 
