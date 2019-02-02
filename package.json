@@ -4,7 +4,7 @@
   "description": "tutor webapplication",
   "main": "server.js",
   "scripts": {
-    "start": "npm run server",
+    "start": "npm run dev",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "install": "concurrently \"npm run server-install\" \"npm run frontend-install\"",
     "frontend-install": "npm install --prefix frontend",
