@@ -9,7 +9,7 @@ import {
 
 export const fetchProfile = () => dispatch => {
   axios
-    .get("/api/profile/current")
+    .get("api/profile/current")
     .then(res => {
       dispatch(receiveProfile(res.data.profile));
       dispatch(receiveProfilePic(res.data.profile.image));
@@ -22,7 +22,7 @@ export const fetchProfile = () => dispatch => {
 export const fetchProfileWithCourse = courseName => dispatch => {
   dispatch({type: 'LOADING'});
   axios
-    .get(`/api/profile?course=${courseName}`)
+    .get(`api/profile?course=${courseName}`)
     .then(res=> {
       dispatch({
       type: RECEIVE_PROFILE_WITH_COURSE,
@@ -32,7 +32,7 @@ export const fetchProfileWithCourse = courseName => dispatch => {
 
 export const fetchCourses = () => dispatch => {
     axios
-      .get(`/api/course`)
+      .get(`api/course`)
       .then(res => {
         dispatch(receiveCourses(res.data));
 

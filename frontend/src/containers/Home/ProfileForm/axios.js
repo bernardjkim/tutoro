@@ -21,7 +21,7 @@ export const createNewProfile = profile => dispatch => {
     }
   });
   axios
-    .post(`/api/profile`, formData)
+    .post(`api/profile`, formData)
     .then(res => {
       dispatch(receiveProfile(res.data.profile));
       dispatch(receiveProfilePic(res.data.profile.image));
@@ -45,7 +45,7 @@ export const updateProfile = profile => dispatch => {
     }
   });
   axios
-    .put(`/api/profile`, formData, {
+    .put(`api/profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
@@ -66,12 +66,12 @@ export const getFormOptions = () => dispatch => {
   // get courses under that name
   // for ex. name == CSE then fetch all classes under CSE
 
-  axios.get(`/api/course`).then(res => {
+  axios.get(`api/course`).then(res => {
     dispatch(receiveCourses(res.data));
   });
-  axios.get(`/api/location`).then(res => dispatch(receiveLocations(res.data)));
-  axios.get(`/api/language`).then(res => dispatch(receiveLanguages(res.data)));
-  axios.get(`/api/major`).then(res => {
+  axios.get(`api/location`).then(res => dispatch(receiveLocations(res.data)));
+  axios.get(`api/language`).then(res => dispatch(receiveLanguages(res.data)));
+  axios.get(`api/major`).then(res => {
     dispatch(receiveMajors(res.data));
   });
 };
