@@ -6,7 +6,7 @@ import {receiveCurrentUser} from './action';
 
 export const signupUser = userData => dispatch => {
   axios
-    .post('/api/user', userData)
+    .post('api/user', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;

@@ -14,7 +14,7 @@ class FileUpload extends Component {
     const formData = new FormData();
     formData.append("file", this.state.file[0]);
     axios
-      .put(`/api/profile`, formData, {
+      .put(`api/profile`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization:
