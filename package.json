@@ -16,6 +16,7 @@
   "author": "Bernard Kim James Lee Justin Han ",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "concurrently": "^4.1.0",
     "react-virtualized-select": "^3.1.3"
   },
