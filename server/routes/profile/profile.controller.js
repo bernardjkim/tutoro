@@ -366,10 +366,10 @@ async function update(req, res, next) {
   const [fields, files] = await form.parseAsync(req);
 
   // parse majors
-  let major = [];
-  let coursesTaken = [];
-  let locationPreferences = [];
-  let languagePreferences = [];
+  // let major = [];
+  // let coursesTaken = [];
+  // let locationPreferences = [];
+  // let languagePreferences = [];
 
   let promises = [];
 

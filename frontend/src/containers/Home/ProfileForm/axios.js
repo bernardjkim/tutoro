@@ -17,7 +17,9 @@ export const createNewProfile = profile => dispatch => {
     if (key !== "image") {
       formData.append(key, profile[key]);
     } else {
-      formData.append("file", profile[key][0]);
+      if (profile[key]) {
+        formData.append("file", profile[key][0]);
+      }
     }
   });
   axios
@@ -41,7 +43,9 @@ export const updateProfile = profile => dispatch => {
     if (key !== "image") {
       formData.append(key, profile[key]);
     } else {
-      formData.append("file", profile[key][0]);
+        if (profile[key]) {
+          formData.append("file", profile[key][0]);
+      }
     }
   });
   axios
