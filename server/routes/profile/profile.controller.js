@@ -198,7 +198,7 @@ async function create(req, res, next) {
       value: profileObj.enrollment,
       label: profileObj.enrollment
     };
-
+    
     profileObj.major = profileObj.major.map(entry => {
       return { value: entry.name, label: entry.name };
     });
@@ -366,10 +366,10 @@ async function update(req, res, next) {
   const [fields, files] = await form.parseAsync(req);
 
   // parse majors
-  // let major = [];
-  // let coursesTaken = [];
-  // let locationPreferences = [];
-  // let languagePreferences = [];
+  let major = [];
+  let coursesTaken = [];
+  let locationPreferences = [];
+  let languagePreferences = [];
 
   let promises = [];
 
@@ -423,6 +423,7 @@ async function update(req, res, next) {
       );
     });
   }
+  
 
   if (fields.locationPreferences) {
     fields.locationPreferences.forEach(entry => {

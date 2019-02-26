@@ -70,9 +70,6 @@ export const getFormOptions = () => dispatch => {
   // get courses under that name
   // for ex. name == CSE then fetch all classes under CSE
 
-  axios.get(`api/course`).then(res => {
-    dispatch(receiveCourses(res.data));
-  });
   axios.get(`api/location`).then(res => dispatch(receiveLocations(res.data)));
   axios.get(`api/language`).then(res => dispatch(receiveLanguages(res.data)));
   axios.get(`api/major`).then(res => {
